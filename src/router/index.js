@@ -2,7 +2,7 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 
 //路由表
 const routes = [
-  { path: '/', component: () => import('@/views/Index.vue') }
+  { path: '/', component: () => import('@/views/Home.vue') }
 ]
 
 // 路由实例
