@@ -17,6 +17,11 @@ const routes = [
       }
     ]
   },
+  {
+    path: '/play/music', 
+    name: 'playMusic',
+    component: () => import('@/views/PlayMusic/index.vue')
+  }
 ]
 
 // 路由实例
