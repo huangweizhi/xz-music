@@ -18,5 +18,16 @@ export default defineConfig({
     alias: {
       '@': path.resolve(__dirname, './src')
     }
+  },
+  css: {
+    preprocessorOptions: {
+      // less全局变量
+      less: {
+        modifyVars: {
+          hack: `true; @import (reference) "${path.resolve(__dirname, 'src/style.less')}";`,
+        },
+        javascriptEnabled: true
+      }
+    }
   }
 })
