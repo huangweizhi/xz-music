@@ -1,22 +1,20 @@
 <script setup>
-import { defineProps, defineEmits, ref } from 'vue'
-import { useRouter } from 'vue-router'
+import { defineProps, defineEmits } from 'vue'
+import { useMusicStore } from '@/stores'
 
-const router = useRouter()
 const props = defineProps({ data: Array })
+const musicStore = useMusicStore()
 
-/**
- * 播放音乐
- */
-const playMusic = (item) => {
-  router.push({name: 'playMusic', query: {musicId: item.song.id}})
+// 播放歌单音乐
+const playMusic = (musicList, index) => {
+  musicStore.playListOfMusic(musicList, index)
 }
 
 </script>
 
 <template>
   <div class="song-list">
-    <div class="item" v-for="item in props.data" :key="item.id">
+    <div class="item" v-for="(item, index) in props.data" :key="item.id">
       <img :src="item.img1v1Url || item.picUrl" />
       <div class="right">
         <div class="right-name">
@@ -24,7 +22,7 @@ const playMusic = (item) => {
           <div class="tips">{{item.song.artists[0].name}}</div>
         </div>
         <div class="right-btn">
-          <van-icon name="play-circle-o" size="0.5rem" @click="playMusic(item)" />
+          <van-icon name="plus" size="0.3rem" @click="playMusic(props.data, index)" />
         </div>
       </div>
     </div>
@@ -37,7 +35,6 @@ const playMusic = (item) => {
   display: flex;
   justify-content: start;
   flex-wrap: wrap;
-  overflow-x: scroll;
 
   .item {
     display: flex;

@@ -1,9 +1,37 @@
 <script setup>
-import { toRefs } from 'vue'
+import { toRefs, ref, onMounted } from 'vue'
 import { useMusicStore } from '@/stores'
+import PlayMusicList from './PlayMusicList.vue'
 
 const musicStore = useMusicStore()
-const {playingList, playingIndex} = toRefs(musicStore)
+const {playingList, playingIndex, isPlaying} = toRefs(musicStore)
+
+// 更新 播放 || 暂停 状态
+const audio = ref(null)
+const clickPlay = (isPlaying) => {
+  musicStore.updateIsPlaying(isPlaying)
+}
+
+// 更新播放器对象
+onMounted(() => {
+  musicStore.updateAudio(audio.value)
+})
+
+// 上一首
+const playPreMusic = () => {
+  musicStore.playPreMusic()
+}
+
+// 下一首
+const playNextMusic = () => {
+  musicStore.playNextMusic()
+}
+
+// 播放列表
+const showPalyList = ref(false)
+const clickShowPalyList = () => {
+  showPalyList.value = true
+}
 
 </script>
 
@@ -18,26 +46,41 @@ const {playingList, playingIndex} = toRefs(musicStore)
         <div>{{playingList[playingIndex].song.artists[0].name}}</div>
       </div>
     </div>
+    
     <div class="right">
-      <van-icon name="arrow-left" />
-      <!-- <van-icon name="play-circle-o" /> -->
-      <van-icon name="pause-circle-o" />
-      <van-icon name="arrow" />
-      <van-icon name="ellipsis" />
+      <!-- 上一首 -->
+      <van-icon name="arrow-left" @click="playPreMusic" />
+      <!-- 暂停状态按钮 -->
+      <van-icon name="play-circle-o" v-if="!isPlaying" @click="clickPlay(true)" />
+      <!-- 播放状态按钮 -->
+      <van-icon name="pause-circle-o" v-if="isPlaying" @click="clickPlay(false)" />
+      <!-- 下一首 -->
+      <van-icon name="arrow" @click="playNextMusic" />
+      <!-- 播放列表 -->
+      <van-icon name="ellipsis" @click="clickShowPalyList" />
     </div>
+
+    <audio ref="audio" :src="`https://music.163.com/song/media/outer/url?id=${playingList[playingIndex].id}.mp3`"></audio>
+  
+    <van-action-sheet v-model:show="showPalyList" title="播放列表">
+      <div class="play-list-content">
+        <PlayMusicList :data="playingList"></PlayMusicList>
+      </div>
+    </van-action-sheet>
+  
   </div>
 </template>
 
 <style lang="less" scoped>
 .play-music-bar {
-  width: 7rem;
-  height: 50px;
-  background-color: #fff;
-  border-radius: 25px;
-
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  width: 7rem;
+  height: 50px;
+  background-color: #F5F5F5;
+  border-radius: 25px;
 
   .left {
     display: flex;
@@ -81,6 +124,12 @@ const {playingList, playingIndex} = toRefs(musicStore)
     }
   }
 
+}
+
+.play-list-content {
+  height: 7.5rem;
+  padding: 0 0.1rem;
+  box-sizing: border-box;
 }
 </style>
     

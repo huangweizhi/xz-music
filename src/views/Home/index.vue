@@ -13,11 +13,11 @@ import NewSong from './NewSong.vue'
   <!-- 热门分类 -->
   <Category></Category>
    <!-- 热门歌手 -->
-  <top-artists></top-artists>
+  <TopArtists></TopArtists>
   <!-- 推荐歌单 -->
-  <personalized></personalized>
+  <Personalized></Personalized>
   <!-- 推荐新音乐 -->
-  <new-song></new-song>
+  <NewSong></NewSong>
 </template>
 
 <style lang="less" scoped>

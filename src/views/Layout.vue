@@ -23,7 +23,7 @@ const showTabbar = ref(true)
 // 监听路由改变
 watch(
   () => route.path,
-  async newPath => {
+  newPath => {
     if(newPath === '/home') {
       active.value = 0
       showTabbar.value = true
@@ -50,7 +50,7 @@ watch(
     </router-view> 
   </div>
 
-  <!-- 正在播放的音乐bar -->
+  <!-- 正在播放的音乐 PlayMusicBar -->
   <PlayMusicBar :class="{'play-music-bar': showTabbar, 'play-music-bar-0': !showTabbar}"></PlayMusicBar>
 
   <!-- 底部标签栏 -->
@@ -69,7 +69,6 @@ watch(
   overflow-x: hidden;
   padding: 0.1rem 0.2rem 50px 0.2rem;
   box-sizing: border-box;
-  background-color: @backgroundColor;
 }
 .play-music-bar {
   position: absolute;

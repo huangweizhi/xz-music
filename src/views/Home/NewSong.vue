@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onBeforeMount } from 'vue'
 import Title from '@/components/Title.vue'
-import SongList from '@/components/SongList.vue'
+import MusicList from '@/components/MusicList.vue'
 
 
 import { getPersonalizedNewsong } from '@/api'
@@ -22,7 +22,7 @@ const getPersonalizedNewsongData = async () => {
 
 <template>
   <Title name="推荐新音乐"></Title>
-  <song-list :data="newsongList"></song-list>
+  <MusicList :data="newsongList"></MusicList>
 </template>
 
 <style lang="less" scoped>
