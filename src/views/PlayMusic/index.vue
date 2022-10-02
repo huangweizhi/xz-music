@@ -7,6 +7,14 @@ const route = useRoute()
 
 musicUrl.value = `https://music.163.com/song/media/outer/url?id=${route.query.musicId}.mp3 `
 
+// 监听路由改变
+watch(
+  () => route.query.musicId,
+  async newMusicId => {
+    musicUrl.value = `https://music.163.com/song/media/outer/url?id=${newMusicId}.mp3 `
+  }
+)
+
 </script>
 
 <template>

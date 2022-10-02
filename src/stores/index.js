@@ -1,5 +1,5 @@
-import useCounterStore from "./counterStore"
+import useMusicStore from "./musicStore"
 
 export {
-  useCounterStore
+  useMusicStore
 }

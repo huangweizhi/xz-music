@@ -14,13 +14,13 @@ const routes = [
       { 
         path: '/find', 
         component: () => import('@/views/Find/index.vue') 
+      },
+      {
+        path: '/play/music', 
+        name: 'playMusic',
+        component: () => import('@/views/PlayMusic/index.vue')
       }
     ]
-  },
-  {
-    path: '/play/music', 
-    name: 'playMusic',
-    component: () => import('@/views/PlayMusic/index.vue')
   }
 ]
 
