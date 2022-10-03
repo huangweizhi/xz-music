@@ -1,14 +1,20 @@
 <script setup>
-import { defineProps } from 'vue'
+import { defineProps, defineEmits } from 'vue'
 
 const props = defineProps({ data: Array })
+
+const emits = defineEmits(['clickItem'])
+// 点击
+const clickItem = (id) => {
+  emits('clickItem', id)
+}
 
 </script>
 
 <template>
   <div class="scroll-item">
     <div class="item" v-for="item in props.data" :key="item.id">
-      <img :src="item.img1v1Url || item.picUrl" alt="" />
+      <img :src="item.img1v1Url || item.picUrl" alt="" @click="clickItem(item.id)" />
       <div>{{item.name}}</div>
     </div>
   </div>

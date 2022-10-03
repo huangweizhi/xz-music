@@ -43,7 +43,7 @@ const clickShowPalyList = () => {
       </div>
       <div class="text">
         <div class="name">{{playingList[playingIndex].name}}</div>
-        <div>{{playingList[playingIndex].song.artists[0].name}}</div>
+        <div>{{playingList[playingIndex].artist}}</div>
       </div>
     </div>
     
@@ -81,6 +81,7 @@ const clickShowPalyList = () => {
   height: 50px;
   background-color: #F5F5F5;
   border-radius: 25px;
+  overflow: hidden;
 
   .left {
     display: flex;
@@ -92,7 +93,6 @@ const clickShowPalyList = () => {
       width: 50px;
       height: 50px;
       border-radius: 25px;
-      overflow: hidden;
       img {
         width: 100%;
         height: 100%;
@@ -102,7 +102,6 @@ const clickShowPalyList = () => {
     .text {
       margin-left: 20px;
       width: calc(100% - 70px);
-      overflow: hidden;
       .name {
         color: @textHightColor;
         font-size: 0.3rem;

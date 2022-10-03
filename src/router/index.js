@@ -11,14 +11,16 @@ const routes = [
         path: '/home', 
         component: () => import('@/views/Home/index.vue'), 
         meta: {
-          header: false // 是否有标题栏
+          header: false, // 是否有标题栏
+          name: '音乐'
         }
       },
       { 
         path: '/find', 
         component: () => import('@/views/Find/index.vue'), 
         meta: {
-          header: false
+          header: false,
+          name: '发现'
         }
       },
       { 
@@ -27,6 +29,22 @@ const routes = [
         meta: {
           header: true,
           name: '分类'
+        }
+      },
+      { 
+        path: '/category/:type', 
+        component: () => import('@/views/PlayList/index.vue'),
+        meta: {
+          header: true,
+          name: '歌单'
+        }
+      },
+      { 
+        path: '/playlist/:id', 
+        component: () => import('@/views/PlayListDetail/index.vue'),
+        meta: {
+          header: true,
+          name: '歌单详情'
         }
       }
     ]

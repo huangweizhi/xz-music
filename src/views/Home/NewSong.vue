@@ -16,13 +16,22 @@ onBeforeMount(() => {
 const newsongList = ref([])
 const getPersonalizedNewsongData = async () => {
   const res = await getPersonalizedNewsong()
-  newsongList.value = res.result
+  if (res.code !== 200) return
+  // 数据处理
+  newsongList.value = res.result.map(item => {
+    return {
+      id: item.id,
+      name: item.name,
+      picUrl: item.picUrl,
+      artist: item.song.artists[0].name
+    }
+  })
 }
 </script>
 
 <template>
   <Title name="推荐新音乐"></Title>
-  <MusicList :data="newsongList"></MusicList>
+  <MusicList :data="newsongList" :showImg="true"></MusicList>
 </template>
 
 <style lang="less" scoped>

@@ -1,6 +1,9 @@
 <script setup>
 import { ref, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 import { getCatlist } from '@/api'
+
+const router = useRouter()
 
 onMounted(() => {
   getCategoryList()
@@ -27,6 +30,11 @@ categoryList.value = categoryArr
 
 }
 
+// 分类歌单
+const toPlayList = (type) => {
+  router.push(`/category/${type}`)
+}
+
 </script>
 
 <template>
@@ -35,7 +43,7 @@ categoryList.value = categoryArr
     <div v-for="item in categoryList">
       <div class="divider"><van-divider>{{item.name}}</van-divider></div>
       <van-tag color="#fff" round size="large" text-color="#57BEAD"
-        v-for="_item in item.children">{{_item.name}}
+        v-for="_item in item.children" @click="toPlayList(_item.name)">{{_item.name}}
       </van-tag>
     </div>
   </div>

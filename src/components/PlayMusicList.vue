@@ -1,5 +1,5 @@
 <script setup>
-import { defineProps, defineEmits } from 'vue'
+import { defineProps } from 'vue'
 import { useMusicStore } from '@/stores'
 
 const props = defineProps({ data: Array })
@@ -20,7 +20,7 @@ const playIndexOfMusic = (index) => {
       <div class="right">
         <div class="right-name">
           <div class="name">{{item.name}}</div>
-          <div class="tips">{{item.song.artists[0].name}}</div>
+          <div class="tips">{{item.artist}}</div>
         </div>
 
         <div class="right-btn">
@@ -48,7 +48,6 @@ const playIndexOfMusic = (index) => {
     .index {
       width: 1rem;
       height: 1rem;
-      border-radius: 0.1rem;
       text-align: center;
       line-height: 1rem;
       font-size: 0.3rem;

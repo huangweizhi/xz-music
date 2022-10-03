@@ -1,8 +1,8 @@
 <script setup>
-import { defineProps, defineEmits } from 'vue'
+import { defineProps } from 'vue'
 import { useMusicStore } from '@/stores'
 
-const props = defineProps({ data: Array })
+const props = defineProps({ data: Array, showImg: Boolean })
 const musicStore = useMusicStore()
 
 // 播放歌单音乐
@@ -15,11 +15,12 @@ const playMusic = (musicList, index) => {
 <template>
   <div class="song-list">
     <div class="item" v-for="(item, index) in props.data" :key="item.id">
-      <img :src="item.img1v1Url || item.picUrl" />
+      <img v-if="props.showImg" :src="item.picUrl" />
+      <div v-else class="index">{{index+1}}</div>
       <div class="right">
         <div class="right-name">
           <div class="name">{{item.name}}</div>
-          <div class="tips">{{item.song.artists[0].name}}</div>
+          <div class="tips">{{item.artist}}</div>
         </div>
         <div class="right-btn">
           <van-icon name="plus" size="0.3rem" @click="playMusic(props.data, index)" />
@@ -45,6 +46,13 @@ const playMusic = (musicList, index) => {
       width: 1rem;
       height: 1rem;
       border-radius: 0.1rem;
+    }
+    .index {
+      width: 1rem;
+      height: 1rem;
+      text-align: center;
+      line-height: 1rem;
+      font-size: 0.3rem;
     }
 
     .right {
