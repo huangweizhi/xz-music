@@ -10,14 +10,24 @@ const routes = [
       {
         path: '/home', 
         component: () => import('@/views/Home/index.vue'), 
+        meta: {
+          header: false // 是否有标题栏
+        }
       },
       { 
         path: '/find', 
-        component: () => import('@/views/Find/index.vue') 
+        component: () => import('@/views/Find/index.vue'), 
+        meta: {
+          header: false
+        }
       },
       { 
         path: '/category', 
-        component: () => import('@/views/Category/index.vue') 
+        component: () => import('@/views/Category/index.vue'),
+        meta: {
+          header: true,
+          name: '分类'
+        }
       }
     ]
   }

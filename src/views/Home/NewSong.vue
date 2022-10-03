@@ -13,7 +13,7 @@ onBeforeMount(() => {
 /**
  * 获取推荐新音乐
  */
-const newsongList = ref()
+const newsongList = ref([])
 const getPersonalizedNewsongData = async () => {
   const res = await getPersonalizedNewsong()
   newsongList.value = res.result

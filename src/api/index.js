@@ -53,3 +53,13 @@ export function getBanner(type=2) {
     method: 'get'
   })
 }
+
+/**
+ * 获取歌单分类
+ */
+ export function getCatlist() {
+  return request({
+    url: '/playlist/catlist',
+    method: 'get'
+  })
+}

@@ -9,7 +9,7 @@ onBeforeMount(() => {
 /*
 * 轮播图
 */
-const banners = ref()
+const banners = ref([])
 const getBannerData = async () => {
 	const res = await getBanner()
 	banners.value = res.banners

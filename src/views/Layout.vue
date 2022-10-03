@@ -2,12 +2,19 @@
 import { ref, watch } from 'vue' 
 import { useRouter, useRoute } from 'vue-router'
 import PlayMusicBar from '@/components/PlayMusicBar.vue'
+import TopBar from '@/components/TopBar.vue'
 
 const route = useRoute()
 const router = useRouter()
 
+// 是否有标题栏
+const hasHeader = ref(false)
+if(route.meta.header) {
+  hasHeader.value = true
+}
+
 // 选中的标签栏
-const active = ref(0)
+const activeIndex = ref(0)
 const onChange = (index) => {
   if(index === 0) {
     router.push('/home')
@@ -19,20 +26,22 @@ const onChange = (index) => {
 
 // 是否展示标签栏
 const showTabbar = ref(true)
+const tabbarPath = ['/home', '/find']
+if(tabbarPath.indexOf(route.path) == -1) {
+  showTabbar.value = false
+}
 
 // 监听路由改变
 watch(
   () => route.path,
   newPath => {
-    if(newPath === '/home') {
-      active.value = 0
+    // 顶部标题栏
+    hasHeader.value = route.meta.header
+    // 底部标签栏
+    activeIndex.value = tabbarPath.indexOf(newPath)
+    if(activeIndex.value >= 0) {
       showTabbar.value = true
-    }
-    else if(newPath === '/find') {
-      active.value = 1
-      showTabbar.value = true
-    }
-    else {
+    }else {
       showTabbar.value = false
     }
   }
@@ -41,8 +50,11 @@ watch(
 </script>
 
 <template>
+  <!-- 顶部标题栏 -->
+  <TopBar :title="route.meta.name" v-if="hasHeader"></TopBar>
+
   <!-- 页面内容 -->
-  <div class="container">
+  <div :class="{'container': true, 'container-other': hasHeader}">
     <router-view v-slot="{ Component }">
       <keep-alive>
         <component :is="Component" />
@@ -51,10 +63,10 @@ watch(
   </div>
 
   <!-- 正在播放的音乐 PlayMusicBar -->
-  <PlayMusicBar :class="{'play-music-bar': showTabbar, 'play-music-bar-0': !showTabbar}"></PlayMusicBar>
+  <PlayMusicBar :class="{'play-music-bar': true, 'play-music-bar-other': hasHeader}"></PlayMusicBar>
 
   <!-- 底部标签栏 -->
-  <van-tabbar v-model="active" @change="onChange" v-if="showTabbar"
+  <van-tabbar v-model="activeIndex" @change="onChange" v-if="showTabbar"
     active-color="#57BEAD" inactive-color="#666">
     <van-tabbar-item icon="service-o">音乐</van-tabbar-item>
     <van-tabbar-item icon="apps-o">发现</van-tabbar-item>
@@ -67,18 +79,25 @@ watch(
   height: calc(100vh - 50px);
   overflow-y: scroll;
   overflow-x: hidden;
-  padding: 0.1rem 0.2rem 50px 0.2rem;
+  padding: 0 0.2rem 50px 0.2rem;
   box-sizing: border-box;
+  background-color: @backgroundColor;
 }
+.container-other {
+  padding: 0 0.2rem;
+  height: calc(100vh - 90px);
+}
+
 .play-music-bar {
   position: absolute;
   bottom: 50px;
   margin: 0 0.25rem;
+  transition: bottom 0.5s;
 }
-.play-music-bar-0 {
-  position: absolute;
+.play-music-bar-other {
   bottom: 0;
-  margin: 0 0.25rem;
+  transition: bottom 0.5s;
+  background-color: #fff;
 }
 </style>
     

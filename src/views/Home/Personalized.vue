@@ -12,7 +12,7 @@
   /**
    * 获取推荐歌单
    */
-  const personalizedList = ref()
+  const personalizedList = ref([])
   const getPersonalizedData = async () => {
     const res = await getPersonalized()
     personalizedList.value = res.result

@@ -12,7 +12,7 @@ onBeforeMount(() => {
 /**
  * 获取热门歌手
  */
-const artists = ref()
+const artists = ref([])
 const getTopArtistsData = async () => {
   const res = await getTopArtists()
   artists.value = res.artists
