@@ -30,8 +30,8 @@ const doLogout = async () => {
   <!-- 游客登陆 -->
   <div class="user">
     <p>用户：{{user.id}}</p>
-    <van-button v-if="cookie" type="danger" @click="doLogout">退出</van-button>
-    <van-button v-else type="success" @click="doLoginAnonimous">以游客身份登陆</van-button>
+    <van-button v-if="cookie" type="danger" size="small" @click="doLogout">退出</van-button>
+    <van-button v-else type="success" size="small" @click="doLoginAnonimous">以游客身份登陆</van-button>
   </div>
 </template>
 

@@ -1,5 +1,4 @@
 <script setup>
-import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
@@ -24,18 +23,8 @@ const toPage = (path) => {
     </div>
 
     <div class="item">
-      <img src="@/assets/img/category/播放.png" @click="toPage('/category')" />
-      <div>MV</div>
-    </div>
-
-    <div class="item">
-      <img src="@/assets/img/category/搜索.png" @click="toPage('/category')" />
+      <img src="@/assets/img/category/搜索.png" @click="toPage('/search')" />
       <div>搜索</div>
-    </div>
-    
-    <div class="item">
-      <img src="@/assets/img/category/个人中心.png" @click="toPage('/user')" />
-      <div>个人中心</div>
     </div>
   </div>
 </template>
@@ -44,7 +33,7 @@ const toPage = (path) => {
 .catygory {
   width: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   padding: 0.1rem 0;
 

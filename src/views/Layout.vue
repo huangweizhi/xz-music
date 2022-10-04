@@ -13,7 +13,7 @@ if(route.meta.header) {
   hasHeader.value = true
 }
 
-// 选中的标签栏
+// 选中的标签栏(1)
 const activeIndex = ref(0)
 const onChange = (index) => {
   if(index === 0) {
@@ -22,14 +22,19 @@ const onChange = (index) => {
   if(index === 1) {
     router.push('/find')
   }
+  if(index === 2) {
+    router.push('/user')
+  }
 }
 
 // 是否展示标签栏
 const showTabbar = ref(true)
-const tabbarPath = ['/home', '/find']
+const tabbarPath = ['/home', '/find', '/user']
 if(tabbarPath.indexOf(route.path) == -1) {
   showTabbar.value = false
 }
+// 选中的标签栏(2)
+activeIndex.value = tabbarPath.indexOf(route.path)
 
 // 监听路由改变
 watch(
@@ -56,9 +61,10 @@ watch(
   <!-- 页面内容 -->
   <div :class="{'container': true, 'container-other': hasHeader}">
     <router-view v-slot="{ Component }">
-      <keep-alive>
+      <keep-alive v-if="$route.meta.keepAlive">
         <component :is="Component" />
       </keep-alive>
+      <component :is="Component" v-if="!$route.meta.keepAlive" />
     </router-view> 
   </div>
 
@@ -70,6 +76,7 @@ watch(
     active-color="#57BEAD" inactive-color="#666">
     <van-tabbar-item icon="service-o">音乐</van-tabbar-item>
     <van-tabbar-item icon="apps-o">发现</van-tabbar-item>
+    <van-tabbar-item icon="manager-o">个人</van-tabbar-item>
   </van-tabbar>
 </template>
 

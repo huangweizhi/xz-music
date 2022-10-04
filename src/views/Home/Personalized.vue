@@ -23,6 +23,7 @@ const clickItem = (id) => {
 const personalizedList = ref([])
 const getPersonalizedData = async () => {
   const res = await getPersonalized()
+  if(res.code !== 200) return 
   personalizedList.value = res.result
 }
 </script>

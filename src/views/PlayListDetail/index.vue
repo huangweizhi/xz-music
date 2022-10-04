@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, watch } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { getPlayListDetail } from '@/api'
 import MusicList from '@/components/MusicList.vue'
@@ -14,7 +14,10 @@ onMounted(() => {
 const playListDetail = ref([])
 const musiclist = ref([])
 const getPlayListDetailData = async (id) => {
-  const {playlist} = await getPlayListDetail(id)
+  const res = await getPlayListDetail(id)
+  if(res.code !== 200) return 
+  
+  const {playlist} = res
   playListDetail.value = playlist
   musiclist.value = playlist.tracks.map(item => {
     return {
@@ -25,19 +28,6 @@ const getPlayListDetailData = async (id) => {
     }
   })
 }
-
-// 监听路由改变
-watch(
-  () => route.path,
-  () => {
-    if(route.params.id) {
-      getPlayListDetailData(route.params.id)
-    }else {
-      playListDetail.value = []
-      musiclist.value = []
-    }
-  }
-)
 
 </script>
 

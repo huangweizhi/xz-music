@@ -12,21 +12,22 @@ onMounted(() => {
 // 获取歌单分类列表
 const categoryList = ref([])
 const getCategoryList = async () => {
-const {categories, sub} = await getCatlist()
-
-// 数据处理
-const categoryArr = []
-for(let key in categories) {
-  categoryArr.push({name: categories[key], category: key, children: []})
-}
-sub.forEach(item => {
-  categoryArr.forEach(_item => {
-    if(_item.category == item.category) {
-      _item.children.push(item)
-    }
+  const res = await getCatlist()
+  if(res.code !== 200) return 
+  const {categories, sub} = res
+  // 数据处理
+  const categoryArr = []
+  for(let key in categories) {
+    categoryArr.push({name: categories[key], category: key, children: []})
+  }
+  sub.forEach(item => {
+    categoryArr.forEach(_item => {
+      if(_item.category == item.category) {
+        _item.children.push(item)
+      }
+    })
   })
-})
-categoryList.value = categoryArr
+  categoryList.value = categoryArr
 
 }
 

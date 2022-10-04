@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, watch } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { getPalyList } from '@/api'
 import router from '@/router'
@@ -13,21 +13,10 @@ onMounted(() => {
 // 获取分类下的歌单
 const palyList = ref([])
 const getPalyListData = async (type) => {
-  const {playlists} = await getPalyList(type)
-  palyList.value = playlists
+  const res = await getPalyList(type)
+  if(res.code !== 200) return 
+  palyList.value = res.playlists
 }
-
-// 监听路由改变
-watch(
-  () => route.path,
-  () => {
-    if(route.params.type) {
-      getPalyListData(route.params.type)
-    }else {
-      palyList.value = []
-    }
-  }
-)
 
 // 查看歌单详情
 const toDetail = (id) => {

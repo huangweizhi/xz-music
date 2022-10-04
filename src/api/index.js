@@ -131,3 +131,51 @@ export function loginAnonimous() {
     }
  })
 }
+
+/**
+ * 热搜列表(详细)
+ * @returns 
+ */
+ export function searchHotDetail() {
+  return request({
+    url: '/search/hot/detail',
+    method: 'get'
+ })
+}
+
+/**
+ * 搜索
+ * @param {String} keywords 
+ * @param {String} type 默认1 1: 单曲, 10: 专辑, 100: 歌手, 1000: 歌单, 1002: 用户, 1004: MV, 1006: 歌词, 
+ * 1009: 电台, 1014: 视频, 1018:综合, 2000:声音
+ * @param {String} limit  默认30
+ * @param {String} offset  默认0
+ * @returns 
+ */
+ export function search(keywords='', type=1, limit=30, offset=0) {
+  return request({
+    url: '/cloudsearch',
+    method: 'get',
+    params: {
+      keywords,
+      type,
+      limit,
+      offset
+    }
+ })
+}
+
+/**
+ * 获取歌手详情
+ * @param {Number} id 
+ * @returns 
+ */
+ export function getArtistDetail(id) {
+  return request({
+    url: '/artist/detail',
+    method: 'get',
+    params: {
+      id
+    }
+ })
+}

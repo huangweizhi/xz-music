@@ -92,10 +92,10 @@ const clickShowPalyList = () => {
     .image {
       width: 50px;
       height: 50px;
-      border-radius: 25px;
       img {
         width: 100%;
         height: 100%;
+        border-radius: 25px;
       }
     }
 

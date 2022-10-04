@@ -12,7 +12,8 @@ const routes = [
         component: () => import('@/views/Home/index.vue'), 
         meta: {
           header: false, // 是否有标题栏
-          name: '音乐'
+          name: '音乐', // 页面名称
+          keepAlive: true, // 是否缓存
         }
       },
       { 
@@ -20,7 +21,17 @@ const routes = [
         component: () => import('@/views/Find/index.vue'), 
         meta: {
           header: false,
-          name: '发现'
+          name: '发现',
+          keepAlive: true
+        }
+      },
+      { 
+        path: '/user', 
+        component: () => import('@/views/User/index.vue'),
+        meta: {
+          header: false,
+          name: '个人中心',
+          keepAlive: true
         }
       },
       { 
@@ -28,7 +39,8 @@ const routes = [
         component: () => import('@/views/Category/index.vue'),
         meta: {
           header: true,
-          name: '分类'
+          name: '分类',
+          keepAlive: true
         }
       },
       { 
@@ -36,7 +48,8 @@ const routes = [
         component: () => import('@/views/PlayList/index.vue'),
         meta: {
           header: true,
-          name: '歌单'
+          name: '歌单',
+          keepAlive: false
         }
       },
       { 
@@ -44,7 +57,8 @@ const routes = [
         component: () => import('@/views/PlayListDetail/index.vue'),
         meta: {
           header: true,
-          name: '歌单详情'
+          name: '歌单详情',
+          keepAlive: false
         }
       },
       { 
@@ -52,15 +66,26 @@ const routes = [
         component: () => import('@/views/RecommendSongs/index.vue'),
         meta: {
           header: true,
-          name: '每日推荐'
+          name: '每日推荐',
+          keepAlive: true
         }
       },
       { 
-        path: '/user', 
-        component: () => import('@/views/User/index.vue'),
+        path: '/search', 
+        component: () => import('@/views/Search/index.vue'),
         meta: {
           header: true,
-          name: '个人中心'
+          name: '搜索',
+          keepAlive: true
+        }
+      },
+      { 
+        path: '/artist/:id/detail', 
+        component: () => import('@/views/Artist/index.vue'),
+        meta: {
+          header: true,
+          name: '歌手',
+          keepAlive: false
         }
       }
     ]

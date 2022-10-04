@@ -12,6 +12,7 @@ onBeforeMount(() => {
 const banners = ref([])
 const getBannerData = async () => {
 	const res = await getBanner()
+	if(res.code !== 200) return 
 	banners.value = res.banners
 }
 </script>
