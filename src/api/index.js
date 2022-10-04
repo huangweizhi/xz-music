@@ -1,10 +1,30 @@
 import request from '@/utils/request'
 
 /**
+ * 游客登陆
+ */
+export function loginAnonimous() {
+  return request({
+    url: '/register/anonimous',
+    method: 'get'
+  })
+}
+
+/**
+ * 退出登陆
+ */
+ export function logout() {
+  return request({
+    url: '/logout',
+    method: 'get'
+  })
+}
+
+/**
  * 获取轮播图
  * @param {Number} type 0: pc; 1: android; 2: iphone; 3: ipad
  */
-export function getBanner(type=2) {
+ export function getBanner(type=2) {
   return request({
     url: '/banner',
     method: 'get',
@@ -96,4 +116,18 @@ export function getBanner(type=2) {
       id
     }
   })
+}
+
+/**
+ * 获取每日推荐歌单 ( 需要登录 )
+ * @returns 
+ */
+ export function getRecommendSongs(cookie) {
+  return request({
+    url: '/recommend/songs',
+    method: 'get',
+    params: {
+      cookie
+    }
+ })
 }

@@ -19,7 +19,7 @@ const toPage = (path) => {
     </div>
 
     <div class="item">
-      <img src="@/assets/img/category/点赞.png" @click="toPage('/category')" />
+      <img src="@/assets/img/category/点赞.png" @click="toPage('/recommend/songs')" />
       <div>每日推荐</div>
     </div>
 
@@ -34,7 +34,7 @@ const toPage = (path) => {
     </div>
     
     <div class="item">
-      <img src="@/assets/img/category/个人中心.png" @click="toPage('/category')" />
+      <img src="@/assets/img/category/个人中心.png" @click="toPage('/user')" />
       <div>个人中心</div>
     </div>
   </div>

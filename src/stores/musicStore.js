@@ -25,6 +25,10 @@ export default defineStore("music", {
      */
     updateAudio(audio) {
       this.audio = audio
+      // 播放结束，播放下一首
+      this.audio.addEventListener('ended', () => {
+        this.playNextMusic()
+      }, false)
     },
     /**
      * 播放||暂停音乐

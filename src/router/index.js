@@ -46,6 +46,22 @@ const routes = [
           header: true,
           name: '歌单详情'
         }
+      },
+      { 
+        path: '/recommend/songs', 
+        component: () => import('@/views/RecommendSongs/index.vue'),
+        meta: {
+          header: true,
+          name: '每日推荐'
+        }
+      },
+      { 
+        path: '/user', 
+        component: () => import('@/views/User/index.vue'),
+        meta: {
+          header: true,
+          name: '个人中心'
+        }
       }
     ]
   }

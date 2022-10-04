@@ -7,7 +7,7 @@ export const baseURL = 'http://localhost:3000' // 本地地址
 // create an axios instance
 const service = axios.create({
   baseURL,
-  // withCredentials: true, // send cookies when cross-domain requests
+  withCredentials: true, // send cookies when cross-domain requests
   timeout: 5000 // request timeout
 })
 

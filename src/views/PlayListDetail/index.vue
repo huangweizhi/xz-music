@@ -34,6 +34,7 @@ watch(
       getPlayListDetailData(route.params.id)
     }else {
       playListDetail.value = []
+      musiclist.value = []
     }
   }
 )
