@@ -17,23 +17,15 @@ const routes = [
         }
       },
       { 
-        path: '/find', 
-        component: () => import('@/views/Find/index.vue'), 
-        meta: {
-          header: false,
-          name: '发现',
-          keepAlive: true
-        }
-      },
-      { 
         path: '/user', 
         component: () => import('@/views/User/index.vue'),
         meta: {
           header: false,
-          name: '个人中心',
+          name: '我的',
           keepAlive: true
         }
       },
+
       { 
         path: '/category', 
         component: () => import('@/views/Category/index.vue'),
@@ -86,6 +78,15 @@ const routes = [
           header: true,
           name: '歌手',
           keepAlive: false
+        }
+      },
+      { 
+        path: '/toplist', 
+        component: () => import('@/views/TopList/index.vue'),
+        meta: {
+          header: true,
+          name: '排行榜',
+          keepAlive: true
         }
       }
     ]

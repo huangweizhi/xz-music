@@ -13,6 +13,11 @@ const toPage = (path) => {
   <!-- 分类 -->
   <div class="catygory">
     <div class="item">
+      <img src="@/assets/img/category/会员.png" @click="toPage('/toplist')" />
+      <div>排行榜</div>
+    </div>
+
+    <div class="item">
       <img src="@/assets/img/category/分类.png" @click="toPage('/category')" />
       <div>分类</div>
     </div>

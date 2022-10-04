@@ -179,3 +179,29 @@ export function loginAnonimous() {
     }
  })
 }
+
+/**
+ * 获取歌手单曲
+ * @param {Number} id 
+ * @returns 
+ */
+ export function getArtists(id) {
+  return request({
+    url: '/artists',
+    method: 'get',
+    params: {
+      id
+    }
+ })
+}
+
+/**
+ * 获取所有榜单
+ * @returns 
+ */
+ export function getToplist() {
+  return request({
+    url: '/toplist',
+    method: 'get'
+ })
+}

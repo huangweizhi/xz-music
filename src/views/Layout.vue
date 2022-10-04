@@ -20,16 +20,13 @@ const onChange = (index) => {
     router.push('/home')
   }
   if(index === 1) {
-    router.push('/find')
-  }
-  if(index === 2) {
     router.push('/user')
   }
 }
 
 // 是否展示标签栏
 const showTabbar = ref(true)
-const tabbarPath = ['/home', '/find', '/user']
+const tabbarPath = ['/home', '/user']
 if(tabbarPath.indexOf(route.path) == -1) {
   showTabbar.value = false
 }
@@ -75,8 +72,7 @@ watch(
   <van-tabbar v-model="activeIndex" @change="onChange" v-if="showTabbar"
     active-color="#57BEAD" inactive-color="#666">
     <van-tabbar-item icon="service-o">音乐</van-tabbar-item>
-    <van-tabbar-item icon="apps-o">发现</van-tabbar-item>
-    <van-tabbar-item icon="manager-o">个人</van-tabbar-item>
+    <van-tabbar-item icon="manager-o">我的</van-tabbar-item>
   </van-tabbar>
 </template>
 
