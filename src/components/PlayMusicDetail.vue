@@ -16,11 +16,17 @@ const clickPlay = (isPlaying) => {
 // 上一首
 const playPreMusic = () => {
   musicStore.playPreMusic()
+  if(showLyric.value) {
+    getLyricData()
+  }
 }
 
 // 下一首
 const playNextMusic = () => {
   musicStore.playNextMusic()
+  if(showLyric.value) {
+    getLyricData()
+  }
 }
 
 // 播放列表

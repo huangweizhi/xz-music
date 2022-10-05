@@ -71,3 +71,21 @@ export const formatSeconds = (value) => {
 
   return result
 }
+
+/**
+ * 控制台打印
+ */
+ export const consolePrint = () => {
+  const info =
+`xz-music
+
+《声明》
+本站使用了网上公开的api接口，本站不存储任何音频、视频资源，仅为学习使用，请遵守版权要求！！！
+如有侵权请联系1136090442@qq.com进行删除。
+
+MIT License
+github: https://github.com/huangweizhi/xz-music.git
+gitee: https://gitee.com/weizhihuang/xz-music.git
+`
+  console.info(`%c${info}`, `color:#117a8b`)
+}

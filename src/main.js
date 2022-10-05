@@ -16,6 +16,9 @@ import './assets/js/iconfont'
 
 import App from './App.vue'
 
+import {consolePrint} from './utils'
+consolePrint()
+
 const app = createApp(App)
 app.use(createPinia())
 app.use(router)

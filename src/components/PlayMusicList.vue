@@ -40,7 +40,6 @@ const playIndexOfMusic = (index) => {
   display: flex;
   justify-content: start;
   flex-wrap: wrap;
-  overflow-y: scroll;
 
   .item {
     display: flex;

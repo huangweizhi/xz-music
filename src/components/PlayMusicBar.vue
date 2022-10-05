@@ -176,6 +176,7 @@ const clickShowPalyDetail = () => {
   height: 7.5rem;
   padding: 0 0.1rem;
   box-sizing: border-box;
+  overflow: scroll;
 }
 </style>
     
