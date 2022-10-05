@@ -1,12 +1,12 @@
 <script setup>
-import { ref, toRefs, watch } from 'vue'
+import { ref, toRefs, watch, computed } from 'vue'
 import { useMusicStore } from '@/stores'
 import PlayMusicList from './PlayMusicList.vue'
 import { getLyric } from '@/api'
-import { setLyric } from '@/utils'
+import { setLyric, formatSeconds } from '@/utils'
 
 const musicStore = useMusicStore()
-const {playingList, playingIndex, isPlaying, lyricList, currentTime} = toRefs(musicStore)
+const {playingList, playingIndex, isPlaying, lyricList, currentTime, duration} = toRefs(musicStore)
 
 // 更新 播放 || 暂停 状态
 const clickPlay = (isPlaying) => {
@@ -48,13 +48,36 @@ const getLyricData = async () => {
 
 // 歌词滚动
 const lyricRef = ref(null)
+const percentage = ref(0)
 watch(currentTime, ()=> {
- if(showLyric.value) {
-  const p = window.document.querySelector('p.lyric-active')
-  if( p && p.offsetTop > 260) {
-    lyricRef.value.scrollTop = p.offsetTop - 260
+  // 歌词滚动
+  if(showLyric.value) {
+    const p = window.document.querySelector('p.lyric-active')
+    if( p && p.offsetTop > 260) {
+      lyricRef.value.scrollTop = p.offsetTop - 260
+    }
   }
- }
+  // 进度条
+  let _percentage = parseInt((currentTime.value/duration.value)*100)
+  if(_percentage>100) {
+    _percentage = 100
+  }
+  percentage.value = _percentage
+})
+
+// 进度条开始时间
+const getCurrentTime = computed(()=> {
+  if(currentTime.value) {
+    return formatSeconds(currentTime.value)
+  }
+  return '00:00'
+})
+// 进度条结束时间
+const getEndTime = computed(()=> {
+  if(duration.value) {
+    return formatSeconds(duration.value)
+  }
+  return '00:00'
 })
 
 </script>
@@ -62,15 +85,17 @@ watch(currentTime, ()=> {
 <template>
   <div class="music-detail">
     <!-- 背景图片 -->
-    <img class="bg-img" :src="playingList[playingIndex].picUrl" />
+    <img class="bg-img" :src="playingList[playingIndex].picUrl + '?imageView&thumbnail=750y750' " />
 
-    <!-- 唱片或歌词 -->
+    <!-- 唱片 -->
     <div class="disc" v-show="!showLyric" @click="changeContent">
       <img :class="{'disc-needle': true, 'disc-needle-0': !isPlaying}" src="@/assets/img/play/needle-ab.png" />
       <img class="disc-cd" src="@/assets/img/play/disc_circle.png" />
-      <img :class="{'disc-ar': true, 'disc-ar-0': !isPlaying, 'disc-ar-1': isPlaying}" :src="playingList[playingIndex].picUrl" />
+      <img :class="{'disc-ar': true, 'disc-ar-0': !isPlaying, 'disc-ar-1': isPlaying}" 
+        :src="playingList[playingIndex].picUrl + '?imageView&thumbnail=750y750' " />
     </div>
 
+    <!-- 歌词 -->
     <div class="lyric" ref="lyricRef" v-show="showLyric" @click="changeContent">
       <p v-for="item in lyricList" 
         :class="{'lyric-active': (currentTime > item.startTime) && (currentTime < item.endTime)} ">
@@ -82,12 +107,13 @@ watch(currentTime, ()=> {
     <div class="footer">
       <!-- 进度条 -->
       <div class="time-bar">
-        <div class="text">00:00</div>
+        <div class="text">{{getCurrentTime}}</div>
         <div class="time-bar-pro">
-          <van-progress stroke-width="2px" color="#57BEAD" :show-pivot="false" :percentage="50" />
+          <van-progress stroke-width="2px" color="#57BEAD" :show-pivot="false" :percentage="percentage" />
         </div>
-        <div class="text">04:36</div>
+        <div class="text">{{getEndTime}}</div>
       </div>
+      <!-- 按钮 -->
       <div class="tool-bar">
         <!-- 播放模式 -->
         <div>
@@ -237,6 +263,7 @@ watch(currentTime, ()=> {
     .time-bar {
       line-height: 1rem;
       width: 100%;
+      height: 1rem;
       display: flex;
       justify-content: center;
       align-items: center;

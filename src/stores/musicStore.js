@@ -8,11 +8,11 @@ export default defineStore("music", {
       audio: null,
       // 播放列表
       playingList: [{
-          "id": 1901371647,
-          "name": "孤勇者",
-          "picUrl": "http://p4.music.126.net/aG5zqxkBRfLiV7A8W0iwgA==/109951166702962263.jpg",
-          "artist": "陈奕迅"
-        }],
+        "id": 1901371647,
+        "name": "孤勇者",
+        "picUrl": "http://p4.music.126.net/aG5zqxkBRfLiV7A8W0iwgA==/109951166702962263.jpg",
+        "artist": "陈奕迅"
+      }],
       // 当前播放音乐索引
       playingIndex: 0,
       // 是否正在播放
@@ -20,7 +20,9 @@ export default defineStore("music", {
       // 歌词
       lyricList: [],
       // 歌曲播放时间
-      currentTime: 0
+      currentTime: 0,
+      // 歌曲时间
+      duration: 0
     }
   },
   actions: {
@@ -32,12 +34,14 @@ export default defineStore("music", {
 
       // 播放结束，播放下一首
       this.audio.addEventListener('ended', () => {
+        this.isPlaying = false
         this.playNextMusic()
       }, false)
 
       // 播放进度
-      this.audio.addEventListener('timeupdate', ({timeStamp}) => {
-        this.updateCurrentTime(timeStamp)
+      this.audio.addEventListener('timeupdate', () => {
+        this.updateCurrentTime()
+        this.updateDuration()
       }, false)
     },
     /**
@@ -70,7 +74,9 @@ export default defineStore("music", {
      * 上一首
      */
     playPreMusic() {
-      if(this.playingList.length < 2) return Toast('没有上一首了~')
+      if(this.playingList.length < 2) {
+        return Toast('没有上一首了~')
+      }
       if(this.playingIndex > 0) {
         this.playingIndex--
       }else {
@@ -82,7 +88,9 @@ export default defineStore("music", {
      * 下一首
      */
     playNextMusic() {
-      if(this.playingList.length < 2) return Toast('没有下一首了~')
+      if(this.playingList.length < 2) {
+        return Toast('没有下一首了~')
+      }
       if(this.playingIndex < this.playingList.length - 1) {
         this.playingIndex++
       }else {
@@ -108,8 +116,11 @@ export default defineStore("music", {
     /**
      * 更新播放时间
      */
-    updateCurrentTime(time) {
-      this.currentTime = time / 1000
+    updateCurrentTime() {
+      this.currentTime = this.audio.currentTime
+    },
+    updateDuration() {
+      this.duration = this.audio.duration
     }
   }
 })

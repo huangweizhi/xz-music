@@ -33,7 +33,7 @@ const getArtistsData = async () => {
   <div class="artist">
     <!-- 歌手简介 -->
     <div class="image">
-      <img :src="artistDetail.picUrl" />
+      <img :src="artistDetail.picUrl + '?imageView&thumbnail=355y288' " />
       <div class="name">{{artistDetail.name}}</div>
     </div>
     <div class="desc">
