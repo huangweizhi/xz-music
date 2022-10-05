@@ -23,7 +23,9 @@ const playMusic = (musicList, index) => {
           <div class="tips">{{item.artist}}</div>
         </div>
         <div class="right-btn">
-          <van-icon name="plus" size="0.3rem" @click="playMusic(props.data, index)" />
+          <svg class="icon" aria-hidden="true" @click="playMusic(props.data, index)" >
+            <use xlink:href="#icon-bofang"></use>
+          </svg>
         </div>
       </div>
     </div>
@@ -74,6 +76,7 @@ const playMusic = (musicList, index) => {
       .right-btn {
         display: flex;
         flex-wrap: nowrap;
+        font-size: 0.4rem;
       }
     }
   }

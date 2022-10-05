@@ -33,12 +33,18 @@ const clickShowPalyList = () => {
   showPalyList.value = true
 }
 
+// 播放详情
+const showPalyDetail = ref(false)
+const clickShowPalyDetail = () => {
+  showPalyDetail.value = true
+}
+
 </script>
 
 <template>
   <div class="play-music-bar">
     <div class="left">
-      <div class="image">
+      <div class="image" @click="clickShowPalyDetail">
         <img :src="playingList[playingIndex].picUrl" alt="" />
       </div>
       <div class="text">
@@ -49,25 +55,45 @@ const clickShowPalyList = () => {
     
     <div class="right">
       <!-- 上一首 -->
-      <van-icon name="arrow-left" @click="playPreMusic" />
+      <svg class="icon" aria-hidden="true" @click="playPreMusic">
+        <use xlink:href="#icon-shangyishouge"></use>
+      </svg>
       <!-- 暂停状态按钮 -->
-      <van-icon name="play-circle-o" v-if="!isPlaying" @click="clickPlay(true)" />
+      <svg class="icon" aria-hidden="true"  v-if="!isPlaying" @click="clickPlay(true)" >
+        <use xlink:href="#icon-bofang"></use>
+      </svg>
       <!-- 播放状态按钮 -->
-      <van-icon name="pause-circle-o" v-if="isPlaying" @click="clickPlay(false)" />
+      <svg class="icon" aria-hidden="true" v-if="isPlaying" @click="clickPlay(false)">
+        <use xlink:href="#icon-zanting"></use>
+      </svg>
       <!-- 下一首 -->
-      <van-icon name="arrow" @click="playNextMusic" />
+      <svg class="icon" aria-hidden="true" @click="playNextMusic">
+        <use xlink:href="#icon-xiayishou"></use>
+      </svg>
       <!-- 播放列表 -->
-      <van-icon name="ellipsis" @click="clickShowPalyList" />
+      <svg class="icon" aria-hidden="true" @click="clickShowPalyList">
+        <use xlink:href="#icon-bofanggedan"></use>
+      </svg>
     </div>
 
+    <!-- 音频播放 -->
     <audio ref="audio" :src="`https://music.163.com/song/media/outer/url?id=${playingList[playingIndex].id}.mp3`"></audio>
   
+    <!-- 播放列表 -->
     <van-action-sheet v-model:show="showPalyList" title="播放列表">
       <div class="play-list-content">
         <PlayMusicList :data="playingList"></PlayMusicList>
       </div>
     </van-action-sheet>
   
+    <!-- 播放详情 -->
+    <van-popup v-model:show="showPalyDetail" position="bottom" :style="{ height: '100%' }"
+      closeable close-icon="arrow-down" close-icon-position="top-left" teleport="body">
+      <div class="play-detail">
+        播放详情
+      </div>
+    </van-popup>
+
   </div>
 </template>
 
@@ -119,6 +145,9 @@ const clickShowPalyList = () => {
     flex-wrap: nowrap;
 
     .van-icon {
+      margin-left: 10px;
+    }
+    .icon {
       margin-left: 10px;
     }
   }

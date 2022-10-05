@@ -24,7 +24,9 @@ const playIndexOfMusic = (index) => {
         </div>
 
         <div class="right-btn">
-          <van-icon name="play-circle-o" size="0.5rem" @click="playIndexOfMusic(index)" />
+          <svg class="icon" aria-hidden="true" @click="playIndexOfMusic(index)" >
+            <use xlink:href="#icon-bofang"></use>
+          </svg>
         </div>
       </div>
 
@@ -72,7 +74,9 @@ const playIndexOfMusic = (index) => {
       .right-btn {
         display: flex;
         flex-wrap: nowrap;
+        font-size: 0.4rem;
       }
+      
     }
   }
 }

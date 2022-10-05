@@ -67,9 +67,11 @@ const getPlayListDetailData = async (id) => {
 
       .title {
         font-size: 0.3rem;
+        color: @textHightColor;
+        line-height: 0.6rem;
       }
       .desc {
-        margin-top: 0.2rem;
+        line-height: 0.4rem;
       }
     }
   }

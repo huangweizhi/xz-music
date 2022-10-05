@@ -18,22 +18,31 @@ onMounted(() => {
 // 获取每日推荐歌单
 const musiclist = ref([])
 const getRecommendSongsData = async () => {
-  const res = await getRecommendSongs(getCookie())
-  if(res.code !== 200) {
-    Toast('请登陆')
-    userStore.deleteCookie()
-    userStore.deleteUser()
-    router.push('/user')
-  }
-  // 数据处理
-  musiclist.value = res.data.dailySongs.map(item => {
-    return {
-      id: item.id,
-      name: item.name,
-      picUrl: item.al.picUrl,
-      artist: item.ar[0].name
-    }
-  })
+  getRecommendSongs(getCookie())
+    .then(res => {
+      if(res.code !== 200) {
+        Toast('请登陆')
+        userStore.deleteCookie()
+        userStore.deleteUser()
+        router.push('/user')
+      }
+      // 数据处理
+      musiclist.value = res.data.dailySongs.map(item => {
+        return {
+          id: item.id,
+          name: item.name,
+          picUrl: item.al.picUrl,
+          artist: item.ar[0].name
+        }
+      })
+    })
+    .catch(err => {
+      Toast('请登陆')
+      userStore.deleteCookie()
+      userStore.deleteUser()
+      router.push('/user')
+    })
+  
 }
 
 </script>

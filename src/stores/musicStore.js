@@ -8,10 +8,10 @@ export default defineStore("music", {
       audio: null,
       // 播放列表
       playingList: [{
-          "id": 1985329564,
-          "name": "上海滩",
-          "picUrl": "http://p1.music.126.net/4cGSMAMWMZ8SSC-LHqWcDA==/109951167917062556.jpg",
-          "artist": "曹格"
+          "id": 1901371647,
+          "name": "孤勇者",
+          "picUrl": "http://p4.music.126.net/aG5zqxkBRfLiV7A8W0iwgA==/109951166702962263.jpg",
+          "artist": "陈奕迅"
         }],
       // 当前播放音乐索引
       playingIndex: 0,

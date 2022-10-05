@@ -1,14 +1,13 @@
 import axios from 'axios'
 import { Toast } from 'vant'
 
-// export const baseURL = process.env.VUE_APP_BASE_API // 本地地址
-export const baseURL = 'http://localhost:3000' // 本地地址
+export const baseURL = import.meta.env.VITE_APP_BASE_API // 本地地址
 
 // create an axios instance
 const service = axios.create({
   baseURL,
   withCredentials: true, // send cookies when cross-domain requests
-  timeout: 5000 // request timeout
+  timeout: 10000 // request timeout
 })
 
 
