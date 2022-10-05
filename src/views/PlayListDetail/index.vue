@@ -35,7 +35,7 @@ const getPlayListDetailData = async (id) => {
   <div class="play-list-detail">
     <!-- 歌单简介 -->
     <div class="header">
-      <img :src="playListDetail.coverImgUrl" alt="" />
+      <img :src="playListDetail.coverImgUrl + '?imageView&thumbnail=100y100'" alt="" />
       <div class="right">
         <div class="title">{{playListDetail.name}}</div>
         <div class="desc">{{playListDetail.description}}</div>

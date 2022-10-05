@@ -28,7 +28,7 @@ const toDetail = (id) => {
 <template>
   <div class="play-list">
     <div class="item" v-for="item in palyList">
-      <img :src="item.coverImgUrl" alt="" @click="toDetail(item.id)" />
+      <img :src="item.coverImgUrl + '?imageView&thumbnail=100y100'" alt="" @click="toDetail(item.id)" />
       <div>{{item.name}}</div>
     </div>
   </div>

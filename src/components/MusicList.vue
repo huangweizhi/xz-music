@@ -15,7 +15,7 @@ const playMusic = (musicList, index) => {
 <template>
   <div class="song-list">
     <div class="item" v-for="(item, index) in props.data" :key="item.id">
-      <img v-if="props.showImg" :src="item.picUrl" />
+      <img v-if="props.showImg" :src="item.picUrl + '?imageView&thumbnail=50y50'" />
       <div v-else class="index">{{index+1}}</div>
       <div class="right">
         <div class="right-name">

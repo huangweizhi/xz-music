@@ -28,7 +28,7 @@ const clickItem = (id) => {
   <div class="top-list">
     <div class="item" v-for="item in toplist" :key="item.id" @click="clickItem(item.id)" >
       <div class="left">
-        <img :src="item.coverImgUrl" alt="" />
+        <img :src="item.coverImgUrl + '?imageView&thumbnail=200y200'" alt="" />
         <div class="update">{{item.updateFrequency}}</div>
       </div>
       <div class="right">

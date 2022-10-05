@@ -14,7 +14,7 @@ const clickItem = (id) => {
 <template>
   <div class="scroll-item">
     <div class="item" v-for="item in props.data" :key="item.id">
-      <img :src="item.img1v1Url || item.picUrl" alt="" @click="clickItem(item.id)" />
+      <img :src="(item.img1v1Url || item.picUrl) + '?imageView&thumbnail=100y100'" alt="" @click="clickItem(item.id)" />
       <div>{{item.name}}</div>
     </div>
   </div>

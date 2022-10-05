@@ -16,7 +16,11 @@ export default defineStore("music", {
       // 当前播放音乐索引
       playingIndex: 0,
       // 是否正在播放
-      isPlaying: false
+      isPlaying: false,
+      // 歌词
+      lyricList: [],
+      // 歌曲播放时间
+      currentTime: 0
     }
   },
   actions: {
@@ -25,9 +29,15 @@ export default defineStore("music", {
      */
     updateAudio(audio) {
       this.audio = audio
+
       // 播放结束，播放下一首
       this.audio.addEventListener('ended', () => {
         this.playNextMusic()
+      }, false)
+
+      // 播放进度
+      this.audio.addEventListener('timeupdate', ({timeStamp}) => {
+        this.updateCurrentTime(timeStamp)
       }, false)
     },
     /**
@@ -85,7 +95,21 @@ export default defineStore("music", {
      */
     playIndexOfMusic(index) {
       this.playingIndex = index
+      this.audio.play()
+      this.audio.autoplay = true
       this.isPlaying = true
+    },
+    /**
+     * 更新歌词
+     */
+    updateLyricList(lyricList) {
+      this.lyricList = lyricList
+    },
+    /**
+     * 更新播放时间
+     */
+    updateCurrentTime(time) {
+      this.currentTime = time / 1000
     }
   }
 })

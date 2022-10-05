@@ -2,6 +2,7 @@
 import { toRefs, ref, onMounted } from 'vue'
 import { useMusicStore } from '@/stores'
 import PlayMusicList from './PlayMusicList.vue'
+import PlayMusicDetail from './PlayMusicDetail.vue'
 
 const musicStore = useMusicStore()
 const {playingList, playingIndex, isPlaying} = toRefs(musicStore)
@@ -45,7 +46,7 @@ const clickShowPalyDetail = () => {
   <div class="play-music-bar">
     <div class="left">
       <div class="image" @click="clickShowPalyDetail">
-        <img :src="playingList[playingIndex].picUrl" alt="" />
+        <img :class="{'img-0': !isPlaying, 'img-1': isPlaying}" :src="playingList[playingIndex].picUrl + '?imageView&thumbnail=50y50'" alt="" />
       </div>
       <div class="text">
         <div class="name">{{playingList[playingIndex].name}}</div>
@@ -90,7 +91,8 @@ const clickShowPalyDetail = () => {
     <van-popup v-model:show="showPalyDetail" position="bottom" :style="{ height: '100%' }"
       closeable close-icon="arrow-down" close-icon-position="top-left" teleport="body">
       <div class="play-detail">
-        播放详情
+        <!-- 播放详情 -->
+        <PlayMusicDetail></PlayMusicDetail>
       </div>
     </van-popup>
 
@@ -122,6 +124,22 @@ const clickShowPalyDetail = () => {
         width: 100%;
         height: 100%;
         border-radius: 25px;
+      }
+      .img-0 {
+        animation: rotate-ar 20s linear infinite;
+        animation-play-state: paused;
+      }
+      .img-1 {
+        animation: rotate-ar 20s linear infinite;
+        animation-play-state: running;
+      }
+      @keyframes rotate-ar {
+        0% {
+          transform: rotateZ(0deg);
+        }
+        100% {
+          transform: rotateZ(360deg);
+        }
       }
     }
 

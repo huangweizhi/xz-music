@@ -205,3 +205,18 @@ export function loginAnonimous() {
     method: 'get'
  })
 }
+
+/**
+ * 获取歌词
+ * @returns 
+ * @param {Number} id 歌曲id
+ */
+ export function getLyric(id) {
+  return request({
+    url: '/lyric',
+    method: 'get',
+    params: {
+      id
+    }
+ })
+}
