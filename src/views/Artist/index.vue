@@ -30,19 +30,21 @@ const getArtistsData = async () => {
 </script>
 
 <template>
-  <div class="artist">
-    <!-- 歌手简介 -->
-    <div class="image">
-      <img :src="artistDetail.picUrl + '?imageView&thumbnail=355y288' " />
-      <div class="name">{{artistDetail.name}}</div>
+  <BetterScroll class="better-scroll">
+    <div class="artist">
+      <!-- 歌手简介 -->
+      <div class="image">
+        <img :src="artistDetail.picUrl + '?imageView&thumbnail=355y288' " />
+        <div class="name">{{artistDetail.name}}</div>
+      </div>
+      <div class="desc">
+        <div class="title">歌手简介</div>
+        <div class="content">{{artistDetail.briefDesc}}</div>
+      </div>
+      <!-- 歌手热门歌曲 -->
+      <MusicList :data="artistMusicList"></MusicList>
     </div>
-    <div class="desc">
-      <div class="title">歌手简介</div>
-      <div class="content">{{artistDetail.briefDesc}}</div>
-    </div>
-    <!-- 歌手热门歌曲 -->
-    <MusicList :data="artistMusicList"></MusicList>
-  </div>
+  </BetterScroll>
 </template>
 
 <style lang="less" scoped>
@@ -76,8 +78,6 @@ const getArtistsData = async () => {
     }
     .content {
       line-height: 0.4rem;
-      max-height: 3rem;
-      overflow-y: scroll;
     }
   } 
 }

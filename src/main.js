@@ -14,12 +14,15 @@ import 'vant/es/image-preview/style'
 // 阿里图标
 import './assets/js/iconfont'
 
-import App from './App.vue'
-
+// 控制台打印
 import {consolePrint} from './utils'
 consolePrint()
 
+import App from './App.vue'
+import BetterScroll from './components/BetterScroll.vue'
+
 const app = createApp(App)
+app.component('BetterScroll', BetterScroll)
 app.use(createPinia())
 app.use(router)
 app.mount('#app')

@@ -25,18 +25,20 @@ const clickItem = (id) => {
 </script>
 
 <template>
-  <div class="top-list">
-    <div class="item" v-for="item in toplist" :key="item.id" @click="clickItem(item.id)" >
-      <div class="left">
-        <img :src="item.coverImgUrl + '?imageView&thumbnail=200y200'" alt="" />
-        <div class="update">{{item.updateFrequency}}</div>
-      </div>
-      <div class="right">
-        <div class="name">{{item.name}}</div>
-        <div class="desc">{{item.description}}</div>
+  <BetterScroll class="better-scroll">
+    <div class="top-list">
+      <div class="item" v-for="item in toplist" :key="item.id" @click="clickItem(item.id)" >
+        <div class="left">
+          <img :src="item.coverImgUrl + '?imageView&thumbnail=200y200'" alt="" />
+          <div class="update">{{item.updateFrequency}}</div>
+        </div>
+        <div class="right">
+          <div class="name">{{item.name}}</div>
+          <div class="desc">{{item.description}}</div>
+        </div>
       </div>
     </div>
-  </div>
+  </BetterScroll>
 </template>
 
 <style lang="less" scoped>

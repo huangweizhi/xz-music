@@ -80,15 +80,14 @@ watch(
 .container {
   width: 7.5rem;
   height: calc(100vh - 50px);
-  overflow-y: scroll;
-  overflow-x: hidden;
+  overflow: hidden;
   padding: 0 0.2rem 50px 0.2rem;
   box-sizing: border-box;
   background-color: @backgroundColor;
 }
 .container-other {
   padding: 0 0.2rem;
-  height: calc(100vh - 90px);
+  height: calc(100vh - 100px);
 }
 
 .play-music-bar {

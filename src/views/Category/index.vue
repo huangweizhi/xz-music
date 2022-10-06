@@ -40,15 +40,16 @@ const toPlayList = (type) => {
 
 <template>
   <!-- 分类列表 -->
-  <div class="category">
-    <div v-for="item in categoryList">
-      <div class="divider"><van-divider>{{item.name}}</van-divider></div>
-      <van-tag color="#fff" round size="large" text-color="#57BEAD"
-        v-for="_item in item.children" @click="toPlayList(_item.name)">{{_item.name}}
-      </van-tag>
+  <BetterScroll class="better-scroll">
+    <div class="category">
+      <div v-for="item in categoryList">
+        <div class="divider"><van-divider>{{item.name}}</van-divider></div>
+        <van-tag color="#fff" round size="large" text-color="#57BEAD"
+          v-for="_item in item.children" @click="toPlayList(_item.name)">{{_item.name}}
+        </van-tag>
+      </div>
     </div>
-  </div>
-
+  </BetterScroll>
 </template>
 
 <style lang="less" scoped>

@@ -26,9 +26,9 @@ const props = defineProps({ title: String })
   justify-content: flex-start;
   align-items: center;
   flex-wrap: nowrap;
-  height: 40px;
+  height: 50px;
   width: 100%;
-  line-height: 40px;
+  line-height: 50px;
   color: @textHightColor;
   background-color: @backgroundHightColor;
 

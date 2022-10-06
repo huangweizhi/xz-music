@@ -12,12 +12,14 @@ const clickItem = (id) => {
 </script>
 
 <template>
-  <div class="scroll-item">
-    <div class="item" v-for="item in props.data" :key="item.id">
-      <img :src="(item.img1v1Url || item.picUrl) + '?imageView&thumbnail=100y100'" alt="" @click="clickItem(item.id)" />
-      <div>{{item.name}}</div>
+  <BetterScroll class="better-scroll" :scrollX="true" :scrollY="false">
+    <div class="scroll-item">
+      <div class="item" v-for="item in props.data" :key="item.id">
+        <img :src="(item.img1v1Url || item.picUrl) + '?imageView&thumbnail=100y100'" alt="" @click="clickItem(item.id)" />
+        <div>{{item.name}}</div>
+      </div>
     </div>
-  </div>
+  </BetterScroll>
 </template>
 
 <style lang="less" scoped>
@@ -27,7 +29,6 @@ const clickItem = (id) => {
   display: flex;
   justify-content: start;
   flex-wrap: nowrap;
-  overflow-x: scroll;
   padding: 0.1rem 0;
 
   .item {
@@ -45,6 +46,9 @@ const clickItem = (id) => {
       line-height: 0.35rem;
     }
   }
+}
+.better-scroll {
+  min-height: 2.7rem;
 }
 </style>
   

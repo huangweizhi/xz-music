@@ -41,23 +41,26 @@ const doSearch = async () => {
 
 <template>
   <!-- 搜索 -->
-  <van-sticky :offset-top="40">
-    <van-search
-      v-model="searchWord"
-      shape="round"
-      placeholder="搜索歌曲"
-      @search="onSearch"
-    />
-  </van-sticky>
-  <!-- 热搜 -->
-  <HotList v-if="searchMusicList.length < 1" @clickItem="searchByWord"></HotList>
-  <!-- 搜索结果 -->
-  <MusicList :data="searchMusicList"></MusicList>
+  <van-search
+    v-model="searchWord"
+    shape="round"
+    placeholder="搜索歌曲"
+    @search="onSearch"
+  />
 
+  <BetterScroll class="better-scroll">
+    <!-- 热搜 -->
+    <HotList v-if="searchMusicList.length < 1" @clickItem="searchByWord"></HotList>
+    <!-- 搜索结果 -->
+    <MusicList :data="searchMusicList"></MusicList>
+  </BetterScroll>
 </template>
 
 <style lang="less" scoped>
 .van-search {
-  margin-top: 0.1rem;
+  margin-top: 10px;
+}
+.better-scroll {
+  height: calc(100% - 64px);
 }
 </style>

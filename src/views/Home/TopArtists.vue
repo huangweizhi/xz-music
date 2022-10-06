@@ -28,10 +28,13 @@ const getTopArtistsData = async () => {
 
 <template>
   <Title name="热门歌手"></Title>
-  <scroll-item :data="artists" @clickItem="clickItem"></scroll-item>
+  <scroll-item class="scroll-item" :data="artists" @clickItem="clickItem"></scroll-item>
 </template>
 
 <style lang="less" scoped>
-
+.scroll-item {
+  width: 100%;
+  min-height: 2.7rem;
+}
 </style>
   

@@ -41,13 +41,18 @@ const getPlayListDetailData = async (id) => {
         <div class="desc">{{playListDetail.description}}</div>
       </div>
     </div>
-    <!-- 歌单音乐 -->
-    <MusicList :data="musiclist"></MusicList>
+
+    <BetterScroll class="better-scroll">
+      <!-- 歌单音乐 -->
+      <MusicList :data="musiclist"></MusicList>
+    </BetterScroll>
   </div>
 </template>
 
 <style lang="less" scoped>
 .play-list-detail {
+  width: 100%;
+  height: 100%;
 
   .header {
     display: flex;
@@ -75,6 +80,10 @@ const getPlayListDetailData = async (id) => {
       }
     }
   }
+}
+
+.better-scroll {
+  height: calc(100% - 3.2rem);
 }
 </style>
     
