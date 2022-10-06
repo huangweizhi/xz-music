@@ -53,16 +53,30 @@ const getLyricData = async () => {
 }
 
 // 歌词滚动
-const lyricRef = ref(null)
-const percentage = ref(0)
+const betterScroll = ref(null)
+const percentage = ref(0) // 进度条
+const pid = ref('0') // 当前歌词被标记的pid
 watch(currentTime, ()=> {
   // 歌词滚动
   if(showLyric.value) {
+    // 当前歌词
     const p = window.document.querySelector('p.lyric-active')
-    if( p && p.offsetTop > 260) {
-      lyricRef.value.scrollTop = p.offsetTop - 260
+
+    // p.offsetTop 当前当前歌词距离父元素顶部距离
+    if( p && p.offsetTop) {
+      // betterScroll应该滚动的位置
+      let y = 260 - p.offsetTop 
+      // 部分位置不滚动
+      y = p.offsetTop < 265 ? 0 : y
+      // 下一句触发滚动
+      if(pid.value != p.dataset.pid) {
+        betterScroll.value.refresh() // 重要
+        betterScroll.value.scrollTo(0, y)
+      }
+      pid.value = p.dataset.pid
     }
   }
+  
   // 进度条
   let _percentage = parseInt((currentTime.value/duration.value)*100)
   if(_percentage>100) {
@@ -102,11 +116,13 @@ const getEndTime = computed(()=> {
     </div>
 
     <!-- 歌词 -->
-    <div class="lyric" ref="lyricRef" v-show="showLyric" @click="changeContent">
-      <p v-for="item in lyricList" 
-        :class="{'lyric-active': (currentTime > item.startTime) && (currentTime < item.endTime)} ">
-        {{item.lrcstr}}
-      </p>
+    <div class="lyric" v-show="showLyric" @click="changeContent">
+      <BetterScroll class="better-scroll" ref="betterScroll">
+        <p v-for="(item, index) in lyricList" :key="index" :data-pid="index"
+          :class="{'lyric-active': (currentTime > item.startTime) && (currentTime < item.endTime)} ">
+          {{item.lrcstr}}
+        </p>
+      </BetterScroll>
     </div>
 
     <!-- 底部 -->
@@ -161,9 +177,12 @@ const getEndTime = computed(()=> {
     </div>
 
     <!-- 播放列表 -->
-    <van-action-sheet v-model:show="showPalyList" title="播放列表">
+    <!-- 配合BetterScroll滚动 :lock-scroll="false" -->
+    <van-action-sheet v-model:show="showPalyList" :lock-scroll="false" title="播放列表">
       <div class="play-list-content">
-        <PlayMusicList :data="playingList"></PlayMusicList>
+        <BetterScroll class="better-scroll">
+          <PlayMusicList :data="playingList"></PlayMusicList>
+        </BetterScroll>
       </div>
     </van-action-sheet>
   </div>
@@ -302,5 +321,13 @@ const getEndTime = computed(()=> {
     }
   }
 }
+
+.play-list-content {
+  height: 7.5rem;
+  padding: 0 0.1rem;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
 </style>
   

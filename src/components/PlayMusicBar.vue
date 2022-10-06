@@ -81,15 +81,20 @@ const clickShowPalyDetail = () => {
     <audio ref="audio" :src="`https://music.163.com/song/media/outer/url?id=${playingList[playingIndex].id}.mp3`"></audio>
   
     <!-- 播放列表 -->
-    <van-action-sheet v-model:show="showPalyList" title="播放列表">
+    <!-- 配合BetterScroll滚动 :lock-scroll="false" -->
+    <van-action-sheet v-model:show="showPalyList" :lock-scroll="false" title="播放列表">
       <div class="play-list-content">
-        <PlayMusicList :data="playingList"></PlayMusicList>
+        <BetterScroll class="better-scroll">
+          <PlayMusicList :data="playingList"></PlayMusicList>
+        </BetterScroll>
       </div>
     </van-action-sheet>
   
     <!-- 播放详情 -->
+    <!-- 配合BetterScroll滚动 :lock-scroll="false" -->
     <van-popup v-model:show="showPalyDetail" position="bottom" :style="{ height: '100%' }"
-      closeable close-icon="arrow-down" close-icon-position="top-left" teleport="body">
+      closeable close-icon="arrow-down" close-icon-position="top-left" teleport="body" 
+      :lock-scroll="false">
       <div class="play-detail">
         <!-- 播放详情 -->
         <PlayMusicDetail></PlayMusicDetail>
@@ -176,7 +181,7 @@ const clickShowPalyDetail = () => {
   height: 7.5rem;
   padding: 0 0.1rem;
   box-sizing: border-box;
-  overflow: scroll;
+  overflow: hidden;
 }
 </style>
     
