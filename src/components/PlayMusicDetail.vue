@@ -51,6 +51,12 @@ const getLyricData = async () => {
   if(res.code !== 200) return
   musicStore.updateLyricList(setLyric(res.lrc.lyric))
 }
+// 歌曲切换同时切换歌词
+watch(playingIndex, () => {
+  if(showLyric.value) {
+    getLyricData()
+  }
+})
 
 // 歌词滚动
 const betterScroll = ref(null)
@@ -66,8 +72,6 @@ watch(currentTime, ()=> {
     if( p && p.offsetTop) {
       // betterScroll应该滚动的位置
       let y = 260 - p.offsetTop 
-      // 部分位置不滚动
-      y = p.offsetTop < 265 ? 0 : y
       // 下一句触发滚动
       if(pid.value != p.dataset.pid) {
         betterScroll.value.refresh() // 重要
@@ -107,6 +111,9 @@ const getEndTime = computed(()=> {
     <!-- 背景图片 -->
     <img class="bg-img" :src="playingList[playingIndex].picUrl + '?imageView&thumbnail=750y750' " />
 
+    <!-- 头部 -->
+    <div class="header">{{playingList[playingIndex].name}}</div>
+
     <!-- 唱片 -->
     <div class="disc" v-show="!showLyric" @click="changeContent">
       <img :class="{'disc-needle': true, 'disc-needle-0': !isPlaying}" src="@/assets/img/play/needle-ab.png" />
@@ -118,10 +125,12 @@ const getEndTime = computed(()=> {
     <!-- 歌词 -->
     <div class="lyric" v-show="showLyric" @click="changeContent">
       <BetterScroll class="better-scroll" ref="betterScroll">
-        <p v-for="(item, index) in lyricList" :key="index" :data-pid="index"
-          :class="{'lyric-active': (currentTime > item.startTime) && (currentTime < item.endTime)} ">
-          {{item.lrcstr}}
-        </p>
+        <div class="lyric-content">
+          <p v-for="(item, index) in lyricList" :key="index" :data-pid="index"
+            :class="{'lyric-active': (currentTime > item.startTime) && (currentTime < item.endTime)} ">
+            {{item.lrcstr}}
+          </p>
+        </div>
       </BetterScroll>
     </div>
 
@@ -205,11 +214,22 @@ const getEndTime = computed(()=> {
     z-index: 0;
   }
 
+  .header {
+    position: absolute;
+    width: 100%;
+    top: 0.1rem;
+    height: 1rem;
+    text-align: center;
+    line-height: 1rem;
+    color: #fff;
+    font-size: 0.3rem;
+  }
+
   .disc {
     display: flex;
     position: relative;
     width: 100%;
-    margin-top: 0.5rem;
+    margin-top: 1rem;
     flex-direction: column;
     align-items: center;
     
@@ -265,13 +285,16 @@ const getEndTime = computed(()=> {
   .lyric {
     width: 100%;
     position: relative;
-    height: calc(100vh - 3.3rem);
-    margin: 1rem 0;
-    overflow-y: scroll;
+    height: calc(100vh - 4.3rem);
+    margin: 1.5rem 0;
     text-align: center;
     padding: 0 0.3rem;
     box-sizing: border-box;
     font-size: 0.3rem;
+
+    .lyric-content {
+      padding: 50vh 0;
+    }
 
     .lyric-active {
       font-size: 0.4rem;
