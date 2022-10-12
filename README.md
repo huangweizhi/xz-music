@@ -20,8 +20,10 @@ $ npm run dev
 $ npm run build
 ```
 
-- 开发环境下，axios 的 baseURL 为：http://localhost:3000
-- 生产环境下，axios 的 baseURL 为：/xz-music-api
+## 默认配置
+- base: './',
+- 开发环境下，VITE_APP_BASE_API: '/xz-music-dev-api' , 代理到 'http://localhost:3000'
+- 生产环境下，VITE_APP_BASE_API: '/xz-music-prod-api'
 
 ## 技术栈
 

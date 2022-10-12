@@ -1,5 +1,6 @@
 import { defineStore } from "pinia"
 import { Toast } from "vant"
+import { checkMusic } from '@/api'
  
 export default defineStore("music", {
   state() {
@@ -45,12 +46,26 @@ export default defineStore("music", {
       }, false)
     },
     /**
-     * 播放||暂停音乐
+     * 音乐是否可用
      */
-    updateIsPlaying(isPlaying) {
-      this.isPlaying = isPlaying
+    async checkMusic() {
+      const res = await checkMusic(this.playingList[this.playingIndex].id)
+      if(res.success) return true
+      Toast(res.message)
+      this.isPlaying = false
+      return false
+    },
+    /**
+     * 播放||暂停 当前音乐
+     */
+    async updateIsPlaying(isPlay) {
+      this.isPlaying = isPlay
       // 播放
-      if(isPlaying) {
+      if(isPlay) {
+        // 音乐是否可用
+        const canUse = await this.checkMusic()
+        if(!canUse) return
+        // 播放
         this.audio.play()
         this.audio.autoplay = true
       }
@@ -60,12 +75,44 @@ export default defineStore("music", {
       }
     },
     /**
-     * 播放歌单音乐
+     * 播放||暂停 歌单音乐
      */
-    playListOfMusic(musicList, index) {
+    async playListOfMusic(musicList, index, isPlay) {
+      // 暂停
+      if(!isPlay) {
+        this.audio.pause()
+        this.isPlaying = false
+        return
+      }
+
+      // 播放
       this.playingList = musicList
       this.playingIndex = index
+      // 音乐是否可用
+      const canUse = await this.checkMusic()
+      if(!canUse) return
+      
+      this.audio.play()
+      this.audio.autoplay = true
+      this.isPlaying = true
+    },
+    /**
+     * 播放||暂停 播放列表音乐
+     */
+     async playIndexOfMusic(index, isPlay) {
+      // 暂停
+      if(!isPlay) {
+        this.audio.pause()
+        this.isPlaying = false
+        return
+      }
+
       // 播放
+      this.playingIndex = index
+      // 音乐是否可用
+      const canUse = await this.checkMusic()
+      if(!canUse) return
+
       this.audio.play()
       this.audio.autoplay = true
       this.isPlaying = true
@@ -73,7 +120,7 @@ export default defineStore("music", {
     /**
      * 上一首
      */
-    playPreMusic() {
+    async playPreMusic() {
       if(this.playingList.length < 2) {
         return Toast('没有上一首了~')
       }
@@ -82,12 +129,16 @@ export default defineStore("music", {
       }else {
         this.playingIndex = this.playingList.length - 1
       }
+      // 音乐是否可用
+      const canUse = await this.checkMusic()
+      if(!canUse) return
+
       this.isPlaying = true
     },
     /**
      * 下一首
      */
-    playNextMusic() {
+    async playNextMusic() {
       if(this.playingList.length < 2) {
         return Toast('没有下一首了~')
       }
@@ -96,15 +147,10 @@ export default defineStore("music", {
       }else {
         this.playingIndex = 0
       }
-      this.isPlaying = true
-    },
-    /**
-     * 其中一首
-     */
-    playIndexOfMusic(index) {
-      this.playingIndex = index
-      this.audio.play()
-      this.audio.autoplay = true
+      // 音乐是否可用
+      const canUse = await this.checkMusic()
+      if(!canUse) return
+
       this.isPlaying = true
     },
     /**

@@ -1,13 +1,14 @@
 <script setup>
-import { defineProps } from 'vue'
+import { defineProps, toRefs } from 'vue'
 import { useMusicStore } from '@/stores'
 
 const props = defineProps({ data: Array })
 const musicStore = useMusicStore()
+const { playingList, playingIndex, isPlaying } = toRefs(musicStore)
 
-// 播放歌单音乐
-const playIndexOfMusic = (index) => {
-  musicStore.playIndexOfMusic(index)
+// 播放||暂停 歌单音乐
+const playIndexOfMusic = (index, isPlay) => {
+  musicStore.playIndexOfMusic(index, isPlay)
 }
 
 </script>
@@ -24,7 +25,10 @@ const playIndexOfMusic = (index) => {
         </div>
 
         <div class="right-btn">
-          <svg class="icon" aria-hidden="true" @click="playIndexOfMusic(index)" >
+          <svg class="icon" aria-hidden="true" @click="playIndexOfMusic(index, false)" v-if="item.id == playingList[playingIndex].id && isPlaying">
+            <use xlink:href="#icon-zanting"></use>
+          </svg>
+          <svg class="icon" aria-hidden="true" @click="playIndexOfMusic(index, true)" v-else>
             <use xlink:href="#icon-bofang"></use>
           </svg>
         </div>

@@ -78,7 +78,7 @@ const clickShowPalyDetail = () => {
     </div>
 
     <!-- 音频播放 -->
-    <audio ref="audio" :src="`https://music.163.com/song/media/outer/url?id=${playingList[playingIndex].id}.mp3`"></audio>
+    <audio ref="audio" :src="`https://music.163.com/song/media/outer/url?id=${playingList[playingIndex].id}.mp3`" preload="none"></audio>
   
     <!-- 播放列表 -->
     <!-- 配合BetterScroll滚动 :lock-scroll="false" -->
@@ -151,9 +151,17 @@ const clickShowPalyDetail = () => {
     .text {
       margin-left: 20px;
       width: calc(100% - 70px);
+
       .name {
         color: @textHightColor;
         font-size: 0.3rem;
+        
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        word-break: break-all;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
       }
     }
   }

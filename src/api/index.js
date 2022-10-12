@@ -208,12 +208,27 @@ export function loginAnonimous() {
 
 /**
  * 获取歌词
- * @returns 
  * @param {Number} id 歌曲id
+ * @returns 
  */
  export function getLyric(id) {
   return request({
     url: '/lyric',
+    method: 'get',
+    params: {
+      id
+    }
+ })
+}
+
+/**
+ * 音乐是否可用
+ * @param {Number} id 歌曲id
+ * @returns 
+ */
+ export function checkMusic(id) {
+  return request({
+    url: '/check/music',
     method: 'get',
     params: {
       id

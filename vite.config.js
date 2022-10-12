@@ -1,12 +1,23 @@
-import { defineConfig } from 'vite'
+import { defineConfig, loadEnv } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import path from 'path'
 import Components from 'unplugin-vue-components/vite'
 import { VantResolver } from 'unplugin-vue-components/resolvers'
 
+const { VITE_APP_BASE_API } = loadEnv('development', './')
+
 // https://vitejs.dev/config/
 export default defineConfig({
   base: './',
+  server: {
+    proxy: {
+      [VITE_APP_BASE_API]: {
+        target: 'http://localhost:3000',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(VITE_APP_BASE_API, "")
+      },
+    }
+  },
   plugins: [
     vue(),
     // vant按需引入

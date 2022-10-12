@@ -74,9 +74,23 @@ const getPlayListDetailData = async (id) => {
         font-size: 0.3rem;
         color: @textHightColor;
         line-height: 0.6rem;
+
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        word-break: break-all;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
       }
       .desc {
         line-height: 0.4rem;
+
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        word-break: break-all;
+        -webkit-line-clamp: 5;
+        -webkit-box-orient: vertical;
       }
     }
   }
