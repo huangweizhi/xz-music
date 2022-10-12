@@ -235,3 +235,41 @@ export function loginAnonimous() {
     }
  })
 }
+
+/**
+ * mv排行
+ * @param {Number} limit 取出数量 , 默认为 30
+ * @param {String} area 地区,可选值为内地,港台,欧美,日本,韩国,不填则为全部
+ * @param {Number} offset 偏移数量 , 用于分页 , 如 :( 页数 -1)*30, 其中 30 为 limit 的值 , 默认 为 0
+ * @returns 
+ */
+ export function getTopMV(limit=30, area='', offset=0) {
+  return request({
+    url: '/top/mv',
+    method: 'get',
+    params: {
+      limit,
+      area,
+      offset
+    }
+ })
+}
+
+/**
+ * 歌曲相关视频
+ * @param {Number} songid 歌曲id
+ * @param {Number} mvid mvid 对应的 MV 将会作为第一个返回 (可选参数)
+ * @param {Number} limit 取出的 Mlog 数量, 不包含第一个 mvid (可选参数)
+ * @returns 
+ */
+ export function getMusicMV(songid, mvid, limit) {
+  const params = { songid }
+  if(mvid) params.mvid = mvid
+  if(limit) params.limit = limit
+
+  return request({
+    url: '/mlog/music/rcmd',
+    method: 'get',
+    params
+ })
+}

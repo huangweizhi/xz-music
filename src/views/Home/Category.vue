@@ -28,9 +28,15 @@ const toPage = (path) => {
     </div>
 
     <div class="item">
+      <img src="@/assets/img/category/播放.png" @click="toPage('/mv')" />
+      <div>MV</div>
+    </div>
+
+    <div class="item">
       <img src="@/assets/img/category/搜索.png" @click="toPage('/search')" />
       <div>搜索</div>
     </div>
+    
   </div>
 </template>
 

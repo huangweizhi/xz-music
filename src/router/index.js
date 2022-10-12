@@ -88,6 +88,24 @@ const routes = [
           name: '排行榜',
           keepAlive: true
         }
+      },
+      { 
+        path: '/mv', 
+        component: () => import('@/views/MVList/index.vue'),
+        meta: {
+          header: true,
+          name: 'MV',
+          keepAlive: true
+        }
+      },
+      { 
+        path: '/mv/:id', 
+        component: () => import('@/views/PlayMV/index.vue'),
+        meta: {
+          header: true,
+          name: 'MV详情',
+          keepAlive: false
+        }
       }
     ]
   }
