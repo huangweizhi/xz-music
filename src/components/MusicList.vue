@@ -15,8 +15,8 @@ const playMusic = (musicList, index, isPlay) => {
 }
 
 // 点击mv
-const clickMV = async () => {
-  const {mvid} = playingList.value[playingIndex.value]
+const clickMV = async (item) => {
+  const {mvid} = item
   if(mvid) {
     router.push(`/mv/${mvid}`)
   }else {
@@ -38,7 +38,7 @@ const clickMV = async () => {
         </div>
         <div class="right-btn">
           <!-- MV -->
-          <svg class="icon" aria-hidden="true" v-if="item.mvid" @click="clickMV">
+          <svg class="icon" aria-hidden="true" v-if="item.mvid" @click="clickMV(item)">
             <use xlink:href="#icon-shipinbofangyingpian"></use>
           </svg>
           <!-- 暂停 || 播放 -->

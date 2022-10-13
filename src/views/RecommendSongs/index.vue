@@ -19,12 +19,13 @@ const musiclist = ref([])
 const getRecommendSongsData = async () => {
   getRecommendSongs()
     .then(res => {
-      if(res.code !== 200) {
+      if(res.code == 302) {
         Toast('请登陆')
-        userStore.deleteCookie()
-        userStore.deleteUser()
+        userStore.removeCookie()
+        userStore.removeUser()
         router.push('/user')
       }
+      if(res.code !== 200) return
       // 数据处理
       musiclist.value = res.data.dailySongs.map(item => {
         return {
@@ -37,10 +38,7 @@ const getRecommendSongsData = async () => {
       })
     })
     .catch(err => {
-      Toast('请登陆')
-      userStore.deleteCookie()
-      userStore.deleteUser()
-      router.push('/user')
+      console.error(err)
     })
   
 }

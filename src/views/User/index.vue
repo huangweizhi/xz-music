@@ -19,9 +19,10 @@ const doLoginAnonimous = async () => {
 
 // 退出登陆
 const doLogout = async () => {
-  logout()
-  userStore.deleteCookie()
-  userStore.deleteUser()
+  const res = await logout()
+  if(res.code !== 200) return
+  userStore.removeUser()
+  userStore.removeCookie()
 }
 
 </script>

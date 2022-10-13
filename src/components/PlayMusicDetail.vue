@@ -86,11 +86,12 @@ watch(currentTime, ()=> {
   }
   
   // 进度条
-  let _percentage = parseInt((currentTime.value/duration.value)*100)
-  if(_percentage>100) {
-    _percentage = 100
+  if(currentTime.value && duration.value) {
+    percentage.value = parseInt((currentTime.value/duration.value)*100)
   }
-  percentage.value = _percentage
+  else {
+    percentage.value = 0
+  }
 })
 
 // 进度条开始时间
@@ -155,11 +156,11 @@ const clickMV = async () => {
     <div class="footer">
       <!-- 进度条 -->
       <div class="time-bar">
-        <div class="text">{{getCurrentTime}}</div>
+        <div class="text">{{getCurrentTime || '00:00'}}</div>
         <div class="time-bar-pro">
           <van-progress stroke-width="2px" color="#57BEAD" :show-pivot="false" :percentage="percentage" />
         </div>
-        <div class="text">{{getEndTime}}</div>
+        <div class="text">{{getEndTime  || '00:00'}}</div>
       </div>
       <!-- 按钮 -->
       <div class="tool-bar">
@@ -239,13 +240,22 @@ const clickMV = async () => {
 
   .header {
     position: absolute;
-    width: 100%;
     top: 0.1rem;
     height: 1rem;
+    width: 5rem;
+    margin: 0 1.25rem;
+    
     text-align: center;
     line-height: 1rem;
     color: #fff;
     font-size: 0.3rem;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    word-break: break-all;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
   }
 
   .disc {
@@ -317,10 +327,11 @@ const clickMV = async () => {
 
     .lyric-content {
       padding: 50vh 0;
+      font-size: 0.36rem;
+      color: #808080;
     }
 
     .lyric-active {
-      font-size: 0.4rem;
       color: @theme-color;
       transition: all 0.5s;
     }

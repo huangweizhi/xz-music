@@ -1,18 +1,22 @@
-const COOKIE_KEY = 'cookie'
+import Cookies from 'js-cookie'
+
+const COOKIE_KEY = 'MUSIC_A'
 const USER_KEY = 'user'
 
 // cookie
-export const saveCookie = (cookie) => {
-  window.localStorage.setItem(COOKIE_KEY, cookie)
-}
-
 export const getCookie = () => {
-  return window.localStorage.getItem(COOKIE_KEY)
+  return Cookies.get(COOKIE_KEY)
 }
 
-export const deleteCookie = () => {
-  window.localStorage.removeItem(COOKIE_KEY)
+// 由服务端赋值到cookie中
+export const setCookie = (cookie) => {
+  return Cookies.set(COOKIE_KEY, cookie)
 }
+
+export const removeCookie = () => {
+  return Cookies.remove(COOKIE_KEY)
+}
+
 
 // 用户信息
 export const saveUser = (user) => {
@@ -31,6 +35,6 @@ export const getUser = () => {
   }
 }
 
-export const deleteUser = () => {
+export const removeUser = () => {
   window.localStorage.removeItem(USER_KEY)
 }

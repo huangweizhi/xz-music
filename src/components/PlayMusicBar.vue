@@ -86,7 +86,7 @@ const clickMV = () => {
   
     <!-- 播放列表 -->
     <!-- 配合BetterScroll滚动 :lock-scroll="false" -->
-    <van-action-sheet v-model:show="showPalyList" :lock-scroll="false" title="播放列表">
+    <van-action-sheet v-model:show="showPalyList" :lock-scroll="false" teleport="body" title="播放列表">
       <div class="play-list-content">
         <BetterScroll class="better-scroll">
           <PlayMusicList :data="playingList"></PlayMusicList>

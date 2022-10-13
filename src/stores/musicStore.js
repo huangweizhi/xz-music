@@ -47,6 +47,13 @@ export default defineStore("music", {
       }, false)
     },
     /**
+     * 更新播放列表
+     */
+    updatePlayingList(playingList) {
+      this.playingList = playingList
+      this.playingIndex = 0
+    },
+    /**
      * 音乐是否可用
      */
     async checkMusic() {
