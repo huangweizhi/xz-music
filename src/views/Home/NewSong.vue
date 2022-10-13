@@ -23,7 +23,8 @@ const getPersonalizedNewsongData = async () => {
       id: item.id,
       name: item.name,
       picUrl: item.picUrl,
-      artist: item.song.artists[0].name
+      artist: item.song.artists[0].name,
+      mvid: item.song.mvid
     }
   })
 }

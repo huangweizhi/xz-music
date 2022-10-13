@@ -1,9 +1,13 @@
 <script setup>
-import { ref, toRefs, watch, computed } from 'vue'
+import { ref, toRefs, watch, computed, defineEmits } from 'vue'
+import { useRouter } from 'vue-router'
 import { useMusicStore } from '@/stores'
 import PlayMusicList from './PlayMusicList.vue'
-import { getLyric, getMusicMV } from '@/api'
+import { getLyric } from '@/api'
 import { setLyric, formatSeconds } from '@/utils'
+import { Toast } from 'vant'
+
+const router = useRouter()
 
 const musicStore = useMusicStore()
 const {playingList, playingIndex, isPlaying, lyricList, currentTime, duration} = toRefs(musicStore)
@@ -105,9 +109,16 @@ const getEndTime = computed(()=> {
 })
 
 // 歌曲mv
+const emits = defineEmits(['clickMV'])
+// 点击
 const clickMV = async () => {
-  const res = await getMusicMV(playingList.value[playingIndex.value].id, 0, 1)
-  console.log(res)
+  const {mvid} = playingList.value[playingIndex.value]
+  if(mvid) {
+    router.push(`/mv/${mvid}`)
+    emits('clickMV', mvid)
+  }else {
+    Toast('该歌曲没有mv')
+  }
 }
 
 </script>
@@ -153,17 +164,17 @@ const clickMV = async () => {
       <!-- 按钮 -->
       <div class="tool-bar">
         <!-- 播放模式 -->
-        <div>
+        <!-- <div>
           <svg class="icon" aria-hidden="true" @click="">
             <use xlink:href="#icon-xunhuanbofang"></use>
           </svg>
-        </div>
+        </div> -->
         <!-- MV -->
-        <!-- <div>
+        <div>
           <svg class="icon" aria-hidden="true" @click="clickMV">
             <use xlink:href="#icon-shipinbofangyingpian"></use>
           </svg>
-        </div> -->
+        </div>
         <!-- 上一首 -->
         <div>
           <svg class="icon" aria-hidden="true" @click="playPreMusic">

@@ -12,7 +12,8 @@ export default defineStore("music", {
         "id": 1901371647,
         "name": "孤勇者",
         "picUrl": "http://p4.music.126.net/aG5zqxkBRfLiV7A8W0iwgA==/109951166702962263.jpg",
-        "artist": "陈奕迅"
+        "artist": "陈奕迅",
+        "mvid": 14480854
       }],
       // 当前播放音乐索引
       playingIndex: 0,

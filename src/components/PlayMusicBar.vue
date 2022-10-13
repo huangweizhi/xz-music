@@ -39,6 +39,10 @@ const showPalyDetail = ref(false)
 const clickShowPalyDetail = () => {
   showPalyDetail.value = true
 }
+// 查看mv时关闭 播放详情
+const clickMV = () => {
+  showPalyDetail.value = false
+}
 
 </script>
 
@@ -97,7 +101,7 @@ const clickShowPalyDetail = () => {
       :lock-scroll="false">
       <div class="play-detail">
         <!-- 播放详情 -->
-        <PlayMusicDetail></PlayMusicDetail>
+        <PlayMusicDetail @clickMV="clickMV"></PlayMusicDetail>
       </div>
     </van-popup>
 

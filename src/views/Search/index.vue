@@ -32,7 +32,8 @@ const doSearch = async () => {
       id: item.id,
       name: item.name,
       picUrl: item.al.picUrl,
-      artist: item.ar[0].name
+      artist: item.ar[0].name,
+      mvid: item.mv
     }
   })
 }
