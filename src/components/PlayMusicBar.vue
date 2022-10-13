@@ -124,7 +124,7 @@ const clickMV = () => {
     display: flex;
     justify-content: start;
     align-items: center;
-    width: 60%;
+    width: 55%;
 
     .image {
       width: 50px;
@@ -173,14 +173,14 @@ const clickMV = () => {
   .right {
     font-size: 0.45rem;
     padding: 0 10px;
-    width: 40%;
+    width: 45%;
     display: flex;
     justify-content: end;
     align-items: center;
     flex-wrap: nowrap;
 
     .icon {
-      margin-left: 0.2rem;
+      margin-left: 0.3rem;
     }
   }
 

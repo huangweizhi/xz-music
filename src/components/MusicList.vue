@@ -1,7 +1,10 @@
 <script setup>
 import { defineProps, toRefs } from 'vue'
+import { useRouter } from 'vue-router'
 import { useMusicStore } from '@/stores'
+import { Toast } from 'vant'
 
+const router = useRouter()
 const props = defineProps({ data: Array, showImg: Boolean })
 const musicStore = useMusicStore()
 const { playingList, playingIndex, isPlaying } = toRefs(musicStore)
@@ -9,6 +12,16 @@ const { playingList, playingIndex, isPlaying } = toRefs(musicStore)
 // 播放||暂停歌单音乐
 const playMusic = (musicList, index, isPlay) => {
   musicStore.playListOfMusic(musicList, index, isPlay)
+}
+
+// 点击mv
+const clickMV = async () => {
+  const {mvid} = playingList.value[playingIndex.value]
+  if(mvid) {
+    router.push(`/mv/${mvid}`)
+  }else {
+    Toast('该歌曲没有mv')
+  }
 }
 
 </script>
@@ -24,6 +37,11 @@ const playMusic = (musicList, index, isPlay) => {
           <div class="tips">{{item.artist}}</div>
         </div>
         <div class="right-btn">
+          <!-- MV -->
+          <svg class="icon" aria-hidden="true" v-if="item.mvid" @click="clickMV">
+            <use xlink:href="#icon-shipinbofangyingpian"></use>
+          </svg>
+          <!-- 暂停 || 播放 -->
           <svg class="icon" aria-hidden="true" @click="playMusic(props.data, index, false)" v-if="item.id == playingList[playingIndex].id && isPlaying">
             <use xlink:href="#icon-zanting1"></use>
           </svg>
@@ -81,6 +99,9 @@ const playMusic = (musicList, index, isPlay) => {
         display: flex;
         flex-wrap: nowrap;
         font-size: 0.4rem;
+        * {
+          margin-left: 0.2rem;
+        }
       }
     }
   }

@@ -37,10 +37,14 @@ $ npm run build
 
 - 音乐播放
 - 歌词滚动
+- 播放列表
+- 上一首、下一首
+- 音乐MV
 - 排行榜
 - 分类
 - 歌单详情
 - 每日推荐
+- MV
 - 搜索
 - 热门歌手
 - 推荐歌单
@@ -48,12 +52,12 @@ $ npm run build
 - 游客登录
 
 ## 页面展示
-![image](show/home.jpg) 
-![image](show/playing1.png) 
-![image](show/playing2.png) 
-![image](show/toplist.png) 
-![image](show/category.png) 
-![image](show/playlists.png) 
-![image](show/playlist.png) 
-![image](show/search.png) 
-![image](show/artist.png) 
+![image](show/home.png) 
+![image](show/playing1.jpg) 
+![image](show/playing2.jpg) 
+![image](show/playmv.jpg) 
+![image](show/toplist.jpg) 
+![image](show/category.jpg) 
+![image](show/playlist.jpg) 
+![image](show/search.jpg) 
+![image](show/artist.jpg) 

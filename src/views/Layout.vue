@@ -91,7 +91,7 @@ watch(
 }
 
 .play-music-bar {
-  position: absolute;
+  position: fixed;
   bottom: 50px;
   margin: 0 0.25rem;
   transition: bottom 0.5s;

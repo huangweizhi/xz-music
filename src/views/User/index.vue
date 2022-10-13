@@ -29,9 +29,17 @@ const doLogout = async () => {
 <template>
   <!-- 游客登陆 -->
   <div class="user">
-    <p>用户：{{user.id}}</p>
-    <van-button v-if="cookie" type="danger" size="small" @click="doLogout">退出</van-button>
-    <van-button v-else type="success" size="small" @click="doLoginAnonimous">以游客身份登陆</van-button>
+    <van-image
+      v-if="cookie"
+      round
+      width="2rem"
+      height="2rem"
+      src="./logo.png"
+    />
+    <div class="btn">
+      <van-button v-if="cookie" type="danger" size="small" @click="doLogout">退出</van-button>
+      <van-button v-else type="success" size="small" @click="doLoginAnonimous">以游客身份登陆</van-button>
+    </div>
   </div>
 </template>
 
@@ -39,6 +47,9 @@ const doLogout = async () => {
 .user {
   padding: 100px 0;
   text-align: center;
+  .btn {
+    margin: 0.2rem;
+  }
 }
 </style>
     
