@@ -5,7 +5,6 @@ import { useUserStore } from '@/stores'
 
 import { getRecommendSongs } from '@/api'
 import MusicList from '@/components/MusicList.vue'
-import { getCookie } from '@/utils/auth'
 import { Toast } from 'vant'
 
 const router = useRouter()
@@ -18,7 +17,7 @@ onMounted(() => {
 // 获取每日推荐歌单
 const musiclist = ref([])
 const getRecommendSongsData = async () => {
-  getRecommendSongs(getCookie())
+  getRecommendSongs()
     .then(res => {
       if(res.code !== 200) {
         Toast('请登陆')

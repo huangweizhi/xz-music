@@ -79,15 +79,14 @@ watch(
 <style lang="less" scoped>
 .container {
   width: 7.5rem;
-  height: calc(100vh - 50px);
+  height: calc(100vh - 100px); // 减去Tabbar+PlayMusicBar
   overflow: hidden;
-  padding: 0 0.2rem 50px 0.2rem;
+  padding: 0 0.2rem;
   box-sizing: border-box;
   background-color: @backgroundColor;
 }
 .container-other {
-  padding: 0 0.2rem;
-  height: calc(100vh - 100px);
+  height: calc(100vh - 100px); // 减去TopBar+Tabbar
 }
 
 .play-music-bar {

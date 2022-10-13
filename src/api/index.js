@@ -122,13 +122,10 @@ export function loginAnonimous() {
  * 获取每日推荐歌单 ( 需要登录 )
  * @returns 
  */
- export function getRecommendSongs(cookie) {
+ export function getRecommendSongs() {
   return request({
     url: '/recommend/songs',
-    method: 'get',
-    params: {
-      cookie
-    }
+    method: 'get'
  })
 }
 

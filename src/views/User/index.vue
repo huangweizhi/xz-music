@@ -5,7 +5,7 @@ import { loginAnonimous, logout } from '@/api'
 import { Toast } from 'vant'
 
 const userStore = useUserStore()
-const { user, cookie } = toRefs(userStore)
+const { cookie } = toRefs(userStore)
 
 // 游客登陆
 const doLoginAnonimous = async () => {
@@ -19,7 +19,7 @@ const doLoginAnonimous = async () => {
 
 // 退出登陆
 const doLogout = async () => {
-  await logout()
+  logout()
   userStore.deleteCookie()
   userStore.deleteUser()
 }
