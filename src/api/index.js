@@ -273,3 +273,35 @@ export function loginAnonimous() {
     params
  })
 }
+
+/**
+ * mv 地址
+ * @param {Number} id mv的id
+ * @param {Number} r 分辨率 默认1080 (可选参数)
+ * @returns 
+ */
+ export function getMVUrl(id, r=720) {
+  return request({
+    url: '/mv/url',
+    method: 'get',
+    params: {
+      id,
+      r
+    }
+ })
+}
+
+/**
+ * 获取 mv 数据
+ * @param {Number} mvid mv的id
+ * @returns 
+ */
+ export function getMVDetail(mvid) {
+  return request({
+    url: '/mv/detail',
+    method: 'get',
+    params: {
+      mvid
+    }
+ })
+}

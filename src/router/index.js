@@ -101,6 +101,7 @@ const routes = [
       { 
         path: '/mv/:id', 
         component: () => import('@/views/PlayMV/index.vue'),
+        name: 'mvId',
         meta: {
           header: true,
           name: 'MV详情',

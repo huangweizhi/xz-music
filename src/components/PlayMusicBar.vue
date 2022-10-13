@@ -57,7 +57,7 @@ const clickShowPalyDetail = () => {
     <div class="right">
       <!-- 上一首 -->
       <svg class="icon" aria-hidden="true" @click="playPreMusic">
-        <use xlink:href="#icon-shangyishouge"></use>
+        <use xlink:href="#icon-shangyishoushangyige"></use>
       </svg>
       <!-- 暂停状态按钮 -->
       <svg class="icon" aria-hidden="true"  v-if="!isPlaying" @click="clickPlay(true)" >
@@ -65,15 +65,15 @@ const clickShowPalyDetail = () => {
       </svg>
       <!-- 播放状态按钮 -->
       <svg class="icon" aria-hidden="true" v-if="isPlaying" @click="clickPlay(false)">
-        <use xlink:href="#icon-zanting"></use>
+        <use xlink:href="#icon-zanting1"></use>
       </svg>
       <!-- 下一首 -->
       <svg class="icon" aria-hidden="true" @click="playNextMusic">
-        <use xlink:href="#icon-xiayishou"></use>
+        <use xlink:href="#icon-xiayigexiayishou"></use>
       </svg>
       <!-- 播放列表 -->
       <svg class="icon" aria-hidden="true" @click="clickShowPalyList">
-        <use xlink:href="#icon-bofanggedan"></use>
+        <use xlink:href="#icon-24gf-playlistMusic5"></use>
       </svg>
     </div>
 
@@ -120,7 +120,7 @@ const clickShowPalyDetail = () => {
     display: flex;
     justify-content: start;
     align-items: center;
-    width: 50%;
+    width: 60%;
 
     .image {
       width: 50px;
@@ -167,19 +167,16 @@ const clickShowPalyDetail = () => {
   }
 
   .right {
-    font-size: 30px;
+    font-size: 0.45rem;
     padding: 0 10px;
-    width: 50%;
+    width: 40%;
     display: flex;
     justify-content: end;
     align-items: center;
     flex-wrap: nowrap;
 
-    .van-icon {
-      margin-left: 10px;
-    }
     .icon {
-      margin-left: 10px;
+      margin-left: 0.2rem;
     }
   }
 

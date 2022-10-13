@@ -15,7 +15,6 @@ const getMVList = async () => {
   const res = await getTopMV()
   if(res.code !== 200) return 
   mvList.value = res.data
-  console.log(mvList.value)
 }
 
 // 查看mv
@@ -30,8 +29,19 @@ const clickItem = (item) => {
   <BetterScroll class="better-scroll">
     <div class="mv">
       <div class="item" v-for="item in mvList" :key="item.id">
-        <img :src="item.cover" @click="clickItem(item)" />
-        <div class="footer">{{item.name}}</div>
+        <div class="top">
+          <img :src="item.cover + '?imageView&thumbnail=300y150' " @click="clickItem(item)" />
+          <div>
+            <svg class="icon" aria-hidden="true">
+              <use xlink:href="#icon-shipinbofangyingpian"></use>
+            </svg>
+            <span>{{item.playCount}}</span>
+          </div>
+        </div>
+        <div class="footer">
+          <div class="name">{{item.name}}</div>
+          <div class="desc">{{item.mv.desc}}</div>
+        </div>
       </div>
     </div>
   </BetterScroll>
@@ -45,17 +55,50 @@ const clickItem = (item) => {
 
   .item {
     width: 3.4rem;
-    height: 2.8rem;
+    height: 2.9rem;
     overflow: hidden;
     margin: 0.1rem 0;
 
-    img {
-      width: 3.4rem;
-      height: 1.8rem;
+    .top {
+      position: relative;
+      img {
+        width: 3.4rem;
+        height: 1.8rem;
+      }
+      div {
+        position: absolute;
+        bottom: 0.2rem;
+        left: 0.1rem;
+        color: #fff;
+        * {
+          margin-right: 0.1rem;
+        }
+      }
     }
     .footer {
       width: 3.4rem;
-      height: 1rem;
+      height: 1.1rem;
+      .name {
+        line-height: 0.4rem;
+        color: @textHightColor;
+
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        word-break: break-all;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+      }
+      .desc {
+        font-size: 0.2rem;
+
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        word-break: break-all;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+      }
     }
   }
 }

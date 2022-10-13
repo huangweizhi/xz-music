@@ -25,7 +25,7 @@ const playMusic = (musicList, index, isPlay) => {
         </div>
         <div class="right-btn">
           <svg class="icon" aria-hidden="true" @click="playMusic(props.data, index, false)" v-if="item.id == playingList[playingIndex].id && isPlaying">
-            <use xlink:href="#icon-zanting"></use>
+            <use xlink:href="#icon-zanting1"></use>
           </svg>
           <svg class="icon" aria-hidden="true" @click="playMusic(props.data, index, true)" v-else>
             <use xlink:href="#icon-bofang"></use>

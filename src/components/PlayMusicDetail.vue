@@ -2,7 +2,7 @@
 import { ref, toRefs, watch, computed } from 'vue'
 import { useMusicStore } from '@/stores'
 import PlayMusicList from './PlayMusicList.vue'
-import { getLyric } from '@/api'
+import { getLyric, getMusicMV } from '@/api'
 import { setLyric, formatSeconds } from '@/utils'
 
 const musicStore = useMusicStore()
@@ -104,6 +104,12 @@ const getEndTime = computed(()=> {
   return '00:00'
 })
 
+// 歌曲mv
+const clickMV = async () => {
+  const res = await getMusicMV(playingList.value[playingIndex.value].id, 0, 1)
+  console.log(res)
+}
+
 </script>
 
 <template>
@@ -149,37 +155,43 @@ const getEndTime = computed(()=> {
         <!-- 播放模式 -->
         <div>
           <svg class="icon" aria-hidden="true" @click="">
-            <use xlink:href="#icon-suijibofang"></use>
+            <use xlink:href="#icon-xunhuanbofang"></use>
           </svg>
         </div>
+        <!-- MV -->
+        <!-- <div>
+          <svg class="icon" aria-hidden="true" @click="clickMV">
+            <use xlink:href="#icon-shipinbofangyingpian"></use>
+          </svg>
+        </div> -->
         <!-- 上一首 -->
         <div>
           <svg class="icon" aria-hidden="true" @click="playPreMusic">
-            <use xlink:href="#icon-shangyishouge"></use>
+            <use xlink:href="#icon-shangyishoushangyige"></use>
           </svg>
         </div>
         <!-- 暂停状态按钮 -->
-        <div v-if="!isPlaying">
+        <div v-if="!isPlaying" style="font-size: 0.8rem;">
           <svg class="icon" aria-hidden="true" @click="clickPlay(true)" >
             <use xlink:href="#icon-bofang"></use>
           </svg>
         </div>
         <!-- 播放状态按钮 -->
-        <div v-if="isPlaying">
+        <div v-if="isPlaying" style="font-size: 0.8rem;">
           <svg class="icon" aria-hidden="true" @click="clickPlay(false)">
-            <use xlink:href="#icon-zanting"></use>
+            <use xlink:href="#icon-zanting1"></use>
           </svg>
         </div>
         <!-- 下一首 -->
         <div>
           <svg class="icon" aria-hidden="true" @click="playNextMusic">
-            <use xlink:href="#icon-xiayishou"></use>
+            <use xlink:href="#icon-xiayigexiayishou"></use>
           </svg>
         </div>
         <!-- 播放列表 -->
         <div>
           <svg class="icon" aria-hidden="true" @click="clickShowPalyList">
-            <use xlink:href="#icon-bofanggedan"></use>
+            <use xlink:href="#icon-24gf-playlistMusic5"></use>
           </svg>
         </div>
       </div>
