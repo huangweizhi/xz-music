@@ -33,6 +33,9 @@ if(tabbarPath.indexOf(route.path) == -1) {
 // 选中的标签栏(2)
 activeIndex.value = tabbarPath.indexOf(route.path)
 
+// 缓存的页面
+const cachedViews = ref([])
+
 // 监听路由改变
 watch(
   () => route.path,
@@ -46,6 +49,11 @@ watch(
     }else {
       showTabbar.value = false
     }
+
+    // 缓存页面
+    if(route.meta.keepAlive && cachedViews.value.indexOf(route.name) == -1) {
+      cachedViews.value.push(route.name)
+    }
   }
 )
 
@@ -58,11 +66,10 @@ watch(
   <!-- 页面内容 -->
   <div :class="{'container': true, 'container-other': hasHeader}">
     <router-view v-slot="{ Component }">
-      <keep-alive v-if="$route.meta.keepAlive">
+      <keep-alive :include="cachedViews">
         <component :is="Component" />
       </keep-alive>
-      <component :is="Component" v-else />
-    </router-view> 
+    </router-view>
   </div>
 
   <!-- 正在播放的音乐 PlayMusicBar -->

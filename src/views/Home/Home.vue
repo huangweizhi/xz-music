@@ -1,9 +1,9 @@
 <script setup>
-import Banner from './Banner.vue'
-import Category from './Category.vue'
-import TopArtists from './TopArtists.vue'
-import Personalized from './Personalized.vue'
-import NewSong from './NewSong.vue'
+import Banner from './components/Banner.vue'
+import Category from './components/Category.vue'
+import TopArtists from './components/TopArtists.vue'
+import Personalized from './components/Personalized.vue'
+import NewSong from './components/NewSong.vue'
 </script>
 
 <template>

@@ -4,12 +4,14 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 const routes = [
   { 
     path: '/', 
+    name: 'Layout',
     component: () => import('@/views/Layout.vue'), 
     redirect: '/home',
     children: [
       {
         path: '/home', 
-        component: () => import('@/views/Home/index.vue'), 
+        name: 'Home', // 用于缓存页面
+        component: () => import('@/views/Home/Home.vue'), 
         meta: {
           header: false, // 是否有标题栏
           name: '音乐', // 页面名称
@@ -18,7 +20,8 @@ const routes = [
       },
       { 
         path: '/user', 
-        component: () => import('@/views/User/index.vue'),
+        name: 'User',
+        component: () => import('@/views/User.vue'),
         meta: {
           header: false,
           name: '我的',
@@ -28,7 +31,8 @@ const routes = [
 
       { 
         path: '/category', 
-        component: () => import('@/views/Category/index.vue'),
+        name: 'Category',
+        component: () => import('@/views/Category.vue'),
         meta: {
           header: true,
           name: '分类',
@@ -37,7 +41,8 @@ const routes = [
       },
       { 
         path: '/category/:type', 
-        component: () => import('@/views/PlayList/index.vue'),
+        name: 'PlayList',
+        component: () => import('@/views/PlayList.vue'),
         meta: {
           header: true,
           name: '歌单',
@@ -46,7 +51,8 @@ const routes = [
       },
       { 
         path: '/playlist/:id', 
-        component: () => import('@/views/PlayListDetail/index.vue'),
+        name: 'PlayListDetail',
+        component: () => import('@/views/PlayListDetail.vue'),
         meta: {
           header: true,
           name: '歌单详情',
@@ -55,7 +61,8 @@ const routes = [
       },
       { 
         path: '/recommend/songs', 
-        component: () => import('@/views/RecommendSongs/index.vue'),
+        name: 'RecommendSongs',
+        component: () => import('@/views/RecommendSongs.vue'),
         meta: {
           header: true,
           name: '每日推荐',
@@ -64,7 +71,8 @@ const routes = [
       },
       { 
         path: '/search', 
-        component: () => import('@/views/Search/index.vue'),
+        name: 'Search',
+        component: () => import('@/views/Search/Search.vue'),
         meta: {
           header: true,
           name: '搜索',
@@ -73,7 +81,8 @@ const routes = [
       },
       { 
         path: '/artist/:id/detail', 
-        component: () => import('@/views/Artist/index.vue'),
+        name: 'Artist',
+        component: () => import('@/views/Artist.vue'),
         meta: {
           header: true,
           name: '歌手',
@@ -82,7 +91,8 @@ const routes = [
       },
       { 
         path: '/toplist', 
-        component: () => import('@/views/TopList/index.vue'),
+        name: 'TopList',
+        component: () => import('@/views/TopList.vue'),
         meta: {
           header: true,
           name: '排行榜',
@@ -91,7 +101,8 @@ const routes = [
       },
       { 
         path: '/mv', 
-        component: () => import('@/views/MVList/index.vue'),
+        name: 'MVList',
+        component: () => import('@/views/MVList.vue'),
         meta: {
           header: true,
           name: 'MV',
@@ -100,8 +111,8 @@ const routes = [
       },
       { 
         path: '/mv/:id', 
-        component: () => import('@/views/PlayMV/index.vue'),
-        name: 'mvId',
+        name: 'PlayMV',
+        component: () => import('@/views/PlayMV.vue'),
         meta: {
           header: true,
           name: 'MV详情',

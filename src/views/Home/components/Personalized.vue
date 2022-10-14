@@ -14,7 +14,7 @@ onBeforeMount(() => {
 
 // 进入歌单详情
 const clickItem = (id) => {
-  router.push(`playlist/${id}`)
+  router.push(`/playlist/${id}`)
 }
 
 /**

@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from "vue"
-import HotList from "./HotList.vue"
+import HotList from "./components/HotList.vue"
 import { search } from "@/api"
 import MusicList from "@/components/MusicList.vue"
 
