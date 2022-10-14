@@ -33,6 +33,13 @@ const playNextMusic = () => {
   }
 }
 
+// 播放进度控制
+const changeCurrentTime = (per) => {
+  if(duration.value) {
+    musicStore.changeAudioCurrentTime(parseInt(duration.value*(per/100)))
+  }
+}
+
 // 播放列表
 const showPalyList = ref(false)
 const clickShowPalyList = () => {
@@ -158,10 +165,11 @@ const clickMV = async () => {
       <div class="time-bar">
         <div class="text">{{getCurrentTime || '00:00'}}</div>
         <div class="time-bar-pro">
-          <van-progress stroke-width="2px" color="#57BEAD" :show-pivot="false" :percentage="percentage" />
+          <van-slider v-model="percentage" active-color="#57BEAD" button-size="2px" @change="changeCurrentTime" />
         </div>
         <div class="text">{{getEndTime  || '00:00'}}</div>
       </div>
+
       <!-- 按钮 -->
       <div class="tool-bar">
         <!-- 播放模式 -->

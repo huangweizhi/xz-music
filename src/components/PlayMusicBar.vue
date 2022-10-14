@@ -1,11 +1,11 @@
 <script setup>
-import { toRefs, ref, onMounted } from 'vue'
+import { toRefs, ref, onMounted, watch } from 'vue'
 import { useMusicStore } from '@/stores'
 import PlayMusicList from './PlayMusicList.vue'
 import PlayMusicDetail from './PlayMusicDetail.vue'
 
 const musicStore = useMusicStore()
-const {playingList, playingIndex, isPlaying} = toRefs(musicStore)
+const {playingList, playingIndex, isPlaying, currentTime, duration} = toRefs(musicStore)
 
 // 更新 播放 || 暂停 状态
 const audio = ref(null)
@@ -44,13 +44,35 @@ const clickMV = () => {
   showPalyDetail.value = false
 }
 
+// 播放进度
+const currentRate = ref(0) // 动画过程中的实时进度
+const percentage = ref(0) // 进度条
+watch(currentTime, ()=> {
+  // 进度条
+  if(currentTime.value && duration.value) {
+    percentage.value = parseInt((currentTime.value/duration.value)*100)
+  }
+  else {
+    percentage.value = 0
+  }
+})
+
 </script>
 
 <template>
   <div class="play-music-bar">
     <div class="left">
       <div class="image" @click="clickShowPalyDetail">
-        <img :class="{'img-0': !isPlaying, 'img-1': isPlaying}" :src="playingList[playingIndex].picUrl + '?imageView&thumbnail=50y50'" alt="" />
+        <!-- 当 rate 发生变化时，v-model:current-rate 会以 speed 的速度变化，直至达到 rate 设定的值 -->
+        <van-circle
+          v-model:current-rate="currentRate"
+          :rate="percentage"
+          :speed="50"
+          color="#57BEAD"
+          layer-color="#F5F5F5"
+        >
+          <img :class="{'img-0': !isPlaying, 'img-1': isPlaying}" :src="playingList[playingIndex].picUrl + '?imageView&thumbnail=50y50'" alt="" />
+        </van-circle>
       </div>
       <div class="text">
         <div class="name">{{playingList[playingIndex].name}}</div>
@@ -129,10 +151,15 @@ const clickMV = () => {
     .image {
       width: 50px;
       height: 50px;
-      img {
+      .van-circle {
         width: 100%;
         height: 100%;
-        border-radius: 25px;
+      }
+      img {
+        width: 46px;
+        height: 46px;
+        border-radius: 23px;
+        margin: 2px;
       }
       .img-0 {
         animation: rotate-ar 20s linear infinite;

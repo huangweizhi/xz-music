@@ -175,6 +175,14 @@ export default defineStore("music", {
     },
     updateDuration() {
       this.duration = this.audio.duration
+    },
+    /**
+     * 播放进度控制
+     */
+    changeAudioCurrentTime(currentTime) {
+      if(currentTime >=0 && currentTime <= this.audio.duration) {
+        this.audio.currentTime = currentTime
+      }
     }
   }
 })
