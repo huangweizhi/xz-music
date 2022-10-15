@@ -1,8 +1,11 @@
 <script setup>
-import { ref, watch } from 'vue' 
+import { ref, watch, onMounted, toRefs } from 'vue' 
 import { useRouter, useRoute } from 'vue-router'
 import PlayMusicBar from '@/components/PlayMusicBar.vue'
 import TopBar from '@/components/TopBar.vue'
+
+import { loginStatus } from '@/api/user'
+import { useUserStore } from '@/stores'
 
 const route = useRoute()
 const router = useRouter()
@@ -56,6 +59,26 @@ watch(
     }
   }
 )
+
+// 检查登录状态
+const userStore = useUserStore()
+const { user } = toRefs(userStore)
+
+const getLoginStatus = async () => {
+  const res = await loginStatus()
+  if(res.code !== 200) return 
+  // 已登录
+  if(res.profile) return
+  // 没有登录
+  if(user.profile) {
+    userStore.removeUser()
+    userStore.removeToken()
+  }
+}
+
+onMounted(()=> {
+  getLoginStatus()
+})
 
 </script>
 

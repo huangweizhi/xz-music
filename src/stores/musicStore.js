@@ -1,6 +1,18 @@
 import { defineStore } from "pinia"
 import { Toast } from "vant"
 import { checkMusic } from '@/api'
+import { 
+  savePlayingIndex, getPlayingIndex, removePlayingIndex,
+  savePlayingList, getPlayingList, removePlayingList
+} from '@/utils/localStorage'
+
+const defaultPlayingList = [{
+  "id": 1901371647,
+  "name": "孤勇者",
+  "picUrl": "http://p4.music.126.net/aG5zqxkBRfLiV7A8W0iwgA==/109951166702962263.jpg",
+  "artist": "陈奕迅",
+  "mvid": 14480854
+}]
  
 export default defineStore("music", {
   state() {
@@ -8,15 +20,9 @@ export default defineStore("music", {
       // 播放器对象
       audio: null,
       // 播放列表
-      playingList: [{
-        "id": 1901371647,
-        "name": "孤勇者",
-        "picUrl": "http://p4.music.126.net/aG5zqxkBRfLiV7A8W0iwgA==/109951166702962263.jpg",
-        "artist": "陈奕迅",
-        "mvid": 14480854
-      }],
+      playingList: getPlayingList() || defaultPlayingList,
       // 当前播放音乐索引
-      playingIndex: 0,
+      playingIndex: getPlayingIndex() || 0,
       // 是否正在播放
       isPlaying: false,
       // 歌词
@@ -52,6 +58,9 @@ export default defineStore("music", {
     updatePlayingList(playingList) {
       this.playingList = playingList
       this.playingIndex = 0
+      // 本地缓存
+      savePlayingList(playingList)
+      savePlayingIndex(0)
     },
     /**
      * 音乐是否可用
@@ -96,6 +105,10 @@ export default defineStore("music", {
       // 播放
       this.playingList = musicList
       this.playingIndex = index
+      // 本地缓存
+      savePlayingList(musicList)
+      savePlayingIndex(index)
+
       // 音乐是否可用
       const canUse = await this.checkMusic()
       if(!canUse) return
@@ -117,6 +130,9 @@ export default defineStore("music", {
 
       // 播放
       this.playingIndex = index
+      // 本地缓存
+      savePlayingIndex(index)
+
       // 音乐是否可用
       const canUse = await this.checkMusic()
       if(!canUse) return
@@ -137,10 +153,16 @@ export default defineStore("music", {
       }else {
         this.playingIndex = this.playingList.length - 1
       }
+      // 本地缓存
+      savePlayingIndex(this.playingIndex)
+
       // 音乐是否可用
       const canUse = await this.checkMusic()
       if(!canUse) return
 
+      // 播放
+      this.audio.play()
+      this.audio.autoplay = true
       this.isPlaying = true
     },
     /**
@@ -155,10 +177,16 @@ export default defineStore("music", {
       }else {
         this.playingIndex = 0
       }
+      // 本地缓存
+      savePlayingIndex(this.playingIndex)
+
       // 音乐是否可用
       const canUse = await this.checkMusic()
       if(!canUse) return
 
+      // 播放
+      this.audio.play()
+      this.audio.autoplay = true
       this.isPlaying = true
     },
     /**
@@ -183,6 +211,15 @@ export default defineStore("music", {
       if(currentTime >=0 && currentTime <= this.audio.duration) {
         this.audio.currentTime = currentTime
       }
+    },
+    /**
+     * 删除缓存的播放列表
+     */
+    removePlaying() {
+      removePlayingList()
+      removePlayingIndex()
+      this.playingList = defaultPlayingList
+      this.playingIndex = 0
     }
   }
 })

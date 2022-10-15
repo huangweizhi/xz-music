@@ -21,9 +21,11 @@ const getRecommendSongsData = async () => {
     .then(res => {
       if(res.code == 302) {
         Toast('请登陆')
-        userStore.removeCookie()
+        userStore.removeToken()
         userStore.removeUser()
-        router.push('/user')
+        setTimeout(() => {
+          router.push('/user')
+        }, 1000)
       }
       if(res.code !== 200) return
       // 数据处理

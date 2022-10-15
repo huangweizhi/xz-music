@@ -1,12 +1,13 @@
 import { defineStore } from "pinia"
-import { getCookie, removeCookie, saveUser, getUser, removeUser } from '@/utils/auth'
+import { getToken, removeToken } from '@/utils/auth'
+import { saveUser, getUser, removeUser } from '@/utils/localStorage'
 
 export default defineStore("user", {
   state() {
     return {
       // 用户信息
       user: getUser() || {},
-      cookie: getCookie() || ''
+      token: getToken() || ''
     }
   },
   actions: {
@@ -20,14 +21,14 @@ export default defineStore("user", {
       removeUser()
       this.user = {}
     },
-    // 保存cookie
-    saveCookie(cookie) {
-      this.cookie = cookie
+    // 保存token
+    saveToken(token) {
+      this.token = token
     },
-    // 保存cookie
-    removeCookie() {
-      removeCookie()
-      this.cookie = ''
+    // 删除token
+    removeToken() {
+      removeToken()
+      this.token = ''
     }
   }
 })

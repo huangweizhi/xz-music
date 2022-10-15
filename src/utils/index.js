@@ -73,6 +73,17 @@ export const formatSeconds = (value) => {
 }
 
 /**
+ * 验证手机号是否正确
+ * @param {String} phone 
+ */
+export const isRightPhone = (phone) => {
+  if (!/^(13[0-9]|14[01456879]|15[0-35-9]|16[2567]|17[0-8]|18[0-9]|19[0-35-9])\d{8}$/.test(phone)) {
+    return false
+  }
+  return true
+}
+
+/**
  * 控制台打印
  */
  export const consolePrint = () => {

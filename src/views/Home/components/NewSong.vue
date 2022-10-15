@@ -3,9 +3,6 @@ import { ref, onBeforeMount } from 'vue'
 import Title from '@/components/Title.vue'
 import MusicList from '@/components/MusicList.vue'
 import { getPersonalizedNewsong } from '@/api'
-import { useMusicStore } from '@/stores'
-
-const musicStore = useMusicStore()
 
 onBeforeMount(() => {
   getPersonalizedNewsongData()
@@ -28,8 +25,6 @@ const getPersonalizedNewsongData = async () => {
       mvid: item.song.mvid
     }
   })
-  // 默认加入播放列表
-  musicStore.updatePlayingList(newsongList.value)
 }
 </script>
 

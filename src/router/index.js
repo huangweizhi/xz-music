@@ -21,7 +21,7 @@ const routes = [
       { 
         path: '/user', 
         name: 'User',
-        component: () => import('@/views/User.vue'),
+        component: () => import('@/views/User/User.vue'),
         meta: {
           header: false,
           name: '我的',
@@ -66,7 +66,7 @@ const routes = [
         meta: {
           header: true,
           name: '每日推荐',
-          keepAlive: true
+          keepAlive: false
         }
       },
       { 

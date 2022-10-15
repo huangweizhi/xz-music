@@ -1,26 +1,6 @@
 import request from '@/utils/request'
 
 /**
- * 游客登陆
- */
-export function loginAnonimous() {
-  return request({
-    url: '/register/anonimous',
-    method: 'get'
-  })
-}
-
-/**
- * 退出登陆
- */
- export function logout() {
-  return request({
-    url: '/logout',
-    method: 'get'
-  })
-}
-
-/**
  * 获取轮播图
  * @param {Number} type 0: pc; 1: android; 2: iphone; 3: ipad
  */
@@ -104,7 +84,7 @@ export function loginAnonimous() {
 }
 
 /**
- * 获取获取歌单详情
+ * 获取歌单详情
  * @param {Number} id 
  * @returns 
  */
@@ -249,25 +229,6 @@ export function loginAnonimous() {
       area,
       offset
     }
- })
-}
-
-/**
- * 歌曲相关视频
- * @param {Number} songid 歌曲id
- * @param {Number} mvid mvid 对应的 MV 将会作为第一个返回 (可选参数)
- * @param {Number} limit 取出的 Mlog 数量, 不包含第一个 mvid (可选参数)
- * @returns 
- */
- export function getMusicMV(songid, mvid, limit) {
-  const params = { songid }
-  if(mvid) params.mvid = mvid
-  if(limit) params.limit = limit
-
-  return request({
-    url: '/mlog/music/rcmd',
-    method: 'get',
-    params
  })
 }
 
