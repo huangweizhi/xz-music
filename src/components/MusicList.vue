@@ -42,7 +42,7 @@ const clickMV = async (item) => {
             <use xlink:href="#icon-shipinbofangyingpian"></use>
           </svg>
           <!-- 暂停 || 播放 -->
-          <svg class="icon" aria-hidden="true" @click="playMusic(props.data, index, false)" v-if="item.id == playingList[playingIndex].id && isPlaying">
+          <svg class="icon" style="color: #57BEAD;" aria-hidden="true" @click="playMusic(props.data, index, false)" v-if="item.id == playingList[playingIndex].id && isPlaying">
             <use xlink:href="#icon-zanting1"></use>
           </svg>
           <svg class="icon" aria-hidden="true" @click="playMusic(props.data, index, true)" v-else>

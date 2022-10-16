@@ -43,7 +43,7 @@ export default defineStore("music", {
       // 播放结束，播放下一首
       this.audio.addEventListener('ended', () => {
         this.isPlaying = false
-        this.playNextMusic()
+        this.playNextMusic(true)
       }, false)
 
       // 播放进度
@@ -167,8 +167,9 @@ export default defineStore("music", {
     },
     /**
      * 下一首
+     * auto 自动播放下一首
      */
-    async playNextMusic() {
+    async playNextMusic(auto=false) {
       if(this.playingList.length < 2) {
         return Toast('没有下一首了~')
       }
@@ -182,7 +183,14 @@ export default defineStore("music", {
 
       // 音乐是否可用
       const canUse = await this.checkMusic()
-      if(!canUse) return
+      if(!canUse) {
+        if (auto) {
+          setTimeout(()=> {
+            this.playNextMusic(true)
+          }, 1000)
+        }
+        return
+      }
 
       // 播放
       this.audio.play()
