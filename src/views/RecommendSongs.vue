@@ -1,14 +1,12 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
-import { useUserStore } from '@/stores'
 
 import { getRecommendSongs } from '@/api'
 import MusicList from '@/components/MusicList.vue'
 import { Toast } from 'vant'
 
 const router = useRouter()
-const userStore = useUserStore()
 
 onMounted(() => {
   getRecommendSongsData()
@@ -21,8 +19,6 @@ const getRecommendSongsData = async () => {
     .then(res => {
       if(res.code == 302) {
         Toast('请登陆')
-        userStore.removeToken()
-        userStore.removeUser()
         setTimeout(() => {
           router.push('/user')
         }, 1000)

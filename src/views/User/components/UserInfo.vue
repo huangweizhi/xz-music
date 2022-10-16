@@ -1,11 +1,12 @@
 <script setup>
-import { toRefs } from 'vue'
+import { toRefs, onMounted } from 'vue'
 import { useUserStore, useMusicStore } from '@/stores'
-import { logout } from '@/api/user'
+import { logout, loginStatus } from '@/api/user'
 import { Dialog } from 'vant'
 
 const userStore = useUserStore()
 const musicStore = useMusicStore()
+
 const { user } = toRefs(userStore)
 
 // 退出登陆
@@ -28,20 +29,39 @@ const doLogout = () => {
     });
 }
 
+// 检查登录状态
+const getLoginStatus = async () => {
+  const res = await loginStatus()
+  if(res.code !== 200) return 
+  // 已登录
+  if(res.profile) return
+  // 没有登录
+  if(user.profile) {
+    userStore.removeUser()
+    userStore.removeToken()
+  }
+}
+
+onMounted(()=> {
+  getLoginStatus()
+})
+
 </script>
 
 <template>
   <!-- 用户信息 -->
   <BetterScroll class="better-scroll">
     <div class="user-info">
-      <van-image
-        round
-        width="2rem"
-        height="2rem"
-        :src="user.profile.avatarUrl"
-      />
-      <p>{{user.account.userName}}</p>
-      <p>{{user.profile.nickname}}</p>
+      <div v-if="user && user.profile">
+        <van-image
+          round
+          width="2rem"
+          height="2rem"
+          :src="user.profile.avatarUrl"
+        />
+        <p>{{user.account.userName}}</p>
+        <p>{{user.profile.nickname}}</p>
+      </div>
 
       <div class="logout" @click="doLogout">
         <span>退出</span>
