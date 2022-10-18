@@ -29,24 +29,27 @@ const clickMV = async (item) => {
 <template>
   <div class="song-list">
     <div class="item" v-for="(item, index) in props.data" :key="item.id">
-      <img v-if="props.showImg" :src="item.picUrl + '?imageView&thumbnail=50y50'" />
-      <div v-else class="index">{{index+1}}</div>
+      <div class="left">
+        <img v-if="props.showImg" :src="item.picUrl + '?imageView&thumbnail=50y50'" />
+        <div v-else class="index">{{index+1}}</div>
+      </div>
+
       <div class="right">
-        <div class="right-name">
+        <div class="right-name" @click="playMusic(props.data, index, true)">
           <div class="name">{{item.name}}</div>
           <div class="tips">{{item.artist}}</div>
         </div>
         <div class="right-btn">
+          <!-- 正在播放 -->
+          <svg class="icon" style="color: #57BEAD;" aria-hidden="true" v-if="item.id == playingList[playingIndex].id && isPlaying">
+            <use xlink:href="#icon-a-zhengzaizhibozhengzaibofang"></use>
+          </svg>
           <!-- MV -->
           <svg class="icon" aria-hidden="true" v-if="item.mvid" @click="clickMV(item)">
             <use xlink:href="#icon-shipinbofangyingpian"></use>
           </svg>
-          <!-- 暂停 || 播放 -->
-          <svg class="icon" style="color: #57BEAD;" aria-hidden="true" @click="playMusic(props.data, index, false)" v-if="item.id == playingList[playingIndex].id && isPlaying">
-            <use xlink:href="#icon-zanting1"></use>
-          </svg>
-          <svg class="icon" aria-hidden="true" @click="playMusic(props.data, index, true)" v-else>
-            <use xlink:href="#icon-bofang"></use>
+          <svg class="icon" style="color: #D3D3D3;" aria-hidden="true" v-else>
+            <use xlink:href="#icon-shipinbofangyingpian"></use>
           </svg>
         </div>
       </div>
@@ -66,17 +69,21 @@ const clickMV = async (item) => {
     width: 100%;
     margin: 0.1rem 0;
 
-    img {
+    .left {
       width: 1rem;
       height: 1rem;
-      border-radius: 0.1rem;
-    }
-    .index {
-      width: 1rem;
-      height: 1rem;
-      text-align: center;
-      line-height: 1rem;
-      font-size: 0.3rem;
+      img {
+        width: 100%;
+        height: 100%;
+        border-radius: 0.1rem;
+      }
+      .index {
+        width: 100%;
+        height: 100%;
+        text-align: center;
+        line-height: 1rem;
+        font-size: 0.3rem;
+      }
     }
 
     .right {

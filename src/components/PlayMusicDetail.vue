@@ -172,15 +172,12 @@ const clickMV = async () => {
 
       <!-- 按钮 -->
       <div class="tool-bar">
-        <!-- 播放模式 -->
-        <!-- <div>
-          <svg class="icon" aria-hidden="true" @click="">
-            <use xlink:href="#icon-xunhuanbofang"></use>
-          </svg>
-        </div> -->
         <!-- MV -->
         <div>
-          <svg class="icon" aria-hidden="true" @click="clickMV">
+          <svg v-if="playingList[playingIndex].mvid" class="icon" aria-hidden="true" @click="clickMV">
+            <use xlink:href="#icon-shipinbofangyingpian"></use>
+          </svg>
+          <svg v-else class="icon" style="color: #696969;" aria-hidden="true">
             <use xlink:href="#icon-shipinbofangyingpian"></use>
           </svg>
         </div>

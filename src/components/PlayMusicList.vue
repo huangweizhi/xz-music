@@ -16,7 +16,13 @@ const playIndexOfMusic = (index, isPlay) => {
 <template>
   <div class="song-list">
     <div class="item" v-for="(item, index) in props.data" :key="item.id">
-      <div class="index">{{ index+1 }}</div>
+      <div class="left">
+        <!-- 正在播放 -->
+        <svg class="icon" style="color: #57BEAD;" aria-hidden="true" v-if="item.id == playingList[playingIndex].id && isPlaying">
+          <use xlink:href="#icon-a-zhengzaizhibozhengzaibofang"></use>
+        </svg>
+        <div class="index" v-else>{{ index+1 }}</div>
+      </div>
 
       <div class="right">
         <div class="right-name">
@@ -50,12 +56,20 @@ const playIndexOfMusic = (index, isPlay) => {
     width: 100%;
     margin: 0.1rem 0;
 
-    .index {
+    .left {
       width: 1rem;
       height: 1rem;
       text-align: center;
-      line-height: 1rem;
-      font-size: 0.3rem;
+      .index {
+        width: 1rem;
+        height: 1rem;
+        line-height: 1rem;
+        font-size: 0.3rem;
+      }
+      .icon {
+        margin-top: 0.3rem;
+        font-size: 0.4rem;
+      }
     }
 
     .right {

@@ -46,7 +46,7 @@ const getRecommendSongsData = async () => {
 <template>
   <!-- 歌单音乐 -->
   <BetterScroll class="better-scroll">
-    <MusicList :data="musiclist"></MusicList>
+    <MusicList :data="musiclist" :showImg="true"></MusicList>
   </BetterScroll>
 </template>
 
