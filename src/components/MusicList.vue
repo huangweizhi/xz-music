@@ -29,7 +29,7 @@ const clickMV = async (item) => {
 <template>
   <div class="song-list">
     <div class="item" v-for="(item, index) in props.data" :key="item.id">
-      <div class="left">
+      <div class="left" @click="playMusic(props.data, index, true)">
         <img v-if="props.showImg" :src="item.picUrl + '?imageView&thumbnail=50y50'" />
         <div v-else class="index">{{index+1}}</div>
       </div>

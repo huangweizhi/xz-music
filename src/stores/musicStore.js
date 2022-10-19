@@ -56,6 +56,7 @@ export default defineStore("music", {
      * 更新播放列表
      */
     updatePlayingList(playingList) {
+      playingList = JSON.parse(JSON.stringify(playingList))
       this.playingList = playingList
       this.playingIndex = 0
       // 本地缓存
@@ -95,6 +96,7 @@ export default defineStore("music", {
      * 播放||暂停 歌单音乐
      */
     async playListOfMusic(musicList, index, isPlay) {
+      musicList = JSON.parse(JSON.stringify(musicList))
       // 暂停
       if(!isPlay) {
         this.audio.pause()
@@ -228,6 +230,20 @@ export default defineStore("music", {
       removePlayingIndex()
       this.playingList = defaultPlayingList
       this.playingIndex = 0
+    },
+    /**
+     * 删除播放列表的某一首歌
+     */
+    removeIndexOfMusic(index) {
+      if(this.playingList.length < 2) {
+        this.playingList = defaultPlayingList
+        this.playingIndex = 0
+      }else {
+        this.playingList.splice(index, 1)
+      }
+      // 本地缓存
+      savePlayingList(this.playingList)
+      savePlayingIndex(this.playingIndex)
     }
   }
 })

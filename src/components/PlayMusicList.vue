@@ -11,12 +11,17 @@ const playIndexOfMusic = (index, isPlay) => {
   musicStore.playIndexOfMusic(index, isPlay)
 }
 
+// 从播放列表删除歌曲
+const deleteIndexOfMusic = (index) => {
+  musicStore.removeIndexOfMusic(index)
+}
+
 </script>
 
 <template>
   <div class="song-list">
     <div class="item" v-for="(item, index) in props.data" :key="item.id">
-      <div class="left">
+      <div class="left" @click="playIndexOfMusic(index, true)">
         <!-- 正在播放 -->
         <svg class="icon" style="color: #57BEAD;" aria-hidden="true" v-if="item.id == playingList[playingIndex].id && isPlaying">
           <use xlink:href="#icon-a-zhengzaizhibozhengzaibofang"></use>
@@ -25,17 +30,14 @@ const playIndexOfMusic = (index, isPlay) => {
       </div>
 
       <div class="right">
-        <div class="right-name">
+        <div class="right-name" @click="playIndexOfMusic(index, true)">
           <div class="name">{{item.name}}</div>
           <div class="tips">{{item.artist}}</div>
         </div>
 
         <div class="right-btn">
-          <svg class="icon" style="color: #57BEAD;" aria-hidden="true" @click="playIndexOfMusic(index, false)" v-if="item.id == playingList[playingIndex].id && isPlaying">
-            <use xlink:href="#icon-zanting1"></use>
-          </svg>
-          <svg class="icon" aria-hidden="true" @click="playIndexOfMusic(index, true)" v-else>
-            <use xlink:href="#icon-bofang"></use>
+          <svg class="icon" aria-hidden="true" @click="deleteIndexOfMusic(index)">
+            <use xlink:href="#icon-shanchuwubiankuang"></use>
           </svg>
         </div>
       </div>
