@@ -36,13 +36,13 @@ const props = defineProps({ title: String })
     flex: 1;
     height: 100%;
     text-align: center;
-    font-size: 0.4rem;
+    font-size: 20px;
   }
   .center {
     flex: 5.5;
     height: 100%;
     text-align: center;
-    font-size: 0.36rem;
+    font-size: 18px;
   }
   .right {
     flex: 1;

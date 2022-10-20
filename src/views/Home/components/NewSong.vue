@@ -22,7 +22,9 @@ const getPersonalizedNewsongData = async () => {
       name: item.name,
       picUrl: item.picUrl,
       artist: item.song.artists[0].name,
-      mvid: item.song.mvid
+      mvid: item.song.mvid,
+      sq: item.song.sqMusic,
+      fee: item.song.fee
     }
   })
 }

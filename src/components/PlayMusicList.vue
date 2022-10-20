@@ -32,7 +32,11 @@ const deleteIndexOfMusic = (index) => {
       <div class="right">
         <div class="right-name" @click="playIndexOfMusic(index, true)">
           <div class="name">{{item.name}}</div>
-          <div class="tips">{{item.artist}}</div>
+          <div class="tips">
+            <van-tag v-if="item.sq" plain color="#57BEAD">SQ</van-tag>
+            <van-tag v-if="item.fee===1" plain color="#57BEAD">VIP</van-tag>
+            {{item.artist}}
+          </div>
         </div>
 
         <div class="right-btn">
@@ -91,6 +95,10 @@ const deleteIndexOfMusic = (index) => {
         }
         .tips {
           color: @textColor;
+          .van-tag {
+            line-height: 1.1;
+            margin-right: 0.05rem;
+          }
         }
       }
 

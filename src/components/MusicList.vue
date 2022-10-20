@@ -43,7 +43,11 @@ const clickMV = async (item) => {
       <div class="right">
         <div class="right-name" @click="playMusic(props.data, index, true)">
           <div class="name">{{item.name}}</div>
-          <div class="tips">{{item.artist}}</div>
+          <div class="tips">
+            <van-tag v-if="item.sq" plain color="#57BEAD">SQ</van-tag>
+            <van-tag v-if="item.fee===1" plain color="#57BEAD">VIP</van-tag>
+            {{item.artist}}
+          </div>
         </div>
         <div class="right-btn">
           <!-- 正在播放 -->
@@ -104,6 +108,10 @@ const clickMV = async (item) => {
         }
         .tips {
           color: @textColor;
+          .van-tag {
+            line-height: 1.2;
+            margin-right: 0.05rem;
+          }
         }
       }
 

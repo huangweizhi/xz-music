@@ -24,7 +24,9 @@ const getArtistsData = async () => {
       name: item.name,
       picUrl: item.al.picUrl,
       artist: item.ar[0].name,
-      mvid: item.mv
+      mvid: item.mv,
+      sq: item.sq,
+      fee: item.fee
     }
   })
 }

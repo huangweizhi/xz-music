@@ -185,7 +185,7 @@ watch(currentTime, ()=> {
 
       .name {
         color: @textHightColor;
-        font-size: 0.3rem;
+        font-size: 15px;
         
         overflow: hidden;
         text-overflow: ellipsis;
@@ -195,6 +195,8 @@ watch(currentTime, ()=> {
         -webkit-box-orient: vertical;
       }
       .artist {
+        font-size: 13px;
+        
         overflow: hidden;
         text-overflow: ellipsis;
         display: -webkit-box;
@@ -206,7 +208,7 @@ watch(currentTime, ()=> {
   }
 
   .right {
-    font-size: 0.45rem;
+    font-size: 22.5px;
     padding: 0 10px;
     width: 45%;
     display: flex;
