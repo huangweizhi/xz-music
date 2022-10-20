@@ -67,6 +67,7 @@ const deleteIndexOfMusic = (index) => {
         height: 1rem;
         line-height: 1rem;
         font-size: 0.3rem;
+        color: @textColor;
       }
       .icon {
         margin-top: 0.3rem;
@@ -88,12 +89,16 @@ const deleteIndexOfMusic = (index) => {
           color: @textHightColor;
           font-size: 0.3rem;
         }
+        .tips {
+          color: @textColor;
+        }
       }
 
       .right-btn {
         display: flex;
         flex-wrap: nowrap;
         font-size: 0.4rem;
+        color: @textLowColor;
       }
       
     }

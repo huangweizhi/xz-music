@@ -29,7 +29,13 @@ const toDetail = (id) => {
   <BetterScroll class="better-scroll">
     <div class="play-list">
       <div class="item" v-for="item in palyList">
-        <img :src="item.coverImgUrl + '?imageView&thumbnail=100y100'" alt="" @click="toDetail(item.id)" />
+        <van-image
+          width="2.2rem"
+          height="2.2rem"
+          radius="0.2rem"
+          :src="item.coverImgUrl + '?imageView&thumbnail=100y100'"
+          @click="toDetail(item.id)"
+        />
         <div>{{item.name}}</div>
       </div>
     </div>
@@ -40,24 +46,19 @@ const toDetail = (id) => {
 .play-list {
   width: 100%;
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-around;
   flex-wrap: wrap;
   overflow-y: scroll;
   padding: 0.1rem 0;
 
   .item {
-    width: 33.33%;
+    width: 2.2rem;
     text-align: center;
-    margin: 0.1rem 0;
-
-    img {
-      width: 2rem;
-      height: 2rem;
-    }
+    margin: 0.1rem 0 0.2rem 0;
 
     div {
       height: 0.7rem;
-      width: 2rem;
+      width: 2.2rem;
       overflow: hidden;
       line-height: 0.35rem;
 

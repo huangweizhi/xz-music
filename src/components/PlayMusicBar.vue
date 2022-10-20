@@ -76,7 +76,7 @@ watch(currentTime, ()=> {
       </div>
       <div class="text">
         <div class="name">{{playingList[playingIndex].name}}</div>
-        <div>{{playingList[playingIndex].artist}}</div>
+        <div class="artist">{{playingList[playingIndex].artist}}</div>
       </div>
     </div>
     
@@ -187,6 +187,14 @@ watch(currentTime, ()=> {
         color: @textHightColor;
         font-size: 0.3rem;
         
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        word-break: break-all;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+      }
+      .artist {
         overflow: hidden;
         text-overflow: ellipsis;
         display: -webkit-box;

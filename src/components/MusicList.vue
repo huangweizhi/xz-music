@@ -30,7 +30,13 @@ const clickMV = async (item) => {
   <div class="song-list">
     <div class="item" v-for="(item, index) in props.data" :key="item.id">
       <div class="left" @click="playMusic(props.data, index, true)">
-        <img v-if="props.showImg" :src="item.picUrl + '?imageView&thumbnail=50y50'" />
+        <van-image
+          v-if="props.showImg"
+          width="1rem"
+          height="1rem"
+          radius="0.1rem"
+          :src="item.picUrl + '?imageView&thumbnail=50y50'"
+        />
         <div v-else class="index">{{index+1}}</div>
       </div>
 
@@ -72,17 +78,13 @@ const clickMV = async (item) => {
     .left {
       width: 1rem;
       height: 1rem;
-      img {
-        width: 100%;
-        height: 100%;
-        border-radius: 0.1rem;
-      }
       .index {
         width: 100%;
         height: 100%;
         text-align: center;
         line-height: 1rem;
         font-size: 0.3rem;
+        color: @textColor;
       }
     }
 
@@ -100,12 +102,16 @@ const clickMV = async (item) => {
           color: @textHightColor;
           font-size: 0.3rem;
         }
+        .tips {
+          color: @textColor;
+        }
       }
 
       .right-btn {
         display: flex;
         flex-wrap: nowrap;
         font-size: 0.4rem;
+        color: @textColor;
         * {
           margin-left: 0.2rem;
         }

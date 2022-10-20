@@ -36,7 +36,12 @@ const getPlayListDetailData = async (id) => {
   <div class="play-list-detail">
     <!-- 歌单简介 -->
     <div class="header">
-      <img :src="playListDetail.coverImgUrl + '?imageView&thumbnail=100y100'" alt="" />
+      <van-image
+        width="2.6rem"
+        height="2.6rem"
+        radius="0.3rem"
+        :src="playListDetail.coverImgUrl + '?imageView&thumbnail=100y100'"
+      />
       <div class="right">
         <div class="title">{{playListDetail.name}}</div>
         <div class="desc">{{playListDetail.description}}</div>
@@ -59,12 +64,6 @@ const getPlayListDetailData = async (id) => {
     display: flex;
     max-height: 2.6rem;
     padding: .3rem 0;
-    
-    img {
-      width: 2.6rem;
-      height: 2.6rem;
-      border-radius: 0.3rem;
-    } 
 
     .right {
       width: 4.5rem;

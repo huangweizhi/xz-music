@@ -29,7 +29,12 @@ const clickItem = (id) => {
     <div class="top-list">
       <div class="item" v-for="item in toplist" :key="item.id" @click="clickItem(item.id)" >
         <div class="left">
-          <img :src="item.coverImgUrl + '?imageView&thumbnail=200y200'" alt="" />
+          <van-image
+            width="2.6rem"
+            height="2.6rem"
+            radius="0.3rem"
+            :src="item.coverImgUrl + '?imageView&thumbnail=200y200'"
+          />
           <div class="update">{{item.updateFrequency}}</div>
         </div>
         <div class="right">
@@ -57,11 +62,6 @@ const clickItem = (id) => {
       width: 2.6rem;
       height: 2.6rem;
       position: relative;
-      img {
-        width: 2.6rem;
-        height: 2.6rem;
-        border-radius: 0.3rem;
-      }
       .update {
         position: absolute;
         bottom: 0.05rem;

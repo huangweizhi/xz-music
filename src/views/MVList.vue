@@ -30,8 +30,13 @@ const clickItem = (item) => {
     <div class="mv">
       <div class="item" v-for="item in mvList" :key="item.id">
         <div class="top">
-          <img :src="item.cover + '?imageView&thumbnail=300y150' " @click="clickItem(item)" />
-          <div>
+          <van-image
+            width="3.4rem"
+            height="1.8rem"
+            :src="item.cover + '?imageView&thumbnail=300y150' " 
+            @click="clickItem(item)"
+          />
+          <div class="play-count">
             <svg class="icon" aria-hidden="true">
               <use xlink:href="#icon-shipinbofangyingpian"></use>
             </svg>
@@ -61,11 +66,7 @@ const clickItem = (item) => {
 
     .top {
       position: relative;
-      img {
-        width: 3.4rem;
-        height: 1.8rem;
-      }
-      div {
+      .play-count {
         position: absolute;
         bottom: 0.2rem;
         left: 0.1rem;

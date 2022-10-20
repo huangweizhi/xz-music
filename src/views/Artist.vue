@@ -35,7 +35,11 @@ const getArtistsData = async () => {
     <div class="artist">
       <!-- 歌手简介 -->
       <div class="image">
-        <img :src="artistDetail.picUrl + '?imageView&thumbnail=355y288' " />
+        <van-image
+          width="7.1rem"
+          height="5.8rem"
+          :src="artistDetail.picUrl + '?imageView&thumbnail=355y288' "
+        />
         <div class="name">{{artistDetail.name}}</div>
       </div>
       <div class="desc">
@@ -55,11 +59,6 @@ const getArtistsData = async () => {
   .image {
     position: relative;
     width: 100%;
-    height: 5.8rem;
-
-    img {
-      width: 100%;
-    }
     .name {
       position: absolute;
       left: 0.3rem;
