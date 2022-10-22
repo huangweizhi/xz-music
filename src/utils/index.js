@@ -3,24 +3,55 @@
  * 歌词数据格式转换
  * @param {String} lrc 歌词
  */
+
+//  lrc 歌词
+//  [00:00.000] 作词 : 王文清
+//  [00:30.00]当你说要走 我不想挥手的时候
+//  [03:44.00][03:13.00][01:48.00]还是忘了你忘了我
+
+// return
+// [
+//   {
+//       "startTime": 0,
+//       "lrcstr": " 作词 : 王文清",
+//       "endTime": 1
+//   },
+//   {
+//       "startTime": 30,
+//       "lrcstr": "当你说要走 我不想挥手的时候",
+//       "endTime": 36
+//   },
+//   {
+//       "startTime": 224,
+//       "lrcstr": "还是忘了你忘了我",
+//       "endTime": 9999
+//   }
+// ]
 export const setLyric = (lrc) => {
   const res = []
   const lrcList = lrc.split('\n')
-  const reg = /\[\d{2}:\d{2}\.\d{2,3}\]/
+  const reg = /\[\d{2}:\d{2}\.\d{2,3}\]/g
+
   lrcList.forEach(item => {
     // 取出时间
-    let itemdate = item.match(reg)
-    if(itemdate) {
-      itemdate = itemdate[0]
-      itemdate = itemdate.slice(1, -1)
-      const timelist = itemdate.split(':')
-      // 时间值
-      const startTime = parseInt(timelist[0])*60 + parseInt(timelist[1])
-      // 歌词
-      const lrcstr = item.replace(reg, '')
-      res.push({startTime, lrcstr})
+    let dateList = item.match(reg)
+    if(dateList) {
+      dateList.forEach(itemdate => {
+        itemdate = itemdate.slice(1, -1)
+        const timelist = itemdate.split(':')
+        // 开始时间
+        const startTime = parseInt(timelist[0])*60 + parseInt(timelist[1])
+        // 歌词
+        const lrcstr = item.replace(reg, '')
+        res.push({startTime, lrcstr})
+      })
     }
   })
+  // 歌词排序按startTime属性进行排序
+  res.sort((a,b)=>{
+    return a.startTime - b.startTime
+  })
+  // 歌词添加结束时间
   res.forEach((item, index) => {
     if(index < res.length-1) {
       item.endTime = res[index+1].startTime
@@ -29,7 +60,6 @@ export const setLyric = (lrc) => {
     }
   })
   return res
-  
 }
 
 /**

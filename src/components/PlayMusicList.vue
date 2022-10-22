@@ -92,6 +92,13 @@ const deleteIndexOfMusic = (index) => {
         .name {
           color: @textHightColor;
           font-size: 0.3rem;
+
+          overflow: hidden;
+          text-overflow: ellipsis;
+          display: -webkit-box;
+          word-break: break-all;
+          -webkit-line-clamp: 1;
+          -webkit-box-orient: vertical;
         }
         .tips {
           color: @textColor;
