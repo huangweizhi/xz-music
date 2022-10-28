@@ -1,7 +1,7 @@
 <script setup>
 import { ref, watch } from 'vue' 
 import { useRouter, useRoute } from 'vue-router'
-import PlayMusicBar from '@/components/PlayMusicBar.vue'
+import PlayMusicBar from '@/views/PlayMusicBar/PlayMusicBar.vue'
 import TopBar from '@/components/TopBar.vue'
 
 const route = useRoute()
@@ -64,7 +64,7 @@ watch(
   <TopBar :title="route.meta.name" v-if="hasHeader"></TopBar>
 
   <!-- 页面内容 -->
-  <div :class="{'container': true, 'container-other': hasHeader}">
+  <div :class="{'container': true, 'container-t-p': showTabbar, 'container-p-h': hasHeader, 'container-p': !hasHeader&&!showTabbar}">
     <router-view v-slot="{ Component }">
       <keep-alive :include="cachedViews">
         <component :is="Component" />
@@ -73,7 +73,7 @@ watch(
   </div>
 
   <!-- 正在播放的音乐 PlayMusicBar -->
-  <PlayMusicBar :class="{'play-music-bar': true, 'play-music-bar-other': hasHeader}"></PlayMusicBar>
+  <PlayMusicBar :class="{'play-music-bar-50': true, 'play-music-bar-0': !showTabbar}"></PlayMusicBar>
 
   <!-- 底部标签栏 -->
   <van-tabbar v-model="activeIndex" @change="onChange" v-if="showTabbar"
@@ -86,26 +86,30 @@ watch(
 <style lang="less" scoped>
 .container {
   width: 7.5rem;
-  height: calc(100vh - 100px); // 减去Tabbar+PlayMusicBar
   overflow: hidden;
   padding: 0 0.2rem;
   box-sizing: border-box;
   background-color: @backgroundColor;
 }
-.container-other {
-  height: calc(100vh - 100px); // 减去TopBar+Tabbar
+.container-t-p {
+  height: calc(100vh - 100px); // 减去Tabbar+PlayMusicBar
+}
+.container-p-h {
+  height: calc(100vh - 100px); // 减去PlayMusicBar+TopBar
+}
+.container-p {
+  height: calc(100vh - 50px); // 减去PlayMusicBar
 }
 
-.play-music-bar {
+.play-music-bar-50 { // 有tabbar
   position: fixed;
   bottom: 50px;
   margin: 0 0.25rem;
   transition: bottom 0.5s;
-}
-.play-music-bar-other {
-  bottom: 0;
-  transition: bottom 0.5s;
   background-color: #fff;
+}
+.play-music-bar-0 { // 无tabbar
+  bottom: 0;
 }
 </style>
     

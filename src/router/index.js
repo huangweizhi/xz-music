@@ -74,7 +74,7 @@ const routes = [
         name: 'Search',
         component: () => import('@/views/Search/Search.vue'),
         meta: {
-          header: true,
+          header: false,
           name: '搜索',
           keepAlive: true
         }
