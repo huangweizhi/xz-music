@@ -1,6 +1,5 @@
 <script setup>
 import { useRouter } from 'vue-router'
-import SearchBar from '@/components/SearchBar.vue'
 import Banner from './components/Banner.vue'
 import Category from './components/Category.vue'
 import TopArtists from './components/TopArtists.vue'
@@ -15,13 +14,20 @@ const clickInput = () => {
 
 <template>
   <!-- 搜索 -->
-  <SearchBar @clickInput="clickInput">
-    <template v-slot:left>
+  <div class="search-bar">
+    <div class="bar-left">
       <svg class="icon" aria-hidden="true">
         <use xlink:href="#icon-lisimoshicaidandaohang"></use>
       </svg>
-    </template>
-  </SearchBar>
+    </div>
+    <div class="bar-search">
+      <van-search
+        shape="round"
+        placeholder="搜索"
+        @clickInput="clickInput"
+      />
+    </div>
+  </div>
 
   <BetterScroll class="better-scroll">
     <!-- 轮播图 -->
@@ -38,6 +44,24 @@ const clickInput = () => {
 </template>
 
 <style lang="less" scoped>
+.search-bar {
+  width: 100%;
+  height: 54px;
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  background-color: #fff;
+
+  .bar-search {
+    flex: 8;
+  }
+  .bar-left {
+    flex: 1;
+    color: @textColor;
+    font-size: 0.45rem;
+    text-align: center;
+  }
+}
 .better-scroll {
   height: calc(100% - 54px);
 }
