@@ -1,13 +1,25 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, toRefs } from 'vue'
 import { useRoute } from 'vue-router'
+import { useMusicStore } from '@/stores'
 import { getMVUrl, getMVDetail } from '@/api'
 
+const musicStore = useMusicStore()
+const {isPlaying} = toRefs(musicStore)
+
 const route = useRoute()
+const video = ref(null)
 
 onMounted(() => {
   getMVUrlData()
   getMVDetailData()
+  // video
+  video.value.addEventListener('play', (e) => {
+    // 暂停正在播放的音乐
+    if(isPlaying) {
+      musicStore.updateIsPlaying(false)
+    }
+  }, false)
 })
 
 // mv 地址
@@ -31,7 +43,7 @@ const getMVDetailData = async () => {
 <template>
   <!-- mv -->
   <div class="mv">
-    <video :src="mvUrl" controls="controls" controlslist="nodownload"></video>
+    <video ref="video" :src="mvUrl" controls="controls" controlslist="nodownload"></video>
     <div class="detail" v-if="mvDetail.name">
       <div class="artist">
         <img :src="mvDetail.artists[0].img1v1Url + '?imageView&thumbnail=50y50' " alt="" />

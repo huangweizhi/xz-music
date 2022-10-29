@@ -2,7 +2,7 @@
 import { ref, onBeforeMount } from 'vue'
 import { useRouter } from 'vue-router'
 import Title from '@/components/Title.vue'
-import ScrollItem from '@/components/ScrollItem.vue'
+import ItemScrollX from '@/components/ItemScrollX.vue'
 
 import { getTopArtists } from '@/api'
 
@@ -28,7 +28,7 @@ const getTopArtistsData = async () => {
 
 <template>
   <Title name="热门歌手"></Title>
-  <scroll-item class="scroll-item" :data="artists" @clickItem="clickItem"></scroll-item>
+  <ItemScrollX class="scroll-item" :data="artists" @clickItem="clickItem"></ItemScrollX>
 </template>
 
 <style lang="less" scoped>

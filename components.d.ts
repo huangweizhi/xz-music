@@ -14,7 +14,7 @@ declare module '@vue/runtime-core' {
     PlayMusicList: typeof import('./src/components/PlayMusicList.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
-    ScrollItem: typeof import('./src/components/ScrollItem.vue')['default']
+    ScrollItem: typeof import('./src/components/ItemScrollX.vue')['default']
     Title: typeof import('./src/components/Title.vue')['default']
     TopBar: typeof import('./src/components/TopBar.vue')['default']
     VanActionSheet: typeof import('vant/es')['ActionSheet']
