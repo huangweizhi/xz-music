@@ -1,8 +1,9 @@
 <script setup>
-import { toRefs, onMounted } from 'vue'
+import { toRefs, onMounted, ref } from 'vue'
 import { useUserStore, useMusicStore } from '@/stores'
-import { logout, loginStatus } from '@/api/user'
+import { logout, loginStatus, getUserPlaylist } from '@/api/user'
 import { Dialog } from 'vant'
+import PlaylistList from '@/components/PlaylistList.vue'
 
 const userStore = useUserStore()
 const musicStore = useMusicStore()
@@ -36,37 +37,60 @@ const getLoginStatus = async () => {
   // 已登录
   if(res.profile) return
   // 没有登录
-  if(user.profile) {
+  if(user.value.profile) {
     userStore.removeUser()
     userStore.removeToken()
   }
 }
 
+// 获取用户歌单
+const likelist = ref([])
+const createlist = ref([])
+const collectlist = ref([])
+const getUserPlaylistData = async () => {
+  const res = await getUserPlaylist(user.value.account.id)
+  if(res.code !== 200) return 
+  likelist.value = res.playlist.slice(0, 1)
+  createlist.value = res.playlist.slice(1).filter(item => {
+    return user.value.profile.userId === item.creator.userId
+  })
+  collectlist.value = res.playlist.slice(1).filter(item => {
+    return user.value.profile.userId !== item.creator.userId
+  })
+}
+
 onMounted(()=> {
   getLoginStatus()
+  getUserPlaylistData()
 })
 
 </script>
 
 <template>
-  <!-- 用户信息 -->
   <BetterScroll class="better-scroll">
+    <!-- 用户信息 -->
     <div class="user-info">
-      <div v-if="user && user.profile">
+      <div class="content" v-if="user && user.profile">
         <van-image
           round
-          width="2rem"
-          height="2rem"
+          width="1.6rem"
+          height="1.6rem"
           :src="user.profile.avatarUrl"
         />
-        <p>{{user.account.userName}}</p>
-        <p>{{user.profile.nickname}}</p>
+        <div class="name">
+          <h3>{{user.profile.nickname}}</h3>
+        </div>
       </div>
 
       <div class="logout" @click="doLogout">
         <span>退出</span>
       </div>
     </div>
+
+    <!-- 用户歌单 -->
+    <PlaylistList class="playlist" :data="likelist"></PlaylistList>
+    <PlaylistList class="playlist" :data="createlist" title="创建歌单" :tool="{'add': true}"></PlaylistList>
+    <PlaylistList class="playlist" :data="collectlist" title="收藏歌单" :tool="{'add': false}"></PlaylistList>
   </BetterScroll>
 </template>
 
@@ -74,16 +98,32 @@ onMounted(()=> {
 .user-info {
   position: relative;
   width: 100%;
-  padding: 100px 0;
+  margin: 0.3rem 0 0.4rem 0;
   text-align: center;
+  background-color: #fff;
+  border-radius: 0.2rem;
+
+  .content {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 0.1rem 0.2rem;
+    .name h3 {
+      margin: 0.2rem;
+    }
+  }
   .logout {
     position: absolute;
-    top: 0.4rem;
+    top: 0.1rem;
     right: 0.2rem;
     padding: 0.1rem;
     font-size: 0.3rem;
     color: @theme-color;
   }
+}
+
+.playlist {
+  margin-bottom: 0.3rem;
 }
 </style>
     

@@ -1,7 +1,7 @@
 import request from '@/utils/request'
 
 /**
- * 发生验证码
+ * 发送验证码
  * @param {Number} phone 手机号
  */
 export function sentCaptcha(phone) {
@@ -47,5 +47,100 @@ export function sentCaptcha(phone) {
   return request({
     url: '/login/status',
     method: 'get'
+  })
+}
+
+/**
+ * 获取用户歌单
+ * @param {Number} uid 用户 id
+ * @param {Number} limit 
+ * @param {Number} offset 
+ */
+ export function getUserPlaylist(uid, limit=30, offset=0) {
+  return request({
+    url: '/user/playlist',
+    method: 'get',
+    params: {
+      uid,
+      limit,
+      offset
+    }
+  })
+}
+
+/**
+ * 喜欢音乐
+ * @param {Number} id 歌曲 id
+ * @param {Boolean} like  默认为 true 即喜欢 , 若传 false, 则取消喜欢
+ */
+ export function like(id, like=true) {
+  return request({
+    url: '/like',
+    method: 'get',
+    params: {
+      id,
+      like
+    }
+  })
+}
+
+/**
+ * 获取喜欢音乐列表
+ */
+ export function getLikelist(uid) {
+  return request({
+    url: '/likelist',
+    method: 'get',
+    params: {
+      uid
+    }
+  })
+}
+
+/**
+ * 新建歌单
+ * @param {Number} name 歌单名
+ * @param {Number} privacy 是否设置为隐私歌单，默认否，传'10'则设置成隐私歌单
+ * @param {String} type 歌单类型,默认'NORMAL',传 'VIDEO'则为视频歌单,传 'SHARED'则为共享歌单
+ */
+ export function createPlaylist(name, type='NORMAL', privacy) {
+  const data = {
+    name,
+    type
+  }
+  if(privacy) data.privacy = privacy
+  return request({
+    url: '/playlist/create',
+    method: 'get',
+    params: data
+  })
+}
+
+/**
+ * 删除歌单
+ * @param {Number} id 歌单 id,可多个,用逗号隔开
+ */
+ export function deletePlaylist(id) {
+  return request({
+    url: '/playlist/delete',
+    method: 'get',
+    params: {
+      id
+    }
+  })
+}
+
+/**
+ * 收藏/取消收藏歌单
+ * @param {Number} t 类型,1:收藏,2:取消收藏
+ * @param {Number} id 歌单 id
+ */
+ export function subscribePlaylist(t) {
+  return request({
+    url: '/playlist/subscribe',
+    method: 'get',
+    params: {
+      t
+    }
   })
 }
