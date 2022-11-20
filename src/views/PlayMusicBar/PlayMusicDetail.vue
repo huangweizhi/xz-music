@@ -1,9 +1,10 @@
 <script setup>
-import { ref, toRefs, watch, computed, defineEmits } from 'vue'
+import { ref, toRefs, watch, computed, defineEmits, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
-import { useMusicStore } from '@/stores'
+import { useMusicStore, useUserStore } from '@/stores'
 import PlayMusicList from './PlayMusicList.vue'
 import { getLyric } from '@/api'
+import { like, getLikelist } from '@/api/user'
 import { setLyric, formatSeconds } from '@/utils'
 import { Toast } from 'vant'
 
@@ -11,6 +12,9 @@ const router = useRouter()
 
 const musicStore = useMusicStore()
 const {playingList, playingIndex, isPlaying, lyricList, currentTime, duration} = toRefs(musicStore)
+
+const userStore = useUserStore()
+const { user } = toRefs(userStore)
 
 // 更新 播放 || 暂停 状态
 const clickPlay = (isPlaying) => {
@@ -129,6 +133,32 @@ const clickMV = async () => {
   }
 }
 
+// 喜欢歌曲列表
+const likeIds = ref([])
+const getLikelistData = async () => {
+  const res = await getLikelist(user.value.profile.userId)
+  if(res.code !== 200) return
+  likeIds.value = res.ids
+}
+// 喜欢或取消喜欢
+const likeMusic = async (value) => {
+  const res = await like(playingList.value[playingIndex.value].id, value)
+  if(res.code !== 200) return Toast('取消喜欢失败')
+  // 更新数据
+  // getLikelistData()
+  if(value) {
+    likeIds.value.push(playingList.value[playingIndex.value].id)
+  }else {
+    likeIds.value = likeIds.value.filter(item => {
+      return item !== playingList.value[playingIndex.value].id
+    })
+  }
+}
+
+onMounted(()=> {
+  getLikelistData()
+})
+
 </script>
 
 <template>
@@ -161,6 +191,41 @@ const clickMV = async () => {
 
     <!-- 底部 -->
     <div class="footer">
+      <!-- 按钮 上 -->
+      <div class="tool-bar">
+        <!-- 喜欢 -->
+        <div>
+          <svg v-if="likeIds.indexOf(playingList[playingIndex].id) == -1" class="icon" aria-hidden="true" @click="likeMusic(true)">
+            <use xlink:href="#icon-xin"></use>
+          </svg>
+          <svg v-else class="icon" style="color: #57BEAD;" aria-hidden="true" @click="likeMusic(false)">
+            <use xlink:href="#icon-xin2"></use>
+          </svg>
+        </div>
+        <!-- MV -->
+        <div>
+          <svg v-if="playingList[playingIndex].mvid" class="icon" aria-hidden="true" @click="clickMV">
+            <use xlink:href="#icon-shipinbofangyingpian"></use>
+          </svg>
+          <svg v-else class="icon" style="color: #696969;" aria-hidden="true">
+            <use xlink:href="#icon-shipinbofangyingpian"></use>
+          </svg>
+        </div>
+        <div></div>
+        <!-- 评论 -->
+        <div>
+          <svg class="icon" aria-hidden="true" @click="">
+            <use xlink:href="#icon-xiaoxi"></use>
+          </svg>
+        </div>
+        <!-- 详情 -->
+        <div>
+          <svg class="icon" aria-hidden="true" @click="">
+            <use xlink:href="#icon-gengduo-10"></use>
+          </svg>
+        </div>
+      </div>
+
       <!-- 进度条 -->
       <div class="time-bar">
         <div class="text">{{getCurrentTime || '00:00'}}</div>
@@ -170,15 +235,12 @@ const clickMV = async () => {
         <div class="text">{{getEndTime  || '00:00'}}</div>
       </div>
 
-      <!-- 按钮 -->
+      <!-- 按钮 下 -->
       <div class="tool-bar">
-        <!-- MV -->
+        <!-- 播放模式 -->
         <div>
-          <svg v-if="playingList[playingIndex].mvid" class="icon" aria-hidden="true" @click="clickMV">
-            <use xlink:href="#icon-shipinbofangyingpian"></use>
-          </svg>
-          <svg v-else class="icon" style="color: #696969;" aria-hidden="true">
-            <use xlink:href="#icon-shipinbofangyingpian"></use>
+          <svg class="icon" aria-hidden="true" @click="">
+            <use xlink:href="#icon-xunhuanbofang"></use>
           </svg>
         </div>
         <!-- 上一首 -->
@@ -323,7 +385,7 @@ const clickMV = async () => {
   .lyric {
     width: 100%;
     position: relative;
-    height: calc(100vh - 4.3rem);
+    height: calc(100vh - 5.3rem);
     margin: 1.5rem 0;
     text-align: center;
     padding: 0 0.3rem;

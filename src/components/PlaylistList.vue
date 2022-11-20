@@ -1,9 +1,11 @@
 <script setup>
-import { defineProps } from 'vue'
+import { defineProps, defineEmits } from 'vue'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
 const props = defineProps({ data: Array, title: String, tool: Object })
+
+const emits = defineEmits(['clickAdd', 'clickMore', 'clickDelete'])
 
 // 点击歌单
 const clickPlaylist = async (item) => {
@@ -11,48 +13,72 @@ const clickPlaylist = async (item) => {
   router.push(`/playlist/${id}`)
 }
 
+// 点击添加
+const clickAdd = () => {
+  emits('clickAdd')
+}
+
+// 点击更多
+const clickMore = () => {
+  emits('clickMore')
+}
+
+// 点击删除
+const clickDelete = (item, index) => {
+  emits('clickDelete', {item, index})
+}
+
 </script>
 
 <template>
-  <div class="song-list">
+  <div class="play-list">
+    <!-- 头部标题&&按钮 -->
     <div class="top" v-if="props.title">
       <div>{{props.title}}</div>
       <div class="btn" v-if="props.tool">
-        <svg v-if="props.tool.add" class="icon" aria-hidden="true">
+        <svg v-if="props.tool.add" class="icon" aria-hidden="true" @click="clickAdd">
           <use xlink:href="#icon-tianjia1"></use>
         </svg>
-        <svg class="icon" aria-hidden="true">
+        <svg class="icon" aria-hidden="true" @click="clickMore">
           <use xlink:href="#icon-gengduo-10"></use>
         </svg>
       </div>
     </div>
-    <div class="item" v-for="item in props.data" :key="item.id">
-      <div class="left" @click="clickPlaylist(item)">
-        <van-image
-          width="1rem"
-          height="1rem"
-          radius="0.1rem"
-          :src="item.coverImgUrl + '?imageView&thumbnail=50y50'"
-        />
-      </div>
 
-      <div class="right">
-        <div class="right-name" @click="clickPlaylist(item)">
-          <div class="name">{{item.name}}</div>
-          <div class="tips">
-            {{item.trackCount}}首
+    <!-- 内容 -->
+    <van-swipe-cell v-for="(item, index) in props.data" :key="item.id">
+      <div class="item">
+        <div class="left" @click="clickPlaylist(item)">
+          <van-image
+            width="1rem"
+            height="1rem"
+            radius="0.1rem"
+            :src="item.coverImgUrl + '?imageView&thumbnail=50y50'"
+          />
+        </div>
+
+        <div class="right">
+          <div class="right-name" @click="clickPlaylist(item)">
+            <div class="name">{{item.name}}</div>
+            <div class="tips">
+              {{item.trackCount}}首
+            </div>
+          </div>
+          <div class="right-btn">
+            
           </div>
         </div>
-        <div class="right-btn">
-          
-        </div>
       </div>
-    </div>
+      <!-- 删除 -->
+      <template #right v-if="props.title">
+        <van-button square type="danger" text="删除" @click="clickDelete(item, index)" />
+      </template>
+    </van-swipe-cell>
   </div>
 </template>
 
 <style lang="less" scoped>
-.song-list {
+.play-list {
   width: 100%;
   display: flex;
   justify-content: start;
@@ -74,9 +100,13 @@ const clickPlaylist = async (item) => {
     }
   }
 
+  .van-swipe-cell {
+    width: 100%;
+  }
   .item {
     display: flex;
     width: 100%;
+    min-height: 1rem;
     margin: 0.1rem 0;
 
     .left {

@@ -135,11 +135,12 @@ export function sentCaptcha(phone) {
  * @param {Number} t 类型,1:收藏,2:取消收藏
  * @param {Number} id 歌单 id
  */
- export function subscribePlaylist(t) {
+ export function subscribePlaylist(id, t) {
   return request({
     url: '/playlist/subscribe',
     method: 'get',
     params: {
+      id,
       t
     }
   })
