@@ -290,17 +290,14 @@ onMounted(()=> {
   border-radius: 0.2rem;
 
   .content {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    padding: 0.1rem 0.2rem;
+    padding: 0.4rem 0.2rem 0.2rem 0.2rem;
     .name h3 {
       margin: 0.2rem;
     }
   }
   .logout {
     position: absolute;
-    top: 0.1rem;
+    top: 0.4rem;
     right: 0.2rem;
     padding: 0.1rem;
     font-size: 0.4rem;

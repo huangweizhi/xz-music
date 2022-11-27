@@ -3,6 +3,7 @@ import { ref, toRefs, watch, computed, defineEmits, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useMusicStore, useUserStore } from '@/stores'
 import PlayMusicList from './PlayMusicList.vue'
+import Comment from '@/components/Comment.vue'
 import { getLyric } from '@/api'
 import { setLyric, formatSeconds } from '@/utils'
 import { Toast } from 'vant'
@@ -141,6 +142,16 @@ const likeMusic = async (value) => {
   userStore.likeMusic(playingList.value[playingIndex.value].id, value)
 }
 
+// 评论
+const commentVisible = ref(false)
+const showComment = () => {
+  commentVisible.value = true
+}
+const closeComment = () => {
+  commentVisible.value = false
+}
+
+
 onMounted(()=> {
   getLikelist()
 })
@@ -200,7 +211,7 @@ onMounted(()=> {
         <div></div>
         <!-- 评论 -->
         <div>
-          <svg class="icon" aria-hidden="true" @click="">
+          <svg class="icon" aria-hidden="true" @click="showComment">
             <use xlink:href="#icon-xiaoxi"></use>
           </svg>
         </div>
@@ -271,6 +282,24 @@ onMounted(()=> {
         </BetterScroll>
       </div>
     </van-action-sheet>
+
+    <!-- 评论 -->
+    <van-popup
+      v-if="commentVisible"
+      v-model:show="commentVisible"
+      position="bottom"
+      :style="{ height: '100%' }"
+      :lock-scroll="false"
+    >
+      <div class="top-bar">
+        <div class="left">
+          <van-icon name="arrow-left" @click="closeComment" />
+        </div>
+        <div class="center">评论</div>
+        <div class="right"></div>
+      </div>
+      <Comment class="comment" :id="playingList[playingIndex].id" type="music" />
+    </van-popup>
   </div>
 </template>
 
@@ -437,6 +466,40 @@ onMounted(()=> {
   padding: 0 0.1rem;
   box-sizing: border-box;
   overflow: hidden;
+}
+
+.top-bar {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: nowrap;
+  height: 50px;
+  width: 100%;
+  line-height: 50px;
+  color: @textHightColor;
+  background-color: @backgroundHightColor;
+
+  .left {
+    flex: 1;
+    height: 100%;
+    text-align: center;
+    font-size: 20px;
+  }
+  .center {
+    flex: 5.5;
+    height: 100%;
+    text-align: center;
+    font-size: 18px;
+  }
+  .right {
+    flex: 1;
+    height: 100%;
+  }
+}
+
+.comment {
+  height: calc(100% - 50px);
+  width: 100%;
 }
 
 </style>

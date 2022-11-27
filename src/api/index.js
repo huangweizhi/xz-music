@@ -263,3 +263,47 @@ import request from '@/utils/request'
     }
  })
 }
+
+/**
+ * 获取 歌曲评论
+ * @param {Number} id 音乐 id
+ * @param {Number} limit 取出评论数量 , 默认为 20
+ * @param {Number} offset 偏移数量 , 用于分页 , 如 :( 评论页数 -1)*20, 其中 20 为 limit 的值
+ * @param {Number} before 分页参数,取上一页最后一项的 time 获取下一页数据(获取超过 5000 条评论的时候需要用到)
+ * @returns 
+ */
+ export function getCommentMusic(id, limit=20, offset=0, before) {
+  return request({
+    url: '/comment/music',
+    method: 'get',
+    params: {
+      id,
+      limit,
+      offset,
+      before
+    }
+ })
+}
+
+/**
+ * 获取 楼层评论
+ * @param {Number} parentCommentId 楼层评论 id
+ * @param {Number} id 资源 id
+ * @param {Number} type 资源类型 0: 歌曲1: mv2: 歌单3: 专辑4: 电台节目5: 视频6: 动态7: 电台
+ * @param {Number} limit 取出评论数量 , 默认为 20
+ * @param {Number} time 分页参数,取上一页最后一项的 time 获取下一页数据
+ * @returns 
+ */
+ export function getCommentFloor(parentCommentId, id, type, limit, time) {
+  return request({
+    url: '/comment/floor',
+    method: 'get',
+    params: {
+      parentCommentId,
+      id,
+      limit,
+      type,
+      time
+    }
+ })
+}
