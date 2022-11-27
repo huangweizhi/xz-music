@@ -71,7 +71,7 @@ const clickDelete = (item, index) => {
       </div>
       <!-- 删除 -->
       <template #right v-if="props.title">
-        <van-button square type="danger" text="删除" @click="clickDelete(item, index)" />
+        <van-button style="margin-left: 1px;" square type="danger" text="删除" @click="clickDelete(item, index)" />
       </template>
     </van-swipe-cell>
   </div>

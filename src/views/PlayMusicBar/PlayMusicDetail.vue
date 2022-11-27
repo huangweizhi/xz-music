@@ -4,7 +4,6 @@ import { useRouter } from 'vue-router'
 import { useMusicStore, useUserStore } from '@/stores'
 import PlayMusicList from './PlayMusicList.vue'
 import { getLyric } from '@/api'
-import { like, getLikelist } from '@/api/user'
 import { setLyric, formatSeconds } from '@/utils'
 import { Toast } from 'vant'
 
@@ -14,7 +13,7 @@ const musicStore = useMusicStore()
 const {playingList, playingIndex, isPlaying, lyricList, currentTime, duration} = toRefs(musicStore)
 
 const userStore = useUserStore()
-const { user } = toRefs(userStore)
+const { likeMusicIds } = toRefs(userStore)
 
 // 更新 播放 || 暂停 状态
 const clickPlay = (isPlaying) => {
@@ -134,29 +133,16 @@ const clickMV = async () => {
 }
 
 // 喜欢歌曲列表
-const likeIds = ref([])
-const getLikelistData = async () => {
-  const res = await getLikelist(user.value.profile.userId)
-  if(res.code !== 200) return
-  likeIds.value = res.ids
+const getLikelist = async () => {
+  userStore.getLikelistData()
 }
 // 喜欢或取消喜欢
 const likeMusic = async (value) => {
-  const res = await like(playingList.value[playingIndex.value].id, value)
-  if(res.code !== 200) return Toast('取消喜欢失败')
-  // 更新数据
-  // getLikelistData()
-  if(value) {
-    likeIds.value.push(playingList.value[playingIndex.value].id)
-  }else {
-    likeIds.value = likeIds.value.filter(item => {
-      return item !== playingList.value[playingIndex.value].id
-    })
-  }
+  userStore.likeMusic(playingList.value[playingIndex.value].id, value)
 }
 
 onMounted(()=> {
-  getLikelistData()
+  getLikelist()
 })
 
 </script>
@@ -195,7 +181,7 @@ onMounted(()=> {
       <div class="tool-bar">
         <!-- 喜欢 -->
         <div>
-          <svg v-if="likeIds.indexOf(playingList[playingIndex].id) == -1" class="icon" aria-hidden="true" @click="likeMusic(true)">
+          <svg v-if="likeMusicIds.indexOf(playingList[playingIndex].id) == -1" class="icon" aria-hidden="true" @click="likeMusic(true)">
             <use xlink:href="#icon-xin"></use>
           </svg>
           <svg v-else class="icon" style="color: #57BEAD;" aria-hidden="true" @click="likeMusic(false)">

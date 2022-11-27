@@ -69,35 +69,6 @@ export function sentCaptcha(phone) {
 }
 
 /**
- * 喜欢音乐
- * @param {Number} id 歌曲 id
- * @param {Boolean} like  默认为 true 即喜欢 , 若传 false, 则取消喜欢
- */
- export function like(id, like=true) {
-  return request({
-    url: '/like',
-    method: 'get',
-    params: {
-      id,
-      like
-    }
-  })
-}
-
-/**
- * 获取喜欢音乐列表
- */
- export function getLikelist(uid) {
-  return request({
-    url: '/likelist',
-    method: 'get',
-    params: {
-      uid
-    }
-  })
-}
-
-/**
  * 新建歌单
  * @param {Number} name 歌单名
  * @param {Number} privacy 是否设置为隐私歌单，默认否，传'10'则设置成隐私歌单
@@ -113,6 +84,26 @@ export function sentCaptcha(phone) {
     url: '/playlist/create',
     method: 'get',
     params: data
+  })
+}
+
+/**
+ * 更新歌单
+ * @param {Number} id 歌单id
+ * @param {Number} name 歌单名字
+ * @param {Number} desc 歌单描述
+ * @param {Number} tags 歌单tag ,多个用 `;` 隔开,只能用官方规定标签
+ */
+ export function updatePlaylist(id, name, desc, tags) {
+  return request({
+    url: '/playlist/update',
+    method: 'get',
+    params: {
+      id,
+      name,
+      desc,
+      tags
+    }
   })
 }
 
@@ -142,6 +133,35 @@ export function sentCaptcha(phone) {
     params: {
       id,
       t
+    }
+  })
+}
+
+/**
+ * 喜欢音乐
+ * @param {Number} id 歌曲 id
+ * @param {Boolean} like  默认为 true 即喜欢 , 若传 false, 则取消喜欢
+ */
+ export function like(id, like=true) {
+  return request({
+    url: '/like',
+    method: 'get',
+    params: {
+      id,
+      like
+    }
+  })
+}
+
+/**
+ * 获取喜欢音乐列表
+ */
+ export function getLikelist(uid) {
+  return request({
+    url: '/likelist',
+    method: 'get',
+    params: {
+      uid
     }
   })
 }
