@@ -286,7 +286,6 @@ onMounted(()=> {
   width: 100%;
   margin: 0.3rem 0 0.4rem 0;
   text-align: center;
-  background-color: #fff;
   border-radius: 0.2rem;
 
   .content {

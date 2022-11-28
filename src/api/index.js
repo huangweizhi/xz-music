@@ -220,14 +220,14 @@ import request from '@/utils/request'
  * @param {Number} offset 偏移数量 , 用于分页 , 如 :( 页数 -1)*30, 其中 30 为 limit 的值 , 默认 为 0
  * @returns 
  */
- export function getTopMV(limit=30, area='', offset=0) {
+ export function getTopMV(limit=30, offset=0, area='') {
   return request({
     url: '/top/mv',
     method: 'get',
     params: {
       limit,
-      area,
-      offset
+      offset,
+      area
     }
  })
 }

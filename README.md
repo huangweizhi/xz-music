@@ -38,26 +38,34 @@ $ npm run build
 - 音乐播放
 - 歌词滚动
 - 播放列表
-- 上一首、下一首
+- 播放进度（上一首、下一首、暂停、进度条）
 - 音乐MV
+- 音乐评论
+- 喜欢音乐
 - 排行榜
 - 分类
 - 歌单详情
 - 每日推荐
-- MV
-- 搜索
+- 热门MV
+- 搜索（单曲、歌单、歌手、MV）
 - 热门歌手
 - 推荐歌单
 - 推荐新音乐
-- 游客登录
+- 手机号登录
+- 我的喜欢
+- 创建歌单
+- 收藏歌单
 
 ## 页面展示
 ![image](show/home.png) 
-![image](show/playing1.jpg) 
-![image](show/playing2.jpg) 
+![image](show/playing1.png) 
+![image](show/playing2.png) 
+![image](show/comment.png) 
 ![image](show/playmv.jpg) 
 ![image](show/toplist.jpg) 
 ![image](show/category.jpg) 
-![image](show/playlist.jpg) 
-![image](show/search.jpg) 
+![image](show/playlist.png) 
+![image](show/search.png) 
 ![image](show/artist.jpg) 
+![image](show/login.png) 
+![image](show/user.png) 

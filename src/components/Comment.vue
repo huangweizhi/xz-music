@@ -1,29 +1,43 @@
 <script setup>
 import { ref, onMounted, defineProps } from 'vue'
 import { getCommentMusic } from '@/api'
-import BetterScroll from '@/components/BetterScroll.vue'
 
 const props = defineProps({id: Number, type: String})
 
+// 分页参数
+let offset = 0
+const limit = 20
+
 // 获取音乐评论
 const comments = ref([])
-const hotComments = ref([])
 const getCommentMusicData = async () => {
-  const res = await getCommentMusic(props.id, 50)
-  if(res.code !== 200) return
-  comments.value = res.comments
-  hotComments.value = res.hotComments
-  // console.log(comments.value)
+  const res = await getCommentMusic(props.id, limit, offset)
+  if(res.code !== 200) return false
+  comments.value = [...comments.value, ...res.comments]
+  // 下一页数
+  offset++
+  return true
+}
+
+// 加载下一页
+const betterScroll = ref(null)
+const pullingUp = async () => {
+  const res = await getCommentMusicData()
+  if(res) {
+    betterScroll.value.refresh()
+    betterScroll.value.finishPullUp()
+  }
 }
 
 onMounted(()=> {
   getCommentMusicData()
 })
+
 </script>
 
 <template>
   <div class="comment">
-    <BetterScroll class="better-scroll">
+    <BetterScroll class="better-scroll" @pullingUp="pullingUp" :usePullUp="true" ref="betterScroll">
       <div class="item" v-for="item in comments">
         <!-- 头像 -->
         <div class="left">

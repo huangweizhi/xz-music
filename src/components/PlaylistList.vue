@@ -102,6 +102,7 @@ const clickDelete = (item, index) => {
 
   .van-swipe-cell {
     width: 100%;
+    min-height: 1rem;
   }
   .item {
     display: flex;

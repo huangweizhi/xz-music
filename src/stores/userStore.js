@@ -40,7 +40,10 @@ export default defineStore("user", {
      */
     async getLikelistData() {
       if(this.likeMusicIds.length <= 0) {
-        const res = await getLikelist(this.user.profile.userId)
+        const userId = this.user.profile ? this.user.profile.userId : ''
+        if(!userId) return []
+        
+        const res = await getLikelist(userId)
         if(res.code !== 200) return []
         this.likeMusicIds = res.ids
       }
