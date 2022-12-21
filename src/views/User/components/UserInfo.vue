@@ -55,7 +55,7 @@ const createlist = ref([])
 const collectlist = ref([])
 const getUserPlaylistData = async () => {
   const res = await getUserPlaylist(user.value.account.id)
-  if(res.code !== 200) return 
+  if(res.code !== 200) return
   likelist.value = res.playlist.slice(0, 1)
   createlist.value = res.playlist.slice(1).filter(item => {
     return user.value.profile.userId === item.creator.userId
@@ -167,6 +167,14 @@ const finishM = (type) => {
   }
 }
 
+// 下拉刷新
+const betterScroll = ref(null)
+const pullingDown = async () => {
+  await getUserPlaylistData()
+  betterScroll.value.refresh()
+  betterScroll.value.finishPullDown()
+}
+
 onMounted(()=> {
   getLoginStatus()
   getUserPlaylistData()
@@ -175,7 +183,7 @@ onMounted(()=> {
 </script>
 
 <template>
-  <BetterScroll class="better-scroll">
+  <BetterScroll class="better-scroll" :usePullDown="true" @pullingDown="pullingDown" ref="betterScroll">
     <!-- 用户信息 -->
     <div class="user-info">
       <div class="content" v-if="user && user.profile">

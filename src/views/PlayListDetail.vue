@@ -6,6 +6,7 @@ import { subscribePlaylist, updatePlaylist } from '@/api/user'
 import MusicList from '@/components/MusicList.vue'
 import { Toast } from 'vant'
 import { useUserStore } from '@/stores'
+import { getCount } from '@/utils'
 
 const userStore = useUserStore()
 const { user } = toRefs(userStore)
@@ -84,11 +85,17 @@ const finishUpdate = async () => {
 
         <div class="tool-bar">
           <!-- 收藏 -->
-          <div class="item">
+          <div class="item" v-if="user.profile && playListDetail.creator && playListDetail.creator.userId !== user.profile.userId">
             <svg class="icon" aria-hidden="true" @click="subscribe(playListDetail.id)">
               <use xlink:href="#icon-xin"></use>
             </svg>
-            <span>{{playListDetail.subscribedCount}}</span>
+            <span>{{getCount(playListDetail.subscribedCount)}}</span>
+          </div>
+          <div class="item" style="color: #D3D3D3;" v-else>
+            <svg class="icon" aria-hidden="true">
+              <use xlink:href="#icon-xin"></use>
+            </svg>
+            <span>{{getCount(playListDetail.subscribedCount)}}</span>
           </div>
           <!-- 编辑 -->
           <div class="item" v-if="user.profile && playListDetail.creator && playListDetail.creator.userId === user.profile.userId">

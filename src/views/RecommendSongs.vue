@@ -15,39 +15,42 @@ onMounted(() => {
 // 获取每日推荐歌单
 const musiclist = ref([])
 const getRecommendSongsData = async () => {
-  getRecommendSongs()
-    .then(res => {
-      if(res.code == 302) {
-        Toast('请登陆')
-        setTimeout(() => {
-          router.push('/user')
-        }, 1000)
-      }
-      if(res.code !== 200) return
-      // 数据处理
-      musiclist.value = res.data.dailySongs.map(item => {
-        return {
-          id: item.id,
-          name: item.name,
-          picUrl: item.al.picUrl,
-          artist: item.ar[0].name,
-          mvid: item.mv,
-          sq: item.sq,
-          fee: item.fee
-        }
-      })
-    })
-    .catch(err => {
-      console.error(err)
-    })
-  
+  const res = await getRecommendSongs()
+  if(res.code == 302) {
+    Toast('请登陆')
+    setTimeout(() => {
+      router.push('/user')
+    }, 1000)
+    return
+  }
+  if(res.code !== 200) return
+  // 数据处理
+  musiclist.value = res.data.dailySongs.map(item => {
+    return {
+      id: item.id,
+      name: item.name,
+      picUrl: item.al.picUrl,
+      artist: item.ar[0].name,
+      mvid: item.mv,
+      sq: item.sq,
+      fee: item.fee
+    }
+  })
+}
+
+// 下拉刷新
+const betterScroll = ref(null)
+const pullingDown = async () => {
+  await getRecommendSongsData()
+  betterScroll.value.refresh()
+  betterScroll.value.finishPullDown()
 }
 
 </script>
 
 <template>
   <!-- 歌单音乐 -->
-  <BetterScroll class="better-scroll">
+  <BetterScroll class="better-scroll" :usePullDown="true" @pullingDown="pullingDown" ref="betterScroll">
     <MusicList :data="musiclist" :showImg="true"></MusicList>
   </BetterScroll>
 </template>

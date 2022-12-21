@@ -114,9 +114,20 @@ export const isRightPhone = (phone) => {
 }
 
 /**
+ * 数量>=100000转成10万
+ * @param {String} count 
+ */
+export const getCount = (count) => {
+  if (count >= 100000) {
+    return (count/10000).toFixed(0) + '万'
+  }
+  return count
+}
+
+/**
  * 控制台打印
  */
- export const consolePrint = () => {
+export const consolePrint = () => {
   const info =
 `xz-music
 

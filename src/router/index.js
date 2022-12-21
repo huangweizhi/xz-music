@@ -66,7 +66,7 @@ const routes = [
         meta: {
           header: true,
           name: '每日推荐',
-          keepAlive: false
+          keepAlive: true
         }
       },
       { 

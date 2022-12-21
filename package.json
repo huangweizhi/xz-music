@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@better-scroll/core": "^2.4.2",
+    "@better-scroll/pull-down": "^2.5.0",
     "@better-scroll/pull-up": "^2.5.0",
     "axios": "^0.27.2",
     "js-cookie": "^3.0.1",

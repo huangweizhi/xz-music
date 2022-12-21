@@ -65,6 +65,7 @@ onMounted(()=> {
           <div>
             {{item.content}}
           </div>
+          <van-divider />
         </div>
       </div>
     </BetterScroll>
@@ -78,7 +79,7 @@ onMounted(()=> {
   .item {
     display: flex;
     flex-wrap: nowrap;
-    margin: 0.3rem 0.2rem;
+    margin: 0 0.2rem;
 
     .left {
       width: 0.7rem;
