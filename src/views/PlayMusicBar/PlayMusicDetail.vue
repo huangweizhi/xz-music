@@ -11,7 +11,7 @@ import { Toast } from 'vant'
 const router = useRouter()
 
 const musicStore = useMusicStore()
-const {playingList, playingIndex, isPlaying, lyricList, currentTime, duration} = toRefs(musicStore)
+const {playingList, playingIndex, isPlaying, lyricList, currentTime, duration, cycleMode} = toRefs(musicStore)
 
 const userStore = useUserStore()
 const { likeMusicIds } = toRefs(userStore)
@@ -35,6 +35,11 @@ const playNextMusic = () => {
   if(showLyric.value) {
     getLyricData()
   }
+}
+
+// 切换循环模式
+const changeCycleMode = () => {
+  musicStore.changeCycleMode()
 }
 
 // 播放进度控制
@@ -235,9 +240,14 @@ onMounted(()=> {
       <!-- 按钮 下 -->
       <div class="tool-bar">
         <!-- 播放模式 -->
-        <div>
-          <svg class="icon" aria-hidden="true" @click="">
+        <div v-if="cycleMode==0">
+          <svg class="icon" aria-hidden="true" @click="changeCycleMode">
             <use xlink:href="#icon-xunhuanbofang"></use>
+          </svg>
+        </div>
+        <div v-else>
+          <svg class="icon" aria-hidden="true" @click="changeCycleMode">
+            <use xlink:href="#icon-danquxunhuan"></use>
           </svg>
         </div>
         <!-- 上一首 -->
@@ -253,7 +263,7 @@ onMounted(()=> {
           </svg>
         </div>
         <!-- 播放状态按钮 -->
-        <div v-if="isPlaying" style="font-size: 0.8rem;">
+        <div v-else style="font-size: 0.8rem;">
           <svg class="icon" aria-hidden="true" @click="clickPlay(false)">
             <use xlink:href="#icon-zanting1"></use>
           </svg>

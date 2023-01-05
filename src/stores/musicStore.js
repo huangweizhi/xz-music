@@ -3,7 +3,8 @@ import { Toast } from "vant"
 import { checkMusic } from '@/api'
 import { 
   savePlayingIndex, getPlayingIndex, removePlayingIndex,
-  savePlayingList, getPlayingList, removePlayingList
+  savePlayingList, getPlayingList, removePlayingList,
+  saveCycleMode, getCycleMode
 } from '@/utils/localStorage'
 
 const defaultPlayingList = [{
@@ -25,6 +26,8 @@ export default defineStore("music", {
       playingIndex: getPlayingIndex() || 0,
       // 是否正在播放
       isPlaying: false,
+      // 循环模式 // 0循环 1单曲循环
+      cycleMode: getCycleMode() || 0,
       // 歌词
       lyricList: [],
       // 歌曲播放时间
@@ -43,7 +46,12 @@ export default defineStore("music", {
       // 播放结束，播放下一首
       this.audio.addEventListener('ended', () => {
         this.isPlaying = false
-        this.playNextMusic(true)
+        if(this.cycleMode == 0) {
+          this.playNextMusic(true)
+        }
+        if(this.cycleMode == 1) {
+          this.playCurrentMusic()
+        }
       }, false)
 
       // 播放进度
@@ -198,6 +206,27 @@ export default defineStore("music", {
       this.audio.play()
       this.audio.autoplay = true
       this.isPlaying = true
+    },
+    /**
+     * 单曲循环播放
+     */
+    async playCurrentMusic() {
+      // 播放
+      this.audio.play()
+      this.audio.autoplay = true
+      this.isPlaying = true
+    },
+    /**
+     * 切换播放模式
+     */
+    changeCycleMode() {
+      if(this.cycleMode == 0) {
+        this.cycleMode = 1
+        saveCycleMode(1)
+      }else {
+        this.cycleMode = 0
+        saveCycleMode(0)
+      }
     },
     /**
      * 更新歌词
