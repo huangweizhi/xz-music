@@ -363,7 +363,7 @@ onMounted(()=> {
       height: 3rem;
       position: absolute;
       left: 46%;
-      transform-origin: 0 0;
+      transform-origin: 13% 7%;
       transform: rotate(0deg);
       transition: all 2s;
       z-index: 2;
