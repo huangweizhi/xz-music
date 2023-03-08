@@ -31,6 +31,55 @@ export function sentCaptcha(phone) {
 }
 
 /**
+ * 获取二维码key
+ * @param {Number} timestamp 当前时间戳
+ */
+export function getQRKey(timestamp) {
+  return request({
+    url: '/login/qr/key',
+    method: 'get',
+    params: {
+      timestamp
+    }
+  })
+}
+
+/**
+ * 获取二维码
+ * @param {String} key 二维码key
+ * @param {String} qrimg 二维码Base64图片
+ * @param {Number} timestamp 当前时间戳
+ */
+export function createQR(key, qrimg, timestamp) {
+  return request({
+    url: '/login/qr/create',
+    method: 'get',
+    params: {
+      key,
+      qrimg,
+      timestamp
+    }
+  })
+}
+
+/**
+ * 获取二维码扫码状态
+ * @param {String} key 二维码key
+ * @param {Number} timestamp 当前时间戳
+ * 800 为二维码过期,801 为等待扫码,802 为待确认,803 为授权登录成功(803 状态码下会返回 cookies)
+ */
+export function checkQR(key, timestamp) {
+  return request({
+    url: '/login/qr/check',
+    method: 'get',
+    params: {
+      key,
+      timestamp
+    }
+  })
+}
+
+/**
  * 退出登陆
  */
  export function logout() {

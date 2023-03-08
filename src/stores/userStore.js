@@ -1,5 +1,4 @@
 import { defineStore } from "pinia"
-import { getToken, removeToken } from '@/utils/auth'
 import { saveUser, getUser, removeUser } from '@/utils/localStorage'
 import { like, getLikelist } from '@/api/user'
 import { Toast } from 'vant'
@@ -9,7 +8,6 @@ export default defineStore("user", {
     return {
       // 用户信息
       user: getUser() || {},
-      token: getToken() || '',
       // 用户喜欢的音乐
       likeMusicIds: []
     }
@@ -24,15 +22,6 @@ export default defineStore("user", {
     removeUser() {
       removeUser()
       this.user = {}
-    },
-    // 保存token
-    saveToken(token) {
-      this.token = token
-    },
-    // 删除token
-    removeToken() {
-      removeToken()
-      this.token = ''
     },
 
     /**

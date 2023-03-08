@@ -67,7 +67,6 @@ const checkInput = () => {
 const doLogin = async () => {
   const res = await login(phone.value, captcha.value)
   if(res.code !== 200) return Toast(res.message)
-  userStore.saveToken(res.token)
   userStore.saveUser({
     account: res.account,
     profile: res.profile,

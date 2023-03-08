@@ -1,17 +1,18 @@
 <script setup>
 import { toRefs } from 'vue'
 import { useUserStore } from '@/stores'
-import Login from './components/Login.vue'
+import Login from './components/LoginByQR.vue'
 import UserInfo from './components/UserInfo.vue'
 
 const userStore = useUserStore()
-const { token } = toRefs(userStore)
+const { user } = toRefs(userStore)
+
 </script>
 
 <template>
   <!-- 登陆 -->
   <div class="user">
-    <UserInfo v-if="token"></UserInfo>
+    <UserInfo v-if="user.profile"></UserInfo>
     <Login v-else></Login>
   </div>
 </template>

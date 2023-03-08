@@ -24,7 +24,6 @@ const doLogout = () => {
       const res = await logout()
       if(res.code !== 200) return
       userStore.removeUser()
-      userStore.removeToken()
       musicStore.removePlaying()
     })
     .catch(() => {
@@ -43,7 +42,6 @@ const getLoginStatus = async () => {
   // 没有登录
   if(user.value.profile) {
     userStore.removeUser()
-    userStore.removeToken()
   }
 }
 
